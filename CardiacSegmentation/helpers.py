@@ -12,34 +12,34 @@ from scipy import (
     ndimage
 )
 
-from keras.models import Model
-from keras.layers import (
+from tensorflow.keras.models import Model
+from tensorflow.keras.layers import (
     Input,
     Activation,
     Dense,
     Flatten,
     UpSampling2D
 )
-from keras.layers.convolutional import (
+from tensorflow.keras.layers import (
     Conv2D,
     Conv2DTranspose,
     MaxPooling2D,
     AveragePooling2D
 )
-from keras.layers.merge import (
+from tensorflow.keras.layers import (
     add,
     Add,
     Concatenate
 )
-from keras.layers.normalization import BatchNormalization
-from keras.layers.core import (
+from tensorflow.keras.layers import BatchNormalization
+from tensorflow.keras.layers import (
     Lambda,
     Reshape
 )
-from keras.layers.advanced_activations import LeakyReLU 
-from keras.regularizers import l2
-from keras.callbacks import Callback
-from keras import backend as K
+from tensorflow.keras.layers import LeakyReLU 
+from tensorflow.keras.regularizers import l2
+from tensorflow.keras.callbacks import Callback
+from tensorflow.keras import backend as K
 
 from image2 import array_to_img
 from medpy.metric.binary import (

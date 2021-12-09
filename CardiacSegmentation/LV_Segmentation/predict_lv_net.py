@@ -1,20 +1,24 @@
 """ The main file to launch the inference of LV-net """
 
 import sys
-sys.path.append('..')
-
 import os
+import inspect
+
+currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+parentdir = os.path.dirname(currentdir)
+sys.path.insert(0, parentdir) 
+
 import copy
 import numpy as np
-from itertools import izip
-from scipy.misc import imresize
+#from itertools import izip
+#from scipy.misc import imresize #TODO replace with opencv image resize!
 from PIL import Image as pil_image
 import tensorflow as tf
 
-from keras.models import Model
-from keras.optimizers import Adam
-from keras.utils import plot_model
-from keras import backend as K
+from tensorflow.keras.models import Model
+from tensorflow.keras.optimizers import Adam
+from tensorflow.keras.utils import plot_model
+from tensorflow.keras import backend as K
 
 K.set_image_data_format('channels_last')  # TF dimension ordering in this code
 
@@ -222,7 +226,7 @@ def predict_lv_net():
 
 
         # Combine generators into one which yields image and masks
-        predict_generator = izip(image_minus_generator, image_generator, mask_minus_generator)
+        predict_generator = zip(image_minus_generator, image_generator, mask_minus_generator)
 
         
         img_size = pil_image.open(img_sub_stack[0]).size
