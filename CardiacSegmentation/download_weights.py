@@ -3,9 +3,6 @@
 import os
 import sys
 
-sys.path.append('/CardiacSegmentation/')
-
-
 import config
 
 def download_weights():

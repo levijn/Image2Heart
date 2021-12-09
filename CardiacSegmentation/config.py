@@ -8,11 +8,10 @@ data_root = '/data/asclepios/share/private/ukbiobank-hearts-296-converted'
 # Directory of the CardiacSegmentationPropagation project
 # code_root = 'C:\Users\daans\OneDrive\Documenten\Werktuigbouwkunde\Jaar 3\Minor AI\Capstone -Image2Heart\Image2Heart\CardiacSegmentation'
 
-code_root = "/CardiacSegmentation/"
-
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 parentdir = os.path.dirname(currentdir)
-print(parentdir)
+
+code_root = parentdir
 
 # ROI-net
 roi_net_initial_lr = 1e-4
