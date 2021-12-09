@@ -1,20 +1,38 @@
+from torchvision import transforms
 from torchvision.models.segmentation import fcn_resnet50
 import torch
+import os
+import inspect
 import numpy as np
+import PIL
 import matplotlib.pyplot as plt
 
 import torchvision.transforms.functional as F
-from torchvision.transforms.functional import convert_image_dtype
+from torchvision.transforms.functional import convert_image_dtype, resize
 from torchvision.transforms import Resize
         
 from torchvision.utils import make_grid
 from torchvision.io import read_image
 from pathlib import Path
 
+currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+parentdir = os.path.dirname(currentdir)
+
+convert_tensor = transforms.ToTensor()
+
 plt.rcParams["savefig.bbox"] = 'tight'
 
-dog_int = read_image('dog.jpg')
-dog2_int = read_image('dog2.png')
+dog_int = read_image(os.path.join(currentdir, 'dog.jpg'))
+dog2_int = read_image(os.path.join(currentdir, 'dog2.png'))
+boat_int = read_image(os.path.join(currentdir, 'boat.jpg'))
+vinc_int = read_image(os.path.join(currentdir, 'Vincent.png'))
+
+vinc_rgba = PIL.Image.open(os.path.join(currentdir, 'Vincent.png'))
+vinc_rgb = vinc_rgba.convert('RGB')
+vinc_new = convert_tensor(vinc_rgb)
+
+print(dog2_int.shape)
+
 
 #Used to plot the images:
 dog = dog_int.detach()
@@ -24,11 +42,11 @@ dog_array = np.asarray(dog)
 dog2 = F.to_pil_image(dog2)
 dog2_array = np.asarray(dog2)
 
-batch_int = torch.stack([dog2_int])
+batch_int = torch.stack([vinc_new])
 batch = convert_image_dtype(batch_int, dtype=torch.float)
 
 fcn = fcn_resnet50(pretrained=True)
-print(fcn)
+# print(fcn)
 fcn = fcn.eval()
 
 print(batch)
@@ -58,7 +76,7 @@ dog_and_boat_masks = [
     for cls in ('dog', 'boat')
 ]
 
-dog_mask = dog_and_boat_masks[0]
+dog_mask = dog_and_boat_masks[1]
 dog_mask = dog_mask.detach()
 dog_mask = F.to_pil_image(dog_mask)
 dog_array = np.asarray(dog_mask)
