@@ -1,11 +1,18 @@
 #!/usr/bin/env python
+import os
+import inspect
 
 # Directory of the UK Biobank data
 data_root = '/data/asclepios/share/private/ukbiobank-hearts-296-converted'
 
 # Directory of the CardiacSegmentationPropagation project
-code_root = '/home/qzheng/Programs/tensorflow/my_models/CardiacSegmentationPropagation'
+# code_root = 'C:\Users\daans\OneDrive\Documenten\Werktuigbouwkunde\Jaar 3\Minor AI\Capstone -Image2Heart\Image2Heart\CardiacSegmentation'
 
+code_root = "/CardiacSegmentation/"
+
+currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+parentdir = os.path.dirname(currentdir)
+print(parentdir)
 
 # ROI-net
 roi_net_initial_lr = 1e-4
@@ -13,6 +20,7 @@ roi_net_decay_rate = 1.0
 roi_net_batch_size = 16
 roi_net_imput_img_size = 128
 roi_net_epochs = 50
+
 
 
 # LVRV-net
@@ -29,5 +37,4 @@ lv_net_decay_rate = 1.0
 lv_net_batch_size = 16
 lv_net_imput_img_size = 192
 lv_net_epochs = 80
-
 
