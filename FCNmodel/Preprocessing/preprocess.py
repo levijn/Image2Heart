@@ -32,12 +32,20 @@ def plot_slice(slice_array):
     plt.show()
 
 
+def create_four_digit_num_str(number):
+    num_str = str(number)
+    while len(num_str) < 4:
+        num_str = "0" + num_str
+    return num_str
+
+
 def convert_nifti_to_slices(img, label) -> tuple:
     """Returns a tuple of dictionaries. One dictionary for the 2D images and one for the corresponding labels"""
     img_dict = {}
     lbl_dict = {}
     for i in range(img.shape[2]):
-        slice_name = f"slice{i+1}"
+        num = create_four_digit_num_str(i+1)
+        slice_name = "slice" + num
         img_dict[slice_name] = img[:,:,i]
         lbl_dict[slice_name] = label[:,:,i]
     return (img_dict, lbl_dict)
@@ -74,16 +82,31 @@ def save_all_slices_array(array_location, img_location):
         lbl_array = lbl.get_fdata()
         img_slices, lbl_slices = convert_nifti_to_slices(img_array, lbl_array)
         
+        patient_str = create_four_digit_num_str(int(1+i/4))
+        
         for slice_name in img_slices:
-            name = f"patient{int(1+i/4)}_{slice_name}"
+            name = f"patient{patient_str}_{slice_name}"
             save_slice_array(img_slices[slice_name], name, array_location)
             save_slice_img(img_slices[slice_name], name, img_location, "png")
             
         for slice_name in lbl_slices:
-            name = f"patient{int(1+i/4)}_{slice_name}_label"
+            name = f"patient{patient_str}_{slice_name}_label"
             save_slice_array(lbl_slices[slice_name], name, array_location)
             save_slice_img(lbl_slices[slice_name], name, img_location, "png")
 
+
+def create_indexed_file_dict(data_dir):
+    data_dict = {}
+    filenames = sorted(get_filenames(data_dir))
+    for i in range(0, len(filenames), 2):
+        img_file = filenames[i]
+        lbl_file = filenames[i+1]
+        slice_dict = {
+            "img_data_file": img_file,
+            "lbl_data_file": lbl_file
+        }
+        data_dict[int(i/2)] = slice_dict
+    return data_dict
 
 def main():
     array_location = os.path.join(data_dir, "slice_arrays")
@@ -92,4 +115,5 @@ def main():
 
 
 if __name__ == '__main__':
-    main()   
+    #main()   
+    pass
