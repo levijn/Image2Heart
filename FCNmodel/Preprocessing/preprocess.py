@@ -1,5 +1,7 @@
 """
-Preprocesses the data and save the individual slices in folders. It saves them as a png file and as csv file
+Preprocesses the data and save the individual slices in folders. It saves them as a png file and as csv file.
+
+- Contains a function to create the indexed dictionary.
 """
 
 import os
@@ -19,20 +21,26 @@ import config
 data_dir = config.data_dir
 sdata_dir = os.path.join(data_dir, "simpledata")
 
-def get_filenames(directory):
+
+def get_filenames(directory) -> list:
+    """Returns a list of all the filenames in the directory"""
     for (_, _, filenames) in os.walk(directory):
         return filenames
 
 
-def plot_slice(slice_array):
+def plot_slice_with_lbl(slice_array, lbl_array) -> None:
     """Plots a slice of a frame"""
     fig = plt.figure(1)
     ax1 = fig.add_subplot(1, 2, 1)
     ax1.imshow(slice_array, cmap="gray")
+    
+    ax2 = fig.add_subplot(1, 2, 2)
+    ax2.imshow(lbl_array, cmap="gray")
     plt.show()
 
 
-def create_four_digit_num_str(number):
+def create_four_digit_num_str(number) -> str:
+    """Adds zeros in front of the number and returns it as a string"""
     num_str = str(number)
     while len(num_str) < 4:
         num_str = "0" + num_str
@@ -51,7 +59,7 @@ def convert_nifti_to_slices(img, label) -> tuple:
     return (img_dict, lbl_dict)
         
 
-def save_slice_img(slice, name, location, format):
+def save_slice_img(slice, name, location, format) -> None:
     """Makes an image from the slice, then saves it as a file at the given location"""
     path = os.path.join(location, name)
     max_value = np.max(slice)
@@ -60,14 +68,20 @@ def save_slice_img(slice, name, location, format):
     im.save(f"{path}.{format}")
 
 
-def save_slice_array(slice, name, location):
+def save_slice_array(slice, name, location) -> None:
+    """Saves a slice array as a csv file"""
     path = os.path.join(location, name)
-    np.savetxt(path, slice, delimiter=", ")
+    np.savetxt(path, slice, delimiter=",")
+
+
+def load_slice_array(filename):
+    """Loads a slice array csv file and returns it as an array"""
+    array = np.loadtxt(filename, dtype=int, delimiter=",")
+    return array
 
 
 def save_all_slices_array(array_location, img_location):
     nifti_files = sorted(get_filenames(sdata_dir))
-    print("test")
     for i in range(0, len(nifti_files), 2):
         img_file = nifti_files[i]
         lbl_file = nifti_files[i+1]
@@ -107,6 +121,8 @@ def create_indexed_file_dict(data_dir):
         }
         data_dict[int(i/2)] = slice_dict
     return data_dict
+
+
 
 def main():
     array_location = os.path.join(data_dir, "slice_arrays")
