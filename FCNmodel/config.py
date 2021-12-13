@@ -14,4 +14,5 @@ import inspect
 # Saves the location of the root and data directory
 root_dir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 data_dir = os.path.join(os.path.dirname(os.path.dirname(root_dir)), "Data")
+preprocessing_dir = os.path.join(root_dir, "Preprocessing")
 
