@@ -67,7 +67,8 @@ sem_classes = [
     'car', 'cat', 'chair', 'cow', 'diningtable', 'dog', 'horse', 'motorbike',
     'person', 'pottedplant', 'sheep', 'sofa', 'train', 'tvmonitor'
 ]
-sem_class_to_idx = {cls: idx for (idx, cls) in enumerate(sem_classes)}
+sem_class_to_idx = 'person'
+#{cls: idx for (idx, cls) in enumerate(sem_classes)}
 
 
 dog_and_boat_masks = [

@@ -7,7 +7,7 @@ import sys
 import inspect
 import numpy as np
 from torch.utils import data
-from torchvision import transforms
+from torchvision import transforms 
 import torch
 
 # Import the path of different folders
@@ -150,11 +150,11 @@ def main():
     
     slicedata = SliceDataset(array_path, data_dict, transform=composed_transform)
 
-    slice = slicedata[1]
-    print(slice)
+    slice = slicedata[4]
+
     plot_slice_with_lbl(slice["image"][1,:,:], slice["label"])
     
-    dataloader = data.DataLoader(slicedata, batch_size=8, shuffle=True, num_workers=8)
+    # dataloader = data.DataLoader(slicedata, batch_size=8, shuffle=True, num_workers=8)
     
     # for i_batch, sample_batched in enumerate(dataloader):
     #     print(i_batch, sample_batched['image'].size(),
