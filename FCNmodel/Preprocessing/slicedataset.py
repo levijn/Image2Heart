@@ -124,7 +124,7 @@ class RemovePadding(object):
         
         orig_img = torch.narrow(image, 1, 0, size[0])       #Deleting the padding rows from image
         orig_img = torch.narrow(orig_img, 2, 0, size[1])       #Deleting the padding columns from image
-
+        
         orig_lbl = torch.narrow(label, 0, 0, size[0])       #Deleting the padding rows from label
         orig_lbl = torch.narrow(orig_lbl, 1, 0, size[1])       #Deleting the padding columns from label
 
@@ -150,7 +150,7 @@ def main():
     
     slicedata = SliceDataset(array_path, data_dict, transform=composed_transform)
 
-    slice = slicedata[10]
+    slice = slicedata[1]
     print(slice)
     plot_slice_with_lbl(slice["image"][1,:,:], slice["label"])
     
