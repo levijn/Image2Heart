@@ -123,6 +123,48 @@ def create_indexed_file_dict(data_dir):
     return data_dict
 
 
+def get_all_shapes_hw(data_dir, idx_dict):
+    widths = []
+    heights = []
+    for i in range(len(idx_dict)):
+        slice = idx_dict[i]
+        img_data_file = slice["img_data_file"]
+        img = load_slice_array(os.path.join(data_dir, img_data_file))
+        img_h, img_w = img.shape[:2]
+        heights.append(img_h)
+        widths.append(img_w)
+        print(i)
+    return (heights, widths)
+
+
+def create_hist_imgsize(heights, widths, plot=False, save=False):
+    """Creates a histogram of all the widths and heights of the images.\n
+    Args:
+        heights: list of all the heights
+        widths: list of all the widths
+        plot: True if you want to show the plots
+        save: True if you want to save the plots in current folder
+    """
+    fig = plt.figure(1)
+    ax1 = fig.add_subplot(1,2,1)
+    ax1.hist(heights, bins=[x for x in range(100, 600, 50)])
+    ax1.set_xlabel("Height")
+    ax1.set_title("Image Height")
+    ax1.grid(alpha=0.4, axis="y", linestyle="--")
+    
+    ax2 = fig.add_subplot(1,2,2)
+    ax2.hist(widths, bins=[x for x in range(100, 600, 50)])
+    ax2.set_xlabel("Width")
+    ax1.set_title("Image Width")
+    ax2.grid(alpha=0.4, axis="y", linestyle="--")
+    
+    if save:
+        plt.savefig("Img_size_hist.png")
+    if plot:
+        plt.show()
+
+
+
 
 def main():
     array_location = os.path.join(data_dir, "slice_arrays")
