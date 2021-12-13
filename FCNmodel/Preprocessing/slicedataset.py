@@ -7,6 +7,7 @@ import sys
 import inspect
 import numpy as np
 from torch.utils import data
+from torchvision import transforms
 
 # Import the path of different folders
 current_dir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
@@ -88,6 +89,24 @@ class PadImage(object):
         return {"image": new_image, "label": new_label, "size": size}
 
 
+class SudoRGB(object):
+    def __init__(self):
+        pass
+    
+    def __call__(self, sample):
+        image, label, size = sample["image"], sample["label"], sample["size"]
+        
+        rgb_img = np.stack([image]*3, axis=0)
+    
+        return {"image": rgb_img, "label": label, "size": size}
+
+
+class ToTensor(object):
+    def __init__(self):
+        pass
+
+
+
 def main():
     array_path = os.path.join(config.data_dir, "slice_arrays")
     
@@ -100,14 +119,20 @@ def main():
     padding = 428, 512
     
     padder = PadImage(padding)
-    slicedata = SliceDataset(array_path, data_dict, transform=padder)
+    sudorgb_converter = SudoRGB()
+    composed_transform = transforms.Compose([padder,
+                        sudorgb_converter])
+    
+    slicedata = SliceDataset(array_path, data_dict, transform=composed_transform)
 
     dataloader = data.DataLoader(slicedata, batch_size=4, shuffle=True, num_workers=0)
     
     for i_batch, sample_batched in enumerate(dataloader):
+        print(sample_batched)
         print(i_batch, sample_batched['image'].size(),
           sample_batched['label'].size(),
           sample_batched["size"])
+        break
     
     
 
