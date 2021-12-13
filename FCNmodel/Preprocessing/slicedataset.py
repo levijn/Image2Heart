@@ -8,6 +8,7 @@ import inspect
 import numpy as np
 from torch.utils import data
 from torchvision import transforms
+import torch
 
 # Import the path of different folders
 current_dir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
@@ -102,6 +103,15 @@ class SudoRGB(object):
 class ToTensor(object):
     def __init__(self):
         pass
+    
+    def __call__(self, sample):
+        image, label, size = sample["image"], sample["label"], sample["size"]
+        
+        
+        tensor_sample = {"image": torch.from_numpy(image),
+                         "label": torch.from_numpy(label),
+                         "size": torch.from_numpy(size)}
+        return tensor_sample
 
 
 
@@ -118,6 +128,7 @@ def main():
     
     padder = PadImage(padding)
     sudorgb_converter = SudoRGB()
+    to_tensor = ToTensor()
     composed_transform = transforms.Compose([padder,sudorgb_converter])
     
     slicedata = SliceDataset(array_path, data_dict, transform=composed_transform)
@@ -125,7 +136,7 @@ def main():
     slice = slicedata[4]
     #plot_slice_with_lbl(slice["image"], slice["label"])
     
-    dataloader = data.DataLoader(slicedata, batch_size=4, shuffle=True, num_workers=8)
+    dataloader = data.DataLoader(slicedata, batch_size=8, shuffle=True, num_workers=8)
     
     for i_batch, sample_batched in enumerate(dataloader):
         print(i_batch, sample_batched['image'].size(),
