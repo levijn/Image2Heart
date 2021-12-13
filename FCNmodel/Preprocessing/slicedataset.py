@@ -30,7 +30,6 @@ class SliceDataset(data.Dataset):
             root_dir (string): Dictonary with index pointing to a dictonary with "img_data_file" and "lbl_data_file"
             transform (callable, optional): Optional transform to be applied on a sample.
         """
-        
         super().__init__()
         self.data_dir = data_dir
         self.idx_dict = idx_dict
@@ -48,10 +47,9 @@ class SliceDataset(data.Dataset):
         #load files
         img_array = load_slice_array(os.path.join(self.data_dir, img_data_file))
         lbl_array = load_slice_array(os.path.join(self.data_dir, lbl_data_file))
-        
-        org_size = img_array.shape[:2]
-        print(org_size)
-        
+
+        org_size = np.asarray(img_array.shape[:2])
+
         sample = {"image": img_array,
                   "label": lbl_array,
                   "size": org_size}
@@ -120,19 +118,19 @@ def main():
     
     padder = PadImage(padding)
     sudorgb_converter = SudoRGB()
-    composed_transform = transforms.Compose([padder,
-                        sudorgb_converter])
+    composed_transform = transforms.Compose([padder,sudorgb_converter])
     
     slicedata = SliceDataset(array_path, data_dict, transform=composed_transform)
 
-    dataloader = data.DataLoader(slicedata, batch_size=4, shuffle=True, num_workers=0)
+    slice = slicedata[4]
+    #plot_slice_with_lbl(slice["image"], slice["label"])
+    
+    dataloader = data.DataLoader(slicedata, batch_size=4, shuffle=True, num_workers=8)
     
     for i_batch, sample_batched in enumerate(dataloader):
-        print(sample_batched)
         print(i_batch, sample_batched['image'].size(),
           sample_batched['label'].size(),
           sample_batched["size"])
-        break
     
     
 
