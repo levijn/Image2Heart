@@ -18,6 +18,8 @@ from torchvision.transforms import Resize
 
 import torch.optim as optim 
 from torch.optim import lr_scheduler
+import torch.nn as nn
+from torch.nn import functional as F
 
 from torchvision.utils import make_grid
 from torchvision.io import read_image
@@ -71,18 +73,18 @@ image_datasets = {
 }
 
 
-dataloaders = {
-    'train':
-    torch.utils.data.DataLoader(image_datasets['train'],
-                                batch_size=32,
-                                shuffle=True,
-                                num_workers=0), 
-    'validation':
-    torch.utils.data.DataLoader(image_datasets['validation'],
-                                batch_size=32,
-                                shuffle=False,
-                                num_workers=0)
-}
+# dataloaders = {
+#     'train':
+#     torch.utils.data.DataLoader(image_datasets['train'],
+#                                 batch_size=32,
+#                                 shuffle=True,
+#                                 num_workers=0), 
+#     'validation':
+#     torch.utils.data.DataLoader(image_datasets['validation'],
+#                                 batch_size=32,
+#                                 shuffle=False,
+#                                 num_workers=0)
+# }
 
 
 # creating network
@@ -98,4 +100,48 @@ model.fc = nn.Sequential(
                nn.ReLU(inplace=True),
                nn.Linear(128, 2)).to(device)
 
+
+criterion = nn.CrossEntropyLoss()
+optimizer = optim.Adam(model.fc.parameters())
+
+
+
 # train model
+
+def train_model(model, criterion, optimizer, num_epochs=3):
+    for epoch in range(num_epochs):
+        print('Epoch {}/{}'.format(epoch+1, num_epochs))
+        print('-' * 10)
+
+        for phase in ['train', 'validation']:
+            if phase == 'train':
+                model.train()
+            else:
+                model.eval()
+
+            running_loss = 0.0
+            running_corrects = 0
+
+            for inputs, labels in dataloaders[phase]:
+                inputs = inputs.to(device)
+                labels = labels.to(device)
+
+                outputs = model(inputs)
+                loss = criterion(outputs, labels)
+
+                if phase == 'train':
+                    optimizer.zero_grad()
+                    loss.backward()
+                    optimizer.step()
+
+                _, preds = torch.max(outputs, 1)
+                running_loss += loss.item() * inputs.size(0)
+                running_corrects += torch.sum(preds == labels.data)
+
+            epoch_loss = running_loss / len(image_datasets[phase])
+            epoch_acc = running_corrects.double() / len(image_datasets[phase])
+
+            print('{} loss: {:.4f}, acc: {:.4f}'.format(phase,
+                                                        epoch_loss,
+                                                        epoch_acc))
+    return model
