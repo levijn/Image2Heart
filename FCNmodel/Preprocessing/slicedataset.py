@@ -154,12 +154,12 @@ def main():
 
     plot_slice_with_lbl(slice["image"][1,:,:], slice["label"])
     
-    # dataloader = data.DataLoader(slicedata, batch_size=8, shuffle=True, num_workers=8)
+    dataloader = data.DataLoader(slicedata, batch_size=1, shuffle=True, num_workers=8)
     
-    # for i_batch, sample_batched in enumerate(dataloader):
-    #     print(i_batch, sample_batched['image'].size(),
-    #       sample_batched['label'].size(),
-    #       sample_batched["size"])
+    for i_batch, sample_batched in enumerate(dataloader):
+        print(i_batch, sample_batched['image'].size(),
+          sample_batched['label'].size(),
+          sample_batched["size"])
     
 
 if __name__ == '__main__':
