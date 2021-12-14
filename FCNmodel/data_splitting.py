@@ -26,6 +26,7 @@ def train_test_split(current_location="simpledata", train_folder="training_data"
         old_file_path = os.path.join(folder_path, files[i])
         new_file_path = os.path.join(new_path, files[i])
         shutil.copy(old_file_path, new_file_path)
+    return (os.path.join(destination, train_folder), os.path.join(destination, test_folder))
 
 def label_data_split(current_location, destination, data_folder="data", label_folder="labels"):
 
@@ -48,6 +49,7 @@ def label_data_split(current_location, destination, data_folder="data", label_fo
         old_file_path = os.path.join(folder_path, file)
         new_file_path = os.path.join(new_path, file)
         shutil.move(old_file_path, new_file_path)
+    return (os.path.join(destination, data_folder), os.path.join(destination, label_folder))
 
 train_test_split()
 label_data_split("training_data", "training_data")
