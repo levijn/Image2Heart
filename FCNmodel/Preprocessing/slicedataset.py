@@ -133,10 +133,14 @@ class RemovePadding(object):
 
 def main():
     array_path = os.path.join(config.data_dir, "slice_arrays")
-    
     data_dict = create_indexed_file_dict(array_path)
+
+    test_size = 0.2
+
+    train_data_dict = {key: data_dict[key] for i, key in enumerate(data_dict.keys()) if i < (1-test_size)*len(data_dict)}
+    test_data_dict = {key: data_dict[key] for i, key in enumerate(data_dict.keys()) if i >= (1-test_size)*len(data_dict)}
     
-    # Use to calculate h and w for the image padding. Only run again if data changes.
+    # # Use to calculate h and w for the image padding. Only run again if data changes.
     # heights, widths = get_all_shapes_hw(array_path, data_dict)
     # print(max(heights), max(widths))
     
@@ -146,21 +150,24 @@ def main():
     sudorgb_converter = SudoRGB()
     remove_padding = RemovePadding()
     to_tensor = ToTensor()
-    composed_transform = transforms.Compose([padder, sudorgb_converter, to_tensor, remove_padding])
+    composed_transform = transforms.Compose([padder, sudorgb_converter, to_tensor])
     
-    slicedata = SliceDataset(array_path, data_dict, transform=composed_transform)
+    train_slicedata = SliceDataset(array_path, train_data_dict, transform=composed_transform)
+    test_slicedata = SliceDataset(array_path, test_data_dict, transform=composed_transform)
 
-    slice = slicedata[4]
+
+    slice = train_slicedata[4]
 
     plot_slice_with_lbl(slice["image"][1,:,:], slice["label"])
     
-    dataloader = data.DataLoader(slicedata, batch_size=1, shuffle=True, num_workers=8)
-    
-    for i_batch, sample_batched in enumerate(dataloader):
-        print(i_batch, sample_batched['image'].size(),
-          sample_batched['label'].size(),
-          sample_batched["size"])
-    
+    train_dataloader = data.DataLoader(train_slicedata, batch_size=8, shuffle=True, num_workers=8)
+    test_dataloader = data.DataLoader(test_slicedata, batch_size=8, shuffle=True, num_workers=8)
 
+    
+    # for i_batch, sample_batched in enumerate(test_dataloader):
+    #     print(i_batch, sample_batched['image'].size(),
+    #       sample_batched['label'].size(),
+    #       sample_batched["size"])
+    
 if __name__ == '__main__':
     main()
