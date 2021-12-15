@@ -167,6 +167,12 @@ def main():
     array_path = os.path.join(config.data_dir, "slice_arrays")
     
     data_dict = create_indexed_file_dict(array_path)
+
+    test_size = 0.2
+
+    train_data_dict = {key: data_dict[key] for i, key in enumerate(data_dict.keys()) if i < (1-test_size)*len(data_dict)}
+    test_data_dict = {key: data_dict[key] for i, key in enumerate(data_dict.keys()) if i >= (1-test_size)*len(data_dict)}
+    
     
     # Use to calculate h and w for the image padding. Only run again if data changes.
     # heights, widths = get_all_shapes_hw(array_path, data_dict)
@@ -182,6 +188,10 @@ def main():
     encoder = OneHotEncoder()
     composed_transform = transforms.Compose([sudorgb_converter, to_tensor])
     composed_zoomtransform = transforms.Compose([randomzoom, sudorgb_converter, to_tensor])
+
+
+    train_slicedata = SliceDataset(array_path, train_data_dict, transform=composed_transform)
+    test_slicedata = SliceDataset(array_path, test_data_dict, transform=composed_transform)
     
     slicedata = SliceDataset(array_path, data_dict, transform=composed_transform)
     zoomslicedata = SliceDataset(array_path, data_dict, transform=composed_zoomtransform)
