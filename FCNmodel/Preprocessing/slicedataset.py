@@ -9,6 +9,8 @@ import numpy as np
 from torch.utils import data
 from torchvision import transforms 
 import torch
+import torch.nn.functional as F
+import random
 
 # Import the path of different folders
 current_dir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
@@ -107,18 +109,18 @@ class ToTensor(object):
     def __call__(self, sample):
         image, label, size = sample["image"], sample["label"], sample["size"]
         
-        
-        tensor_sample = {"image": torch.from_numpy(image),
-                         "label": torch.from_numpy(label),
-                         "size": torch.from_numpy(size)}
-        return tensor_sample
+        if type(image) == type(np.ndarray):
+            image = torch.from_numpy(image)
+        if type(label) == type(np.ndarray):
+            label = torch.from_numpy(label)
+        if type(size) == type(np.ndarray):
+            size = torch.from_numpy(size)
+            
+        return {"image": image, "label": label, "size": size}
 
 
 class RemovePadding(object):
-    """Removing the padding from images and labels"""
-    def __init__(self):
-        pass
-    
+    """Removing the padding from images and labels"""    
     def __call__(self, sample):
         image, label, size = sample["image"], sample["label"], sample["size"]
         
@@ -131,43 +133,71 @@ class RemovePadding(object):
         return {"image": orig_img, "label": orig_lbl, "size": size}
 
 
+class OneHotEncoder(object):
+    def __call__(self, sample):
+        image, label, size = sample["image"], sample["label"], sample["size"]
+        
+        lbl = torch.from_numpy(label)
+        onehot_label = F.one_hot(lbl.to(torch.int64), num_classes=4)
+        
+        return {"image": image, "label": onehot_label, "size": size}
+
+
+class RandomZoom(object):
+    def __init__(self, max_zoom):
+        self.max_zoom = max_zoom
+        
+    
+    def __call__(self, sample):
+        image, label, size = sample["image"], sample["label"], sample["size"]
+        zoom = 1-random.randint(0, self.max_zoom)/100
+        
+        new_h = int(zoom*size[0])
+        new_w = int(zoom*size[1])
+        
+        h_del = size[0]-new_h
+        w_del = size[1]-new_w
+        
+        new_image = image[int(h_del/2):int(new_h-h_del/2),int(w_del/2):int(new_w-w_del/2)]
+        new_label = label[int(h_del/2):int(new_h-h_del/2),int(w_del/2):int(new_w-w_del/2)]
+        
+        return {"image": new_image, "label": new_label, "size": np.asarray([new_h, new_w])}
+
 def main():
     array_path = os.path.join(config.data_dir, "slice_arrays")
-    data_dict = create_indexed_file_dict(array_path)
-
-    test_size = 0.2
-
-    train_data_dict = {key: data_dict[key] for i, key in enumerate(data_dict.keys()) if i < (1-test_size)*len(data_dict)}
-    test_data_dict = {key: data_dict[key] for i, key in enumerate(data_dict.keys()) if i >= (1-test_size)*len(data_dict)}
     
-    # # Use to calculate h and w for the image padding. Only run again if data changes.
+    data_dict = create_indexed_file_dict(array_path)
+    
+    # Use to calculate h and w for the image padding. Only run again if data changes.
     # heights, widths = get_all_shapes_hw(array_path, data_dict)
     # print(max(heights), max(widths))
     
     padding = 428, 512
     
+    randomzoom = RandomZoom(20)
     padder = PadImage(padding)
     sudorgb_converter = SudoRGB()
     remove_padding = RemovePadding()
     to_tensor = ToTensor()
-    composed_transform = transforms.Compose([padder, sudorgb_converter, to_tensor])
+    encoder = OneHotEncoder()
+    composed_transform = transforms.Compose([sudorgb_converter, to_tensor])
+    composed_zoomtransform = transforms.Compose([randomzoom, sudorgb_converter, to_tensor])
     
-    train_slicedata = SliceDataset(array_path, train_data_dict, transform=composed_transform)
-    test_slicedata = SliceDataset(array_path, test_data_dict, transform=composed_transform)
+    slicedata = SliceDataset(array_path, data_dict, transform=composed_transform)
+    zoomslicedata = SliceDataset(array_path, data_dict, transform=composed_zoomtransform)
+    slice = slicedata[1]
+    zoom_slice = zoomslicedata[600]
+    print(slice["image"].shape, zoom_slice["image"].shape)
 
-
-    slice = train_slicedata[4]
-
-    plot_slice_with_lbl(slice["image"][1,:,:], slice["label"])
+    plot_slice_with_lbl(zoom_slice["image"][1,:,:], zoom_slice["label"])
     
-    train_dataloader = data.DataLoader(train_slicedata, batch_size=8, shuffle=True, num_workers=8)
-    test_dataloader = data.DataLoader(test_slicedata, batch_size=8, shuffle=True, num_workers=8)
-
+    dataloader = data.DataLoader(slicedata, batch_size=1, shuffle=False, num_workers=8)
     
-    # for i_batch, sample_batched in enumerate(test_dataloader):
+    # for i_batch, sample_batched in enumerate(dataloader):
     #     print(i_batch, sample_batched['image'].size(),
     #       sample_batched['label'].size(),
     #       sample_batched["size"])
     
+
 if __name__ == '__main__':
     main()
