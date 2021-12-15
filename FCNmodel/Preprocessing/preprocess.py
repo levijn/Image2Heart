@@ -165,7 +165,6 @@ def create_hist_imgsize(heights, widths, plot=False, save=False):
         plt.show()
 
 
-
 def main():
     array_location = os.path.join(data_dir, "slice_arrays")
     img_location = os.path.join(data_dir, "slice_images")
