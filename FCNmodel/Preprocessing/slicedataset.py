@@ -164,11 +164,10 @@ def main():
     test_dataloader = data.DataLoader(test_slicedata, batch_size=8, shuffle=True, num_workers=8)
 
     
-    for i_batch, sample_batched in enumerate(test_dataloader):
-        print(i_batch, sample_batched['image'].size(),
-          sample_batched['label'].size(),
-          sample_batched["size"])
+    # for i_batch, sample_batched in enumerate(test_dataloader):
+    #     print(i_batch, sample_batched['image'].size(),
+    #       sample_batched['label'].size(),
+    #       sample_batched["size"])
     
-
 if __name__ == '__main__':
     main()
