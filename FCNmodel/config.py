@@ -15,3 +15,5 @@ import inspect
 root_dir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 data_dir = os.path.join(os.path.dirname(os.path.dirname(root_dir)), "Data")
 preprocessing_dir = os.path.join(root_dir, "Preprocessing")
+array_dir = os.path.join(data_dir, "slice_arrays")
+
