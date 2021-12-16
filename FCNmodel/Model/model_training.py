@@ -14,7 +14,6 @@ from torchvision.transforms.functional import convert_image_dtype, resize
 from torchvision.transforms import Resize
 from torchvision.utils import make_grid
 from torchvision.io import read_image
-from FCNmodel.Model.change_head import change_headsize
 
 #adding needed folderpaths
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
@@ -48,13 +47,12 @@ def training_model(test_size=0.2, num_epochs=10, batch_size=4, learning_rate=0.0
 
     fcn.train()
     device = "cuda"
-    fcn = fcn.to(device)
     
     # feezing its parameters
     for param in fcn.parameters():
         param.requires_grad = False
     
-    fcn = change_headsize(fcn, 4)
+    fcn = change_headsize(fcn, 4).to(device)
 
     
     # Find total parameters and trainable parameters
@@ -70,28 +68,25 @@ def training_model(test_size=0.2, num_epochs=10, batch_size=4, learning_rate=0.0
         running_loss = 0.0
         
         #looping through batches in each epoch
-        for i_batch, sample_batched in enumerate(dataloading.train_dataloader):
-            #remove the padding
-            batch = Dataloading.remove_padding(sample_batched)
+        for i_batch, batch in enumerate(dataloading.train_dataloader):
+            print(f"Batch: {i_batch}")
 
-            #looping through samples in each batch
-            for sample in batch:
-                criterion = torch.nn.CrossEntropyLoss()
-                optimizer = torch.optim.Adam(fcn.parameters(), lr=learning_rate)
+            criterion = torch.nn.CrossEntropyLoss()
+            optimizer = torch.optim.Adam(fcn.parameters(), lr=learning_rate)
 
-                data = convert_image_dtype(torch.stack([sample["image"]]), dtype=torch.float).to(device)
-                target = torch.stack([sample["label"]]).to(device)
-                optimizer.zero_grad()
-                output = fcn(data)
-                loss = criterion(output["out"], target.long())
-                loss.backward()
-                optimizer.step()
-                
-                running_loss += loss.item()
-                if i_batch % 50 == 49:    # print every 2000 mini-batches
-                    print('[%d, %5d] loss: %.3f' %
-                        (epoch + 1, i_batch + 1, running_loss / 50))
-                    running_loss = 0.0
+            data = convert_image_dtype(batch["image"], dtype=torch.float).to(device)
+            target = batch["label"].to(device)
+            optimizer.zero_grad()
+            output = fcn(data)
+            loss = criterion(output["out"], target.long())
+            loss.backward()
+            optimizer.step()
+            
+            running_loss += loss.item()
+            if i_batch % 50 == 49:    # print every 2000 mini-batches
+                print('[%d, %5d] loss: %.3f' %
+                    (epoch + 1, i_batch + 1, running_loss / 50))
+                running_loss = 0.0
     
     #saving calculated weights to "weights.h5"
     torch.save(fcn.state_dict(), os.path.join(currentdir, "weights.h5"))
@@ -103,33 +98,35 @@ def running_model(pretrained=False, num_classes=4):
         num_classes: number of classes the model has to look for.
     """
     #creating fcn model
-    fcn = fcn_resnet50(pretrained=pretrained, num_classes=num_classes)
+    fcn = fcn_resnet50(pretrained=pretrained)
     #loading the weights from "weights.h5"
+    device = "cuda"
+    fcn = change_headsize(fcn, 4)
     fcn.load_state_dict(torch.load(os.path.join(currentdir, "weights.h5")))
+
 
     plt.rcParams["savefig.bbox"] = 'tight'
 
     #retrieving 1 image for training
-    one_sample = None
+    one_batch = None
     dataloading = Dataloading(test_size=0.2, array_path=config.array_dir, batch_size=4, shuffle=True)
-    for i_batch, sample_batched in enumerate(dataloading.train_dataloader):
+    for i_batch, batch in enumerate(dataloading.train_dataloader):
         #remove the padding
-        batch = Dataloading.remove_padding(sample_batched)
-        one_sample = batch[0]
+        one_batch = batch
         break
 
-    sample = torch.stack([one_sample["image"]])
+    sample = one_batch["image"]
     sample = convert_image_dtype(sample, dtype=torch.float)
 
     fcn.eval()
 
-    normalized_sample = F.normalize(sample, mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225))
-    output = fcn(normalized_sample)["out"]
+    # normalized_sample = F.normalize(sample, mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225))
+    output = fcn(sample)["out"]
     normalized_masks = torch.nn.functional.softmax(output, dim=1)
 
     # Displaying input image
-    image = one_sample["image"]
-    img = F.to_pil_image(image[1,:,:])
+    image = one_batch["image"][0,0,:,:]
+    img = F.to_pil_image(image)
     plt.imshow(img)
     plt.show()
     
@@ -141,13 +138,13 @@ def running_model(pretrained=False, num_classes=4):
 
 def main():
     #set to True if the model has been trained with the weights stored at "weights.h5", False otherwise
-    trained = False
+    trained = True
 
     if trained is False:
         training_model(pretrained=True)
         running_model()
     elif trained is True:
-        running_model()
+        running_model(pretrained=True)
 
 if __name__ == '__main__':
     main()
