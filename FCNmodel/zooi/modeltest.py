@@ -32,37 +32,37 @@ def main():
     num_epochs = 10
     fcn = fcn_resnet50(pretrained=False, num_classes=4)
     #Retrieving an image from dataloader
-    for epoch in range(num_epochs):
-        print(f"Epoch: {epoch}")
-        running_loss = 0.0
-        for i_batch, sample_batched in enumerate(dataloading.train_dataloader):
-            onefile = sample_batched
-            samples = Dataloading.remove_padding(onefile)
+    # for epoch in range(num_epochs):
+    #     print(f"Epoch: {epoch}")
+    #     running_loss = 0.0
+    #     for i_batch, sample_batched in enumerate(dataloading.train_dataloader):
+    #         onefile = sample_batched
+    #         samples = Dataloading.remove_padding(onefile)
 
-            for sample in samples:
-                fcn.train()
+    #         for sample in samples:
+    #             fcn.train()
 
-                device = "cuda"
-                fcn = fcn.to(device)
-                criterion = torch.nn.CrossEntropyLoss()
-                LR = 0.001
-                optimizer = torch.optim.Adam(fcn.parameters(), lr=LR)
+    #             device = "cuda"
+    #             fcn = fcn.to(device)
+    #             criterion = torch.nn.CrossEntropyLoss()
+    #             LR = 0.001
+    #             optimizer = torch.optim.Adam(fcn.parameters(), lr=LR)
 
-                data = convert_image_dtype(torch.stack([sample["image"]]), dtype=torch.float).to(device)
-                target = torch.stack([sample["label"]]).to(device)
-                optimizer.zero_grad()
-                output = fcn(data)
-                loss = criterion(output["out"], target.long())
-                loss.backward()
-                optimizer.step()
+    #             data = convert_image_dtype(torch.stack([sample["image"]]), dtype=torch.float).to(device)
+    #             target = torch.stack([sample["label"]]).to(device)
+    #             optimizer.zero_grad()
+    #             output = fcn(data)
+    #             loss = criterion(output["out"], target.long())
+    #             loss.backward()
+    #             optimizer.step()
                 
-                running_loss += loss.item()
-                if i_batch % 50 == 49:    # print every 2000 mini-batches
-                    print('[%d, %5d] loss: %.3f' %
-                        (epoch + 1, i_batch + 1, running_loss / 50))
-                    running_loss = 0.0
+    #             running_loss += loss.item()
+    #             if i_batch % 50 == 49:    # print every 2000 mini-batches
+    #                 print('[%d, %5d] loss: %.3f' %
+    #                     (epoch + 1, i_batch + 1, running_loss / 50))
+    #                 running_loss = 0.0
     
-    torch.save(fcn.state_dict(), os.path.join(currentdir, "weights.h5"))
+    # torch.save(fcn.state_dict(), os.path.join(currentdir, "weights.h5"))
 
 
     plt.rcParams["savefig.bbox"] = 'tight'
