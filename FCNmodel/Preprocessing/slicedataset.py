@@ -176,7 +176,7 @@ class Dataloading:
         shuffle: "True" to enable shuffle, "False" to disable shuffle
     """
 
-    def __init__(self, test_size, array_path, max_zoom=10, padding=(428, 512), batch_size=4, shuffle=False) -> None:
+    def __init__(self, test_size, array_path, max_zoom=10, padding=(264, 288), batch_size=4, shuffle=False) -> None:
         self.test_size = test_size
         self.array_path = array_path
         self.max_zoom = max_zoom
@@ -237,14 +237,14 @@ def main():
     
     data_dict = create_indexed_file_dict(array_path)
 
-    dataloading = Dataloading(0.2, array_path)
+    dataloading = Dataloading(0.1, array_path)
 
     onefile = ""
     
     for i_batch, sample_batched in enumerate(dataloading.test_dataloader):
-        # print(i_batch, sample_batched['image'].size(),
-        #    sample_batched['label'].size(),
-        #    sample_batched["size"])
+        print(i_batch, sample_batched['image'].size(),
+           sample_batched['label'].size(),
+           sample_batched["size"])
         onefile = sample_batched
 
     print(onefile["image"])
