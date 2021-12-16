@@ -28,7 +28,7 @@ from slicedataset import Dataloading
 from change_head import change_headsize
 
 
-def training_model(test_size=0.2, num_epochs=10, batch_size=4, learning_rate=0.001, pretrained=True, shuffle=True, array_path=config.array_dir, num_classes=4):
+def training_model(test_size=0.2, num_epochs=10, batch_size=16, learning_rate=0.01, pretrained=True, shuffle=True, array_path=config.array_dir, num_classes=4):
     """Trains the model using the dataloader
     Args:
         test_size: fraction of data used for testing.
