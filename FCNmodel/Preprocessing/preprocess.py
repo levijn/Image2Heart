@@ -82,6 +82,7 @@ def load_slice_array(filename):
 
 def save_all_slices_array(array_location, img_location):
     nifti_files = sorted(get_filenames(sdata_dir))
+    print(nifti_files)
     for i in range(0, len(nifti_files), 2):
         img_file = nifti_files[i]
         lbl_file = nifti_files[i+1]
@@ -164,14 +165,15 @@ def create_hist_imgsize(heights, widths, plot=False, save=False):
         plt.show()
 
 
-
-
 def main():
     array_location = os.path.join(data_dir, "slice_arrays")
+    if not os.path.exists(array_location):
+            os.makedirs(os.path.join(data_dir, "slice_arrays"))
     img_location = os.path.join(data_dir, "slice_images")
+    if not os.path.exists(img_location):
+            os.makedirs(os.path.join(data_dir, "slice_images"))
     save_all_slices_array(array_location, img_location)
 
 
 if __name__ == '__main__':
-    main()   
-    pass
+    main()
