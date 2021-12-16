@@ -26,9 +26,10 @@ sys.path.append(parentdir)
 #importing needed files
 import config
 from slicedataset import Dataloading
+from change_head import change_headsize
 
 
-def training_model(test_size=0.2, num_epochs=10, batch_size=4, learning_rate=0.001, pretrained=False, shuffle=True, array_path=config.array_dir, num_classes=4):
+def training_model(test_size=0.2, num_epochs=10, batch_size=4, learning_rate=0.001, pretrained=True, shuffle=True, array_path=config.array_dir, num_classes=4):
     """Trains the model using the dataloader
     Args:
         test_size: fraction of data used for testing.
@@ -44,14 +45,24 @@ def training_model(test_size=0.2, num_epochs=10, batch_size=4, learning_rate=0.0
     dataloading = Dataloading(test_size=test_size, array_path=array_path, batch_size=batch_size, shuffle=shuffle)
     #creating fcn model
     fcn = fcn_resnet50(pretrained=pretrained)
+
     fcn.train()
     device = "cuda"
-    fcn.to(device)
+    fcn = fcn.to(device)
     
+    # feezing its parameters
     for param in fcn.parameters():
         param.requires_grad = False
-        
+    
     fcn = change_headsize(fcn, 4)
+
+    
+    # Find total parameters and trainable parameters
+    total_params = sum(p.numel() for p in fcn.parameters())
+    print(f'{total_params:,} total parameters.')
+    total_trainable_params = sum(
+        p.numel() for p in fcn.parameters() if p.requires_grad)
+    print(f'{total_trainable_params:,} training parameters.')
 
     #looping through epochs
     for epoch in range(num_epochs):
@@ -65,9 +76,6 @@ def training_model(test_size=0.2, num_epochs=10, batch_size=4, learning_rate=0.0
 
             #looping through samples in each batch
             for sample in batch:
-                fcn.train()
-                device = "cuda"
-                fcn = fcn.to(device)
                 criterion = torch.nn.CrossEntropyLoss()
                 optimizer = torch.optim.Adam(fcn.parameters(), lr=learning_rate)
 
@@ -136,7 +144,7 @@ def main():
     trained = False
 
     if trained is False:
-        training_model()
+        training_model(pretrained=True)
         running_model()
     elif trained is True:
         running_model()
