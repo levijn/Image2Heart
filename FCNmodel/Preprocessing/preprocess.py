@@ -110,17 +110,28 @@ def save_all_slices_array(array_location, img_location):
             save_slice_img(lbl_slices[slice_name], name, img_location, "png")
 
 
-def create_indexed_file_dict(data_dir):
+def create_indexed_file_dict(data_dir, max_size=300):
     data_dict = {}
     filenames = sorted(get_filenames(data_dir))
+    skippedfiles = 0
+    img_sizesh = []
+    img_sizesw = []
     for i in range(0, len(filenames), 2):
         img_file = filenames[i]
         lbl_file = filenames[i+1]
+        
+        img = load_slice_array(os.path.join(data_dir, filenames[i]))
+        if img.shape[0] > max_size or img.shape[1] > max_size:
+            skippedfiles += 2
+            continue
+        img_sizesh.append(img.shape[0])
+        img_sizesw.append(img.shape[1])
         slice_dict = {
             "img_data_file": img_file,
             "lbl_data_file": lbl_file
         }
-        data_dict[int(i/2)] = slice_dict
+        data_dict[int(i/2)-skippedfiles] = slice_dict
+    # print(max(img_sizesh), max(img_sizesw))
     return data_dict
 
 
@@ -134,7 +145,6 @@ def get_all_shapes_hw(data_dir, idx_dict):
         img_h, img_w = img.shape[:2]
         heights.append(img_h)
         widths.append(img_w)
-        print(i)
     return (heights, widths)
 
 
@@ -167,12 +177,14 @@ def create_hist_imgsize(heights, widths, plot=False, save=False):
 
 def main():
     array_location = os.path.join(data_dir, "slice_arrays")
-    if not os.path.exists(array_location):
-            os.makedirs(os.path.join(data_dir, "slice_arrays"))
-    img_location = os.path.join(data_dir, "slice_images")
-    if not os.path.exists(img_location):
-            os.makedirs(os.path.join(data_dir, "slice_images"))
-    save_all_slices_array(array_location, img_location)
+    # if not os.path.exists(array_location):
+    #         os.makedirs(os.path.join(data_dir, "slice_arrays"))
+    # img_location = os.path.join(data_dir, "slice_images")
+    # if not os.path.exists(img_location):
+    #         os.makedirs(os.path.join(data_dir, "slice_images"))
+    # save_all_slices_array(array_location, img_location)
+    
+    # datadict = create_indexed_file_dict(array_location)
 
 
 if __name__ == '__main__':
