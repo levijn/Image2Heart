@@ -10,8 +10,8 @@ from torchvision.models.segmentation.fcn import FCNHead
 def change_headsize(model, num_classes):
     new_classifier = FCNHead(2048, num_classes)
     new_aux_classifier = FCNHead(1024, num_classes)
-    model._modules["classifier"] = new_classifier
-    model._modules["aux_classifier"] = new_classifier
+    model.classifier = new_classifier
+    model.aux_classifier = new_aux_classifier
     return model
     
     

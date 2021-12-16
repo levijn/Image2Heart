@@ -14,6 +14,7 @@ from torchvision.transforms.functional import convert_image_dtype, resize
 from torchvision.transforms import Resize
 from torchvision.utils import make_grid
 from torchvision.io import read_image
+from FCNmodel.Model.change_head import change_headsize
 
 #adding needed folderpaths
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
@@ -42,7 +43,15 @@ def training_model(test_size=0.2, num_epochs=10, batch_size=4, learning_rate=0.0
     #loading datafiles
     dataloading = Dataloading(test_size=test_size, array_path=array_path, batch_size=batch_size, shuffle=shuffle)
     #creating fcn model
-    fcn = fcn_resnet50(pretrained=pretrained, num_classes=num_classes)
+    fcn = fcn_resnet50(pretrained=pretrained)
+    fcn.train()
+    device = "cuda"
+    fcn.to(device)
+    
+    for param in fcn.parameters():
+        param.requires_grad = False
+        
+    fcn = change_headsize(fcn, 4)
 
     #looping through epochs
     for epoch in range(num_epochs):
