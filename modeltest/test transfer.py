@@ -46,10 +46,10 @@ def run():
     to_tensor = ToTensor()
     composed_transform = transforms.Compose([padder,sudorgb_converter])
     slicedata = SliceDataset(array_path, data_dict, transform=composed_transform)
-    slice = slicedata[4]
+    # slice = slicedata[0]
+    # plot_slice_with_lbl(slice["image"], slice["label"])
 
 
-    image_datasets = datasets.ImageFolder(os.path.join(slice_images))
     dataloader1 = data.DataLoader(slicedata, batch_size=8, shuffle=True, num_workers=8)
 
     class_names = ('0', '1', '2', '3')

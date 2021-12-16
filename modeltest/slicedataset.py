@@ -141,7 +141,7 @@ def main():
     for i_batch, sample_batched in enumerate(dataloader):
         print(i_batch, sample_batched['image'].size(),
           sample_batched['label'].size(),
-          sample_batched["size"])
+          sample_batched["size"].size())
     
     
 

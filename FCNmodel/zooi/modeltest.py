@@ -57,10 +57,14 @@ output = fcn(normalized_batch)["out"]
 
 normalized_masks = torch.nn.functional.softmax(output, dim=1)
 
-for i in range(normalized_masks.shape[1]):
-    img = F.to_pil_image(normalized_masks[0,i,:,:])
-    plt.imshow(img)
-    plt.show()
+img = F.to_pil_image(normalized_masks[0,0,:,:])
+plt.imshow(img)
+plt.show()
+
+# for i in range(normalized_masks.shape[1]):
+#     img = F.to_pil_image(normalized_masks[0,0,:,:])
+#     plt.imshow(img)
+#     plt.show()
 
 sem_classes = [
     '__background__', 'aeroplane', 'bicycle', 'bird', 'boat', 'bottle', 'bus',

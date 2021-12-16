@@ -10,13 +10,27 @@ from torchvision import datasets, models, transforms
 import matplotlib.pyplot as plt
 import time
 import os
+import sys
 import copy
-
 import inspect
 
 root_dir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 data_dir = os.path.join(os.path.dirname(os.path.dirname(root_dir)), "Data")
 hyme_data_dir = os.path.join(data_dir, "hymenoptera_data")
+slice_array = os.path.join(data_dir, "slice_arrays")
+slice_images = os.path.join(data_dir, "slice_images")
+
+
+from preprocess import (get_filenames, 
+                        create_indexed_file_dict,
+                        load_slice_array,
+                        plot_slice_with_lbl,
+                        get_all_shapes_hw)
+
+from slicedataset import (SliceDataset, 
+                        PadImage, 
+                        SudoRGB, 
+                        ToTensor)
 
 plt.ion() 
 
@@ -71,7 +85,7 @@ def run():
     # Make a grid from batch
     out = torchvision.utils.make_grid(inputs)
 
-    imshow(out, title=[class_names[x] for x in classes])
+    #imshow(out, title=[class_names[x] for x in classes])
 
     def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
         since = time.time()
@@ -171,7 +185,7 @@ def run():
     num_ftrs = model_ft.fc.in_features
     # Here the size of each output sample is set to 2.
     # Alternatively, it can be generalized to nn.Linear(num_ftrs, len(class_names)).
-    model_ft.fc = nn.Linear(num_ftrs, 2)
+    model_ft.fc = nn.Linear(num_ftrs, 3)
 
     model_ft = model_ft.to(device)
 
