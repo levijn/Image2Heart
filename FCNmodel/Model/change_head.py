@@ -13,8 +13,7 @@ def change_headsize(model, num_classes):
     model.classifier = new_classifier
     model.aux_classifier = new_aux_classifier
     return model
-    
-    
+
 
 def main():
     fcn = fcn_resnet50(pretrained=True)
