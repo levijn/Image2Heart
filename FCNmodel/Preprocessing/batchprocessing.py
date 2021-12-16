@@ -70,8 +70,7 @@ class BatchProcessor:
         
         return fig
             
-        
-
+    
 
 def main():
     array_path = os.path.join(config.data_dir, "slice_arrays")
