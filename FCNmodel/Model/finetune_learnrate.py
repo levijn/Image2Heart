@@ -127,7 +127,7 @@ def running_model(pretrained=False, num_classes=4):
     #retrieving 1 image for training
     one_batch = None
     dataloading = Dataloading(test_size=0.2, array_path=config.array_dir, batch_size=4, shuffle=True)
-    for i_batch, batch in enumerate(dataloading.train_dataloader):
+    for i_batch, batch in enumerate(dataloading.test_dataloader):
         #remove the padding
         one_batch = batch
         break
@@ -158,7 +158,7 @@ def running_model(pretrained=False, num_classes=4):
 
 def main():
     #set to True if the model has been trained with the weights stored at "weights.h5", False otherwise
-    trained = False
+    trained = True
 
     if trained is False:
         learningrates = [0.001, 0.01, 0.1, 1]
