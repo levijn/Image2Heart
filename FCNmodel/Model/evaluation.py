@@ -104,8 +104,8 @@ from model_training import training_model, running_model
 
 def evaluation():
     """change the learning rates, epochs and batch size here, not in training_model"""
-    learning_rates = [0.001]
-    num_epochs = 2
+    learning_rates = [0.001, 0.01, 0.1]
+    num_epochs = 10
     batch_size = 8
     # calculate the loss for each learning rate
     loss_per_lr = []
@@ -115,8 +115,9 @@ def evaluation():
                 
         #plot the loss
         plt.plot(range(num_epochs), loss_per_epoch, label = learning_rate)
-    plt.xlabel("loss")
-    plt.ylabel("epoch")
+    plt.legend()
+    plt.xlabel("epoch")
+    plt.ylabel("loss")
 
     plt.show()
     print(f"loss per learning rate = {loss_per_lr}")
