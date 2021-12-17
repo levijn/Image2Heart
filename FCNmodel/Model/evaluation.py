@@ -102,32 +102,39 @@ from model_training import training_model, running_model
 
 
 
-def evaluation():
+def evaluation_train():
     """change the learning rates, epochs and batch size here, not in training_model"""
-    learning_rates = [0.001, 0.01, 0.1]
-    num_epochs = 10
-    batch_size = 8
+    learning_rates = [0.0001, 0.001]
+    num_epochs = 5
+    batch_size = 16
     # calculate the loss for each learning rate
-    loss_per_lr = []
+    train_loss_per_lr = []
+    eval_loss_per_lr = []
     for learning_rate in learning_rates:
-        loss_per_epoch = training_model(learning_rate = learning_rate, num_epochs = num_epochs, batch_size = batch_size)
-        loss_per_lr.append(loss_per_epoch)
+        train_loss_per_epoch, eval_loss_per_epoch = training_model(learning_rate = learning_rate, num_epochs = num_epochs, batch_size = batch_size)
+        train_loss_per_lr.append(train_loss_per_epoch)
+        eval_loss_per_lr.append(eval_loss_per_epoch)
                 
-        #plot the loss
-        plt.plot(range(num_epochs), loss_per_epoch, label = learning_rate)
+        #plot the losses
+        plt.plot(range(num_epochs), train_loss_per_epoch, label = f" training loss for learning rate {learning_rate}")
+        plt.plot(range(num_epochs), eval_loss_per_epoch, label = f" evaluation loss for learning rate {learning_rate}")
     plt.legend()
     plt.xlabel("epoch")
     plt.ylabel("loss")
 
     plt.show()
     print(f"loss per learning rate = {loss_per_lr}")
-    save_slice_array(loss_per_lr, 'loss per learning rate', currentdir)
+    save_slice_array(train_loss_per_lr, 'training loss per learning rate', currentdir)
+    save_slice_array(eval_loss_per_lr, 'evaluation loss per learning rate', currentdir)
+
+
+
 
 
 
 # running the model
 def main():
-    evaluation()
+    evaluation_train()
 
 if __name__ == '__main__':
     main()
