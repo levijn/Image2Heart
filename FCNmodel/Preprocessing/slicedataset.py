@@ -205,8 +205,8 @@ class Dataloading:
         self.train_slicedata = SliceDataset(self.array_path, self.train_data_dict, transform=self.composed_transform)
         self.test_slicedata = SliceDataset(self.array_path, self.test_data_dict, transform=self.composed_transform)
 
-        self.train_dataloader = data.DataLoader(self.train_slicedata, batch_size=self.batch_size, shuffle=self.shuffle, num_workers=8)
-        self.test_dataloader = data.DataLoader(self.test_slicedata, batch_size=self.batch_size, shuffle=self.shuffle, num_workers=8)
+        self.train_dataloader = data.DataLoader(self.train_slicedata, batch_size=self.batch_size, shuffle=self.shuffle, num_workers=4)
+        self.test_dataloader = data.DataLoader(self.test_slicedata, batch_size=self.batch_size, shuffle=self.shuffle, num_workers=4)
     
     def __iter__(self):
         pass

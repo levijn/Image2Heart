@@ -28,7 +28,7 @@ from slicedataset import Dataloading
 from change_head import change_headsize
 
 
-def training_model(test_size=0.2, num_epochs=10, batch_size=4, learning_rate=0.001, pretrained=True, shuffle=True, array_path=config.array_dir, num_classes=4):
+def training_model(test_size=0.2, num_epochs=10, batch_size=16, learning_rate=0.001, pretrained=True, shuffle=True, array_path=config.array_dir, num_classes=4):
     """Trains the model using the dataloader
     Args:
         test_size: fraction of data used for testing.
@@ -125,16 +125,29 @@ def running_model(pretrained=False, num_classes=4):
     normalized_masks = torch.nn.functional.softmax(output, dim=1)
 
     # Displaying input image
-    image = one_batch["image"][0,0,:,:]
-    img = F.to_pil_image(image)
-    plt.imshow(img)
-    plt.show()
+    # image = one_batch["image"][0,0,:,:]
+    # img = F.to_pil_image(image)
+    # plt.imshow(img)
+    # plt.show()
     
     #Displaying probabilities of the num_classes
-    for i in range(normalized_masks.shape[1]):
-        img = F.to_pil_image(normalized_masks[0,i,:,:])
+    # for i in range(normalized_masks.shape[1]):
+    #     img = F.to_pil_image(normalized_masks[0,i,:,:])
+    #     plt.imshow(img)
+    #     plt.show()
+        
+    fig = plt.figure(figsize=(8, 8))
+    columns = 2
+    rows = 2
+    for i in range(1, columns*rows):
+        image = one_batch["image"][0,0,:,:]
+        img = F.to_pil_image(image)
+        fig.add_subplot(rows, columns, 1)
         plt.imshow(img)
-        plt.show()
+        img2 = F.to_pil_image(normalized_masks[0,i,:,:])
+        fig.add_subplot(rows, columns, i + 1)
+        plt.imshow(img2)
+    plt.show()
 
 def main():
     #set to True if the model has been trained with the weights stored at "weights.h5", False otherwise
