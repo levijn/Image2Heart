@@ -172,7 +172,7 @@ class Normalizer(object):
 
         norm = np.linalg.norm(image)
         norm_img = image/norm
-        print(norm_img)
+        
         return {"image": norm_img, "label": label, "size": size}
 
 class Dataloading:
