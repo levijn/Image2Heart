@@ -11,8 +11,10 @@ from torchvision import transforms
 import torch
 import torch.nn.functional as nnF
 import torchvision.transforms.functional as tF
+import torchvision.transforms as trans
 import random
 import matplotlib.pyplot as plt
+from PIL import Image
 
 # Import the path of different folders
 current_dir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
@@ -107,12 +109,9 @@ class ToTensor(object):
     def __call__(self, sample):
         image, label, size = sample["image"], sample["label"], sample["size"]
         
-        if type(image) == type(np.ndarray):
-            image = torch.from_numpy(image)
-        if type(label) == type(np.ndarray):
-            label = torch.from_numpy(label)
-        if type(size) == type(np.ndarray):
-            size = torch.from_numpy(size)
+        image = torch.from_numpy(image).float()
+        label = torch.from_numpy(label).float()
+        size = torch.from_numpy(size).float()
             
         return {"image": image, "label": label, "size": size}
 
@@ -165,15 +164,29 @@ class Normalizer(object):
     def __call__(self, sample):
         image, label, size = sample["image"], sample["label"], sample["size"]
         
-        if type(image) == type(np.ndarray):
-            image = image       
-        else:
-            image = np.array(image)
+        # if type(image) == type(np.ndarray):
+        #     image = image       
+        # else:
+        #     image = np.array(image)
 
-        norm = np.linalg.norm(image)
-        norm_img = image/norm
-        
+        # norm = np.linalg.norm(image)
+        # norm_img = image/norm
+
+        norm_img = tF.normalize(image, mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+
         return {"image": norm_img, "label": label, "size": size}
+
+class Resize(object):
+    def __init__(self, output_size: tuple):
+        assert isinstance(output_size, tuple)
+        self.output_size = output_size
+        
+    def __call__(self, sample):
+        image, label, size = sample["image"], sample["label"], sample["size"]
+
+        new_img = np.array(Image.fromarray(image).resize(size=self.output_size))
+        new_lbl = np.array(Image.fromarray(label).resize(size=self.output_size))
+        return {"image": new_img, "label": new_lbl, "size": np.array(self.output_size)}
 
 class Dataloading:
     """Creates two dataloaders. A train and test dataloader.
@@ -186,11 +199,12 @@ class Dataloading:
         shuffle: "True" to enable shuffle, "False" to disable shuffle
     """
 
-    def __init__(self, test_size, array_path, max_zoom=10, padding=(264, 288), batch_size=4, shuffle=False) -> None:
+    def __init__(self, test_size, array_path, max_zoom=10, padding=(264, 288), min_size=(174, 208), batch_size=4, shuffle=False) -> None:
         self.test_size = test_size
         self.array_path = array_path
         self.max_zoom = max_zoom
         self.padding = padding
+        self.min_size = min_size
         self.batch_size = batch_size
         self.shuffle = shuffle
         
@@ -206,11 +220,12 @@ class Dataloading:
     def create_transforms(self):
         randomzoom = RandomZoom(self.max_zoom)
         padder = PadImage(self.padding)
+        resizer = Resize(output_size=self.min_size)
         sudorgb_converter = SudoRGB()
         to_tensor = ToTensor()
         normalizer = Normalizer()
         encoder = OneHotEncoder()
-        self.composed_transform = transforms.Compose([normalizer, padder, sudorgb_converter, to_tensor])
+        self.composed_transform = transforms.Compose([resizer, sudorgb_converter, to_tensor, normalizer])
     
     def create_dataloaders(self):
         self.train_slicedata = SliceDataset(self.array_path, self.train_data_dict, transform=self.composed_transform)
