@@ -23,12 +23,29 @@ from slicedataset import Dataloading
 from change_head import change_headsize
 
 
-def plot_learningrate(learningrates_loss):
+def plot_learningrate(train_loss, eval_loss, learningrates):
     fig = plt.figure(1)
     ax = fig.add_subplot(111)
-    for lrloss in learningrates_loss:
-        ax.plot(lrloss)
+    ax.set_yscale("log")
+    for i, lr in enumerate(learningrates):
+        ax.plot(train_loss[i], label=f"train {lr}")
+        ax.plot(eval_loss[i], label=f"eval {lr}")
+    plt.legend()
     plt.savefig(os.path.join(currentdir, "learningrate.png"))
+    plt.show()
+    
+def plot_results(input, output):
+    fig = plt.figure(figsize=(8, 8))
+    columns = 2
+    rows = 2
+    for i in range(1, columns*rows):
+        normalized_masks = torch.nn.functional.softmax(output, dim=1)
+        img = F.to_pil_image(input)
+        fig.add_subplot(rows, columns, 1)
+        plt.imshow(img)
+        img2 = F.to_pil_image(normalized_masks[0,i,:,:])
+        fig.add_subplot(rows, columns, i + 1)
+        plt.imshow(img2)
     plt.show()
 
 
@@ -69,18 +86,20 @@ def training_model(test_size=0.2, num_epochs=10, batch_size=4, learning_rate=[0.
     print(f'{total_trainable_params:,} training parameters.')
 
     # initialize way to save loss
-    loss_per_lr= []
+    train_loss_per_lr = []
+    eval_loss_per_lr = []
     
     for LR in learning_rate:
-        loss_per_epoch = []
+        train_loss_per_epoch = []
+        eval_loss_per_epoch = []
         #looping through epochs
         for epoch in range(num_epochs):
             print(f"------ Learning rate: {LR} --> Epoch: {epoch+1} ------")
-            epoch_loss = 0.0
-            
-            #looping through batches in each epoch
+            epoch_train_loss = 0.0
+            epoch_eval_loss = 0.0
+            fcn.train()
+            # Model training loop
             for i_batch, batch in enumerate(dataloading.train_dataloader):
-
                 criterion = torch.nn.CrossEntropyLoss()
                 optimizer = torch.optim.Adam(fcn.parameters(), lr=LR)
 
@@ -92,20 +111,34 @@ def training_model(test_size=0.2, num_epochs=10, batch_size=4, learning_rate=[0.
                 loss.backward()
                 optimizer.step()
                 
-                epoch_loss += output["out"].shape[0] * loss.item()
+                epoch_train_loss += output["out"].shape[0]*loss.item()
             
-            loss_per_epoch.append(epoch_loss/len(dataloading.train_slicedata))
-            print("Loss:", epoch_loss/len(dataloading.train_slicedata))
+            # Calculate validation loss after training
+            fcn.eval()
+            for i_batch, batch in enumerate(dataloading.test_dataloader):
+                criterion = torch.nn.CrossEntropyLoss()
+                data = F.convert_image_dtype(batch["image"], dtype=torch.float).to(device)
+                target = batch["label"].to(device)
+                output = fcn(data)
+                loss = criterion(output["out"], target.long())
+                epoch_eval_loss += output["out"].shape[0]*loss.item()
             
-        loss_per_lr.append(loss_per_epoch)
-        #saving calculated weights to "weights.h5"
+            train_loss = epoch_train_loss/len(dataloading.train_slicedata)
+            eval_loss = epoch_eval_loss/len(dataloading.test_slicedata)
+            train_loss_per_epoch.append(train_loss)
+            eval_loss_per_epoch.append(eval_loss)
+            print("Training loss:", train_loss)
+            print("Evaluation loss:", eval_loss)
+            
+        train_loss_per_lr.append(train_loss_per_epoch)
+        eval_loss_per_lr.append(eval_loss_per_epoch)
+        
+        #saving calculated weights
         torch.save(fcn.state_dict(), os.path.join(currentdir, f"weights_lr{int(LR*1000)}.h5"))
     
+    #plotting learningrates
+    # plot_learningrate(train_loss_per_lr, eval_loss_per_lr, learning_rate)
     
-    plot_learningrate(loss_per_lr)
-    
-    
-
 
 
 def running_model(pretrained=False, num_classes=4):
@@ -141,6 +174,8 @@ def running_model(pretrained=False, num_classes=4):
     output = fcn(sample)["out"]
     normalized_masks = torch.nn.functional.softmax(output, dim=1)
 
+    plot_results(sample, output)
+    
     # Displaying input image
     image = one_batch["image"][0,0,:,:]
     img = F.to_pil_image(image)
@@ -161,8 +196,8 @@ def main():
     trained = True
 
     if trained is False:
-        learningrates = [0.001, 0.01, 0.1, 1]
-        training_model(pretrained=True, learning_rate=learningrates, batch_size=16, num_epochs=50)
+        learningrates = [0.001, 0.01, 0.1]
+        training_model(pretrained=True, learning_rate=learningrates, batch_size=16, num_epochs=15, test_size=0.3)
         running_model(pretrained=True)
     elif trained is True:
         running_model(pretrained=True)

@@ -47,6 +47,9 @@ def training_model(test_size=0.2, num_epochs=10, batch_size=16, learning_rate=0.
 
     fcn.train()
     device = "cuda"
+
+    #creating an empty list for the losses
+    loss_per_epoch = []
     
     # feezing its parameters
     for param in fcn.parameters():
@@ -87,9 +90,14 @@ def training_model(test_size=0.2, num_epochs=10, batch_size=16, learning_rate=0.
                 print('[%d, %5d] loss: %.3f' %
                     (epoch + 1, i_batch + 1, running_loss / 50))
                 running_loss = 0.0
+
+        loss_per_epoch.append(running_loss/len(dataloading.train_slicedata))
     
     #saving calculated weights to "weights.h5"
     torch.save(fcn.state_dict(), os.path.join(currentdir, "weights.h5"))
+
+    return loss_per_epoch
+
 
 def running_model(pretrained=False, num_classes=4):
     """Running the model and testing it on 1 sample
