@@ -26,7 +26,6 @@ from change_head import change_headsize
 def plot_learningrate(train_loss, eval_loss, learningrates):
     fig = plt.figure(1)
     ax = fig.add_subplot(111)
-    ax.set_yscale("log")
     for i, lr in enumerate(learningrates):
         ax.plot(train_loss[i], label=f"train {lr}")
         ax.plot(eval_loss[i], label=f"eval {lr}")
@@ -187,11 +186,11 @@ def running_model(pretrained=False, num_classes=4):
 
 def main():
     #set to True if the model has been trained with the weights stored at "weights.h5", False otherwise
-    trained = False
+    trained = True
 
     if trained is False:
-        learningrates = [0.001, 0.01, 0.1]
-        training_model(pretrained=True, learning_rate=learningrates, batch_size=16, num_epochs=15, test_size=0.3)
+        learningrates = [0.001]
+        training_model(pretrained=True, learning_rate=learningrates, batch_size=16, num_epochs=8, test_size=0.3)
         running_model(pretrained=True)
     elif trained is True:
         running_model(pretrained=True)
