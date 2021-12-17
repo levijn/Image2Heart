@@ -174,7 +174,7 @@ def running_model(pretrained=False, num_classes=4):
     output = fcn(sample)["out"]
     normalized_masks = torch.nn.functional.softmax(output, dim=1)
 
-    plot_results(sample, output)
+    # plot_results(sample, output)
     
     # Displaying input image
     image = one_batch["image"][0,0,:,:]
@@ -189,15 +189,13 @@ def running_model(pretrained=False, num_classes=4):
         plt.show()
 
 
-
-
 def main():
     #set to True if the model has been trained with the weights stored at "weights.h5", False otherwise
-    trained = True
+    trained = False
 
     if trained is False:
-        learningrates = [0.001, 0.01, 0.1]
-        training_model(pretrained=True, learning_rate=learningrates, batch_size=16, num_epochs=15, test_size=0.3)
+        learningrates = [0.001, 0.01]
+        training_model(pretrained=True, learning_rate=learningrates, batch_size=16, num_epochs=3, test_size=0.3)
         running_model(pretrained=True)
     elif trained is True:
         running_model(pretrained=True)

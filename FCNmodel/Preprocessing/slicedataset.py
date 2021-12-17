@@ -9,8 +9,10 @@ import numpy as np
 from torch.utils import data
 from torchvision import transforms 
 import torch
-import torch.nn.functional as F
+import torch.nn.functional as nnF
+import torchvision.transforms.functional as tF
 import random
+import matplotlib.pyplot as plt
 
 # Import the path of different folders
 current_dir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
@@ -80,7 +82,7 @@ class PadImage(object):
 
     def __call__(self, sample):
         image, label, size = sample["image"], sample["label"], sample["size"]
-
+        
         h, w = size
         new_h, new_w = self.output_size
         h_pad = new_h - h
@@ -93,9 +95,6 @@ class PadImage(object):
 
 
 class SudoRGB(object):
-    def __init__(self):
-        pass
-    
     def __call__(self, sample):
         image, label, size = sample["image"], sample["label"], sample["size"]
         
@@ -105,9 +104,6 @@ class SudoRGB(object):
 
 
 class ToTensor(object):
-    def __init__(self):
-        pass
-    
     def __call__(self, sample):
         image, label, size = sample["image"], sample["label"], sample["size"]
         
@@ -140,7 +136,7 @@ class OneHotEncoder(object):
         image, label, size = sample["image"], sample["label"], sample["size"]
         
         lbl = torch.from_numpy(label)
-        onehot_label = F.one_hot(lbl.to(torch.int64), num_classes=4)
+        onehot_label = nnF.one_hot(lbl.to(torch.int64), num_classes=4)
         
         return {"image": image, "label": onehot_label, "size": size}
 
@@ -164,6 +160,20 @@ class RandomZoom(object):
         new_label = label[int(h_del/2):int(new_h-h_del/2),int(w_del/2):int(new_w-w_del/2)]
         
         return {"image": new_image, "label": new_label, "size": np.asarray([new_h, new_w])}
+
+class Normalizer(object):
+    def __call__(self, sample):
+        image, label, size = sample["image"], sample["label"], sample["size"]
+        
+        if type(image) == type(np.ndarray):
+            image = image       
+        else:
+            image = np.array(image)
+
+        norm = np.linalg.norm(image)
+        norm_img = image/norm
+        
+        return {"image": norm_img, "label": label, "size": size}
 
 class Dataloading:
     """Creates two dataloaders. A train and test dataloader.
@@ -198,8 +208,9 @@ class Dataloading:
         padder = PadImage(self.padding)
         sudorgb_converter = SudoRGB()
         to_tensor = ToTensor()
+        normalizer = Normalizer()
         encoder = OneHotEncoder()
-        self.composed_transform = transforms.Compose([padder, sudorgb_converter, to_tensor])
+        self.composed_transform = transforms.Compose([normalizer, padder, sudorgb_converter, to_tensor])
     
     def create_dataloaders(self):
         self.train_slicedata = SliceDataset(self.array_path, self.train_data_dict, transform=self.composed_transform)
@@ -247,8 +258,9 @@ def main():
            sample_batched["size"])
         onefile = sample_batched
 
-    print(onefile["image"])
-
+    img = tF.to_pil_image(onefile["image"][0,0,:,:])
+    plt.imshow(img, cmap="gray")
+    plt.show()
     # test_size = 0.2
 
     # train_data_dict = {key: data_dict[key] for i, key in enumerate(data_dict.keys()) if i < (1-test_size)*len(data_dict)}
