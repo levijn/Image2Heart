@@ -28,7 +28,7 @@ from slicedataset import Dataloading
 from change_head import change_headsize
 
 
-def training_model(test_size=0.2, num_epochs=10, batch_size=16, learning_rate=0.001, pretrained=True, shuffle=True, array_path=config.array_dir, num_classes=4):
+def training_model(test_size=0.2, num_epochs=10, batch_size=16, learning_rate=0.0001, pretrained=True, shuffle=True, array_path=config.array_dir, num_classes=4):
     """Trains the model using the dataloader
     Args:
         test_size: fraction of data used for testing.
@@ -49,7 +49,8 @@ def training_model(test_size=0.2, num_epochs=10, batch_size=16, learning_rate=0.
     device = "cuda"
 
     #creating an empty list for the losses
-    loss_per_epoch = []
+    train_loss_per_epoch = []
+    eval_loss_per_epoch = []
     
     # feezing its parameters
     for param in fcn.parameters():
@@ -68,7 +69,8 @@ def training_model(test_size=0.2, num_epochs=10, batch_size=16, learning_rate=0.
     #looping through epochs
     for epoch in range(num_epochs):
         print(f"Epoch: {epoch}")
-        running_loss = 0.0
+        epoch_train_loss = 0.0
+        epoch_eval_loss = 0.0
         
         #looping through batches in each epoch
         for i_batch, batch in enumerate(dataloading.train_dataloader):
@@ -85,18 +87,30 @@ def training_model(test_size=0.2, num_epochs=10, batch_size=16, learning_rate=0.
             loss.backward()
             optimizer.step()
             
-            running_loss += loss.item()
+            epoch_train_loss += loss.item()
             if i_batch % 50 == 49:    # print every 2000 mini-batches
                 print('[%d, %5d] loss: %.3f' %
-                    (epoch + 1, i_batch + 1, running_loss / 50))
-                running_loss = 0.0
+                    (epoch + 1, i_batch + 1, epoch_train_loss / 50))
+                epoch_train_loss = 0.0
 
-        loss_per_epoch.append(running_loss/len(dataloading.train_slicedata))
+        # calculate validation loss after training
+        fcn.eval()
+        for i_batch, batch in enumerate(dataloading.test_dataloader):
+            criterion = torch.nn.CrossEntropyLoss()
+            data = F.convert_image_dtype(batch["image"], dtype=torch.float).to(device)
+            target = batch["label"].to(device)
+            output = fcn(data)
+            loss = criterion(output["out"], target.long())
+            epoch_eval_loss += output["out"].shape[0]*loss.item()
+
+
+        train_loss_per_epoch.append(epoch_train_loss/len(dataloading.train_slicedata))
+        eval_loss_per_epoch.append(epoch_eval_loss/len(dataloading.test_slicedata))
     
     #saving calculated weights to "weights.h5"
     torch.save(fcn.state_dict(), os.path.join(currentdir, "weights.h5"))
 
-    return loss_per_epoch
+    return train_loss_per_epoch, eval_loss_per_epoch
 
 
 def running_model(pretrained=False, num_classes=4):
@@ -118,7 +132,7 @@ def running_model(pretrained=False, num_classes=4):
     #retrieving 1 image for training
     one_batch = None
     dataloading = Dataloading(test_size=0.2, array_path=config.array_dir, batch_size=4, shuffle=True)
-    for i_batch, batch in enumerate(dataloading.test_dataloader):
+    for i_batch, batch in enumerate(dataloading.train_dataloader):
         #remove the padding
         one_batch = batch
         break
@@ -133,37 +147,24 @@ def running_model(pretrained=False, num_classes=4):
     normalized_masks = torch.nn.functional.softmax(output, dim=1)
 
     # Displaying input image
-    # image = one_batch["image"][0,0,:,:]
-    # img = F.to_pil_image(image)
-    # plt.imshow(img)
-    # plt.show()
+    image = one_batch["image"][0,0,:,:]
+    img = F.to_pil_image(image)
+    plt.imshow(img)
+    plt.show()
     
     #Displaying probabilities of the num_classes
-    # for i in range(normalized_masks.shape[1]):
-    #     img = F.to_pil_image(normalized_masks[0,i,:,:])
-    #     plt.imshow(img)
-    #     plt.show()
-        
-    fig = plt.figure(figsize=(8, 8))
-    columns = 2
-    rows = 2
-    for i in range(1, columns*rows):
-        image = one_batch["image"][0,0,:,:]
-        img = F.to_pil_image(image)
-        fig.add_subplot(rows, columns, 1)
+    for i in range(normalized_masks.shape[1]):
+        img = F.to_pil_image(normalized_masks[0,i,:,:])
         plt.imshow(img)
-        img2 = F.to_pil_image(normalized_masks[0,i,:,:])
-        fig.add_subplot(rows, columns, i + 1)
-        plt.imshow(img2)
-    plt.show()
+        plt.show()
 
 def main():
     #set to True if the model has been trained with the weights stored at "weights.h5", False otherwise
     trained = True
 
     if trained is False:
-        training_model(pretrained=True)
-        running_model()
+        training_model(num_epochs=10, pretrained=True)
+        running_model(pretrained=True)
     elif trained is True:
         running_model(pretrained=True)
 
