@@ -28,7 +28,7 @@ from slicedataset import Dataloading
 from change_head import change_headsize
 
 
-def training_model(test_size=0.2, num_epochs=10, batch_size=16, learning_rate=0.001, pretrained=True, shuffle=True, array_path=config.array_dir, num_classes=4):
+def training_model(test_size=0.2, num_epochs=10, batch_size=16, learning_rate=0.0001, pretrained=True, shuffle=True, array_path=config.array_dir, num_classes=4):
     """Trains the model using the dataloader
     Args:
         test_size: fraction of data used for testing.
@@ -120,7 +120,7 @@ def running_model(pretrained=False, num_classes=4):
 
     fcn.eval()
 
-    normalized_sample = F.normalize(sample, mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225))
+    # normalized_sample = F.normalize(sample, mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225))
     output = fcn(sample)["out"]
     normalized_masks = torch.nn.functional.softmax(output, dim=1)
 
@@ -138,11 +138,11 @@ def running_model(pretrained=False, num_classes=4):
 
 def main():
     #set to True if the model has been trained with the weights stored at "weights.h5", False otherwise
-    trained = True
+    trained = False
 
     if trained is False:
-        training_model(pretrained=True)
-        running_model()
+        training_model(num_epochs=10, pretrained=True)
+        running_model(pretrained=True)
     elif trained is True:
         running_model(pretrained=True)
 
