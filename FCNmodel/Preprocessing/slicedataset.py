@@ -7,6 +7,7 @@ import sys
 import inspect
 import numpy as np
 from torch.utils import data
+from torch.utils.data.dataset import ConcatDataset
 from torchvision import transforms 
 import torch
 import torch.nn.functional as nnF
@@ -248,6 +249,7 @@ class Dataloading:
 
         self.train_dataloader = data.DataLoader(self.train_slicedata, batch_size=self.batch_size, shuffle=self.shuffle, num_workers=4)
         self.test_dataloader = data.DataLoader(self.test_slicedata, batch_size=self.batch_size, shuffle=self.shuffle, num_workers=4)
+        self.dataloaders_combined = ConcatDataset([self.train_dataloader, self.test_dataloader])
     
     def __iter__(self):
         pass

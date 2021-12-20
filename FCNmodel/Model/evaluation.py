@@ -123,7 +123,8 @@ def evaluation_train():
     plt.ylabel("loss")
 
     plt.show()
-    print(f"loss per learning rate = {loss_per_lr}")
+    print(f"training loss per learning rate = {train_loss_per_lr}")
+    print(f"evaluation loss per learning rate = {eval_loss_per_lr}")
     save_slice_array(train_loss_per_lr, 'training loss per learning rate', currentdir)
     save_slice_array(eval_loss_per_lr, 'evaluation loss per learning rate', currentdir)
 
