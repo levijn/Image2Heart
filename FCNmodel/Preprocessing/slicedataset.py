@@ -210,7 +210,7 @@ class Dataloading:
         to_tensor = ToTensor()
         normalizer = Normalizer()
         encoder = OneHotEncoder()
-        self.composed_transform = transforms.Compose([normalizer, padder, sudorgb_converter, to_tensor])
+        self.composed_transform = transforms.Compose([padder, sudorgb_converter, to_tensor])
     
     def create_dataloaders(self):
         self.train_slicedata = SliceDataset(self.array_path, self.train_data_dict, transform=self.composed_transform)
