@@ -17,6 +17,7 @@ import PIL
 import matplotlib.pyplot as plt
 import sys
 from pathlib import Path
+from torch.utils.data import dataloader
 
 from torchvision import transforms
 from torchvision.models.segmentation import fcn_resnet50
@@ -40,73 +41,103 @@ sys.path.append(parentdir)
 sys.path.append(modeldir)
 
 # make dataloaders
-class Dataloading:
-    """Creates K dataloaders.
-    Args:
-        K: the amount of dataloaders
-        array_path: path to the folder containing the arrayfiles per slice.
-        max_zoom: the maximum amount of zoom
-        padding: the size of the largest image
-        batch_size: size of the batches
-        shuffle: "True" to enable shuffle, "False" to disable shuffle
-    """
+from slicedataset import Dataloading
+from change_head import change_headsize
+import config
 
-    def __init__(self, number_of_K, array_path, max_zoom=10, padding=(264, 288), batch_size=4, shuffle=False) -> None:
-        self.number_of_K = number_of_K
-        self.array_path = array_path
-        self.max_zoom = max_zoom
-        self.padding = padding
-        self.batch_size = batch_size
-        self.shuffle = shuffle
+
+def kfold_training(number_of_folds = 3,test_size=0.2, num_epochs=2, batch_size=16, learning_rate=0.001, pretrained=True, shuffle=True, array_path=config.array_dir, num_classes=4):
+    kfold = KFold(n_splits = number_of_folds)
+
+
+    # prepare dataset bij concatenating Train/Test part; we split later.
+    dataloading = Dataloading(test_size=0.2, array_path=config.array_dir, batch_size=4, shuffle=True)
+
+    for fold, (train_ids, test_ids) in enumerate(kfold.split(dataloading.dataloaders_combined)):
+        print(f"FOLD {fold}")
+
+        # Sample elements randomly from a givnen list of ids, no replacement.
+        train_subsampler = torch.utils.data.SubsetRandomSampler(train_ids)
+        test_subsampler = torch.utils.data.SubsetRandomSampler(test_ids)
+
+        # Define data loaders for training and testing data in this fold
+        trainloader = torch.utils.data.DataLoader(
+                        dataloading, 
+                        batch_size=10, sampler=train_subsampler)
+        testloader = torch.utils.data.DataLoader(
+                        dataloading,
+                        batch_size=10, sampler=test_subsampler)
+
         
-        self.create_dicts()
-        self.create_transforms()
-        self.create_dataloaders()
+        fcn = fcn_resnet50(pretrained=pretrained)
 
-    def create_dicts(self):
-        for K in self.number_of_K:
-            # create dicts
-        self.data_dict = create_indexed_file_dict(self.array_path)
-        self.train_data_dict = {key: self.data_dict[key] for i, key in enumerate(self.data_dict.keys()) if i < (1-self.test_size)*len(self.data_dict)}
-        self.test_data_dict = {key: self.data_dict[key] for i, key in enumerate(self.data_dict.keys()) if i >= (1-self.test_size)*len(self.data_dict)}
+        fcn.train()
+        device = "cuda"
 
-    def create_transforms(self):
-        randomzoom = RandomZoom(self.max_zoom)
-        padder = PadImage(self.padding)
-        sudorgb_converter = SudoRGB()
-        to_tensor = ToTensor()
-        normalizer = Normalizer()
-        encoder = OneHotEncoder()
-        self.composed_transform = transforms.Compose([normalizer, padder, sudorgb_converter, to_tensor])
-    
-    def create_dataloaders(self):
-        self.train_slicedata = SliceDataset(self.array_path, self.train_data_dict, transform=self.composed_transform)
-        self.test_slicedata = SliceDataset(self.array_path, self.test_data_dict, transform=self.composed_transform)
+        #creating an empty list for the losses
+        train_loss_per_epoch = []
+        eval_loss_per_epoch = []
+        
+        # feezing its parameters
+        for param in fcn.parameters():
+            param.requires_grad = False
+        
+        fcn = change_headsize(fcn, 4).to(device)
 
-        self.train_dataloader = data.DataLoader(self.train_slicedata, batch_size=self.batch_size, shuffle=self.shuffle, num_workers=4)
-        self.test_dataloader = data.DataLoader(self.test_slicedata, batch_size=self.batch_size, shuffle=self.shuffle, num_workers=4)
-    
-    def __iter__(self):
-        pass
+        
+        # Find total parameters and trainable parameters
+        total_params = sum(p.numel() for p in fcn.parameters())
+        print(f'{total_params:,} total parameters.')
+        total_trainable_params = sum(
+            p.numel() for p in fcn.parameters() if p.requires_grad)
+        print(f'{total_trainable_params:,} training parameters.')
 
-    def __next__(self):
-        pass
+        #looping through epochs
+        for epoch in range(num_epochs):
+            print(f"Epoch: {epoch}")
+            epoch_train_loss = 0.0
+            epoch_eval_loss = 0.0
+            
+            #looping through batches in each epoch
+            for i_batch, batch in enumerate(dataloading.train_dataloader):
+                print(f"Batch: {i_batch}")
 
-    @staticmethod
-    def remove_padding(batch) -> list:
-        """Removes the padding from a batch and returns them as a list of dictionaries.
-        The batch will not be a stacked anymore.\n
-        Args:
-            batch: a single batch loaded from a dataloader using the SliceDataset.
-        """
-    
-        img_b, lbl_b, size_b = batch["image"], batch["label"], batch["size"]
-        samples = []
-        pad_deleter = RemovePadding()
-        for i in range(img_b.size(dim=0)):
-            sample = {"image": img_b[i,:,:,:], "label": lbl_b[i,:,:], "size": size_b[i,:]}
-            samples.append(pad_deleter(sample))
-        return samples
-    
+                criterion = torch.nn.CrossEntropyLoss()
+                optimizer = torch.optim.Adam(fcn.parameters(), lr=learning_rate)
+
+                data = convert_image_dtype(batch["image"], dtype=torch.float).to(device)
+                target = batch["label"].to(device)
+                optimizer.zero_grad()
+                output = fcn(data)
+                loss = criterion(output["out"], target.long())
+                loss.backward()
+                optimizer.step()
+                
+                epoch_train_loss += loss.item()
+                if i_batch % 50 == 49:    # print every 2000 mini-batches
+                    print('[%d, %5d] loss: %.3f' %
+                        (epoch + 1, i_batch + 1, epoch_train_loss / 50))
+                    epoch_train_loss = 0.0
+
+            # calculate validation loss after training
+            fcn.eval()
+            for i_batch, batch in enumerate(dataloading.test_dataloader):
+                criterion = torch.nn.CrossEntropyLoss()
+                data = F.convert_image_dtype(batch["image"], dtype=torch.float).to(device)
+                target = batch["label"].to(device)
+                output = fcn(data)
+                loss = criterion(output["out"], target.long())
+                epoch_eval_loss += output["out"].shape[0]*loss.item()
 
 
+            train_loss_per_epoch.append(epoch_train_loss/len(dataloading.train_slicedata))
+            eval_loss_per_epoch.append(epoch_eval_loss/len(dataloading.test_slicedata))
+        
+        #saving calculated weights to "weights.h5"
+        torch.save(fcn.state_dict(), os.path.join(currentdir, "weights.h5"))
+
+    return train_loss_per_epoch, eval_loss_per_epoch
+
+
+if __name__ == "__main__":
+    kfold_training()
