@@ -186,8 +186,9 @@ def running_model(pretrained=False, num_classes=4):
 
 def main():
     #set to True if the model has been trained with the weights stored at "weights.h5", False otherwise
-    trained = True
-
+    trained = False
+    
+    print("Transforms: Resizing, RGB, Tensor, Normalize")
     if trained is False:
         learningrates = [0.001]
         training_model(pretrained=True, learning_rate=learningrates, batch_size=16, num_epochs=10, test_size=0.2)
@@ -197,4 +198,12 @@ def main():
     
 
 if __name__ == '__main__':
+    import timeit
+
+    start = timeit.default_timer()
+
     main()
+
+    stop = timeit.default_timer()
+
+    print('Time: ', stop - start) 

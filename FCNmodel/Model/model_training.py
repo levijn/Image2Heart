@@ -28,7 +28,7 @@ from slicedataset import Dataloading
 from change_head import change_headsize
 
 
-def training_model(test_size=0.2, num_epochs=10, batch_size=16, learning_rate=0.0001, pretrained=True, shuffle=True, array_path=config.array_dir, num_classes=4):
+def training_model(test_size=0.2, num_epochs=10, batch_size=16, learning_rate=0.001, pretrained=True, shuffle=True, array_path=config.array_dir, num_classes=4):
     """Trains the model using the dataloader
     Args:
         test_size: fraction of data used for testing.
@@ -55,10 +55,10 @@ def training_model(test_size=0.2, num_epochs=10, batch_size=16, learning_rate=0.
     # feezing its parameters
     for param in fcn.parameters():
         param.requires_grad = False
-    
+
     fcn = change_headsize(fcn, 4).to(device)
 
-    
+
     # Find total parameters and trainable parameters
     total_params = sum(p.numel() for p in fcn.parameters())
     print(f'{total_params:,} total parameters.')
@@ -71,10 +71,10 @@ def training_model(test_size=0.2, num_epochs=10, batch_size=16, learning_rate=0.
         print(f"Epoch: {epoch}")
         epoch_train_loss = 0.0
         epoch_eval_loss = 0.0
-        
+
         #looping through batches in each epoch
         for i_batch, batch in enumerate(dataloading.train_dataloader):
-            print(f"Batch: {i_batch}")
+            print(f"Batch: {i_batch+1}")
 
             criterion = torch.nn.CrossEntropyLoss()
             optimizer = torch.optim.Adam(fcn.parameters(), lr=learning_rate)
@@ -86,7 +86,7 @@ def training_model(test_size=0.2, num_epochs=10, batch_size=16, learning_rate=0.
             loss = criterion(output["out"], target.long())
             loss.backward()
             optimizer.step()
-            
+          
             epoch_train_loss += loss.item()
             if i_batch % 50 == 49:    # print every 2000 mini-batches
                 print('[%d, %5d] loss: %.3f' %
@@ -132,10 +132,10 @@ def running_model(pretrained=False, num_classes=4):
     #retrieving 1 image for training
     one_batch = None
     dataloading = Dataloading(test_size=0.2, array_path=config.array_dir, batch_size=4, shuffle=True)
-    for i_batch, batch in enumerate(dataloading.train_dataloader):
-        #remove the padding
+    for i_batch, batch in enumerate(dataloading.test_dataloader):
         one_batch = batch
         break
+    # print(batch)
 
     sample = one_batch["image"]
     sample = convert_image_dtype(sample, dtype=torch.float)
@@ -146,24 +146,37 @@ def running_model(pretrained=False, num_classes=4):
     output = fcn(sample)["out"]
     normalized_masks = torch.nn.functional.softmax(output, dim=1)
 
-    # Displaying input image
-    image = one_batch["image"][0,0,:,:]
-    img = F.to_pil_image(image)
-    plt.imshow(img)
-    plt.show()
+    # # Displaying input image
+    # image = one_batch["image"][0,0,:,:]
+    # img = F.to_pil_image(image)
+    # plt.imshow(img)
+    # plt.show()
     
-    #Displaying probabilities of the num_classes
-    for i in range(normalized_masks.shape[1]):
-        img = F.to_pil_image(normalized_masks[0,i,:,:])
+    # #Displaying probabilities of the num_classes
+    # for i in range(normalized_masks.shape[1]):
+    #     img = F.to_pil_image(normalized_masks[0,i,:,:])
+    #     plt.imshow(img)
+    #     plt.show()
+    
+    fig = plt.figure(figsize=(8, 8))
+    columns = 2
+    rows = 2
+    for i in range(1, columns*rows):
+        image = one_batch["image"][0,0,:,:]
+        img = F.to_pil_image(image)
+        fig.add_subplot(rows, columns, 1)
         plt.imshow(img)
-        plt.show()
+        img2 = F.to_pil_image(normalized_masks[0,i,:,:])
+        fig.add_subplot(rows, columns, i + 1)
+        plt.imshow(img2)
+    plt.show()
 
 def main():
     #set to True if the model has been trained with the weights stored at "weights.h5", False otherwise
     trained = True
 
     if trained is False:
-        training_model(num_epochs=10, pretrained=True)
+        training_model(num_epochs=10, pretrained=True, learning_rate=0.001)
         running_model(pretrained=True)
     elif trained is True:
         running_model(pretrained=True)
