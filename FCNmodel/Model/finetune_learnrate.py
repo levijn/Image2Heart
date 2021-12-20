@@ -26,7 +26,6 @@ from change_head import change_headsize
 def plot_learningrate(train_loss, eval_loss, learningrates):
     fig = plt.figure(1)
     ax = fig.add_subplot(111)
-    ax.set_yscale("log")
     for i, lr in enumerate(learningrates):
         ax.plot(train_loss[i], label=f"train {lr}")
         ax.plot(eval_loss[i], label=f"eval {lr}")
@@ -129,7 +128,7 @@ def training_model(test_size=0.2, num_epochs=10, batch_size=4, learning_rate=[0.
             eval_loss_per_epoch.append(eval_loss)
             print("Training loss:", train_loss)
             print("Evaluation loss:", eval_loss)
-            
+
         train_loss_per_lr.append(train_loss_per_epoch)
         eval_loss_per_lr.append(eval_loss_per_epoch)
         
@@ -137,9 +136,7 @@ def training_model(test_size=0.2, num_epochs=10, batch_size=4, learning_rate=[0.
         torch.save(fcn.state_dict(), os.path.join(currentdir, f"weights_lr{int(LR*1000)}.h5"))
     
     #plotting learningrates
-    # plot_learningrate(train_loss_per_lr, eval_loss_per_lr, learning_rate)
-    
-
+    plot_learningrate(train_loss_per_lr, eval_loss_per_lr, learning_rate)
 
 def running_model(pretrained=False, num_classes=4):
     """Running the model and testing it on 1 sample
@@ -173,8 +170,6 @@ def running_model(pretrained=False, num_classes=4):
     # normalized_sample = F.normalize(sample, mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225))
     output = fcn(sample)["out"]
     normalized_masks = torch.nn.functional.softmax(output, dim=1)
-
-    # plot_results(sample, output)
     
     # Displaying input image
     image = one_batch["image"][0,0,:,:]
@@ -191,12 +186,12 @@ def running_model(pretrained=False, num_classes=4):
 
 def main():
     #set to True if the model has been trained with the weights stored at "weights.h5", False otherwise
-
     trained = False
+    
     print("Transforms: Resizing, RGB, Tensor, Normalize")
     if trained is False:
         learningrates = [0.001]
-        training_model(pretrained=True, learning_rate=learningrates, batch_size=16, num_epochs=20, test_size=0.3)
+        training_model(pretrained=True, learning_rate=learningrates, batch_size=16, num_epochs=10, test_size=0.2)
         running_model(pretrained=True)
     elif trained is True:
         running_model(pretrained=True)

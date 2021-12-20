@@ -239,6 +239,7 @@ class Dataloading:
         to_tensor = ToTensor()
         normalizer = Normalizer()
         encoder = OneHotEncoder()
+
         self.composed_transform = transforms.Compose([randomzoom, padder, sudorgb_converter, to_tensor, normalizer])
     
     def create_dataloaders(self):

@@ -49,8 +49,9 @@ def training_model(test_size=0.2, num_epochs=10, batch_size=16, learning_rate=0.
     device = "cuda"
 
     #creating an empty list for the losses
-    loss_per_epoch = []
-
+    train_loss_per_epoch = []
+    eval_loss_per_epoch = []
+    
     # feezing its parameters
     for param in fcn.parameters():
         param.requires_grad = False
@@ -67,8 +68,9 @@ def training_model(test_size=0.2, num_epochs=10, batch_size=16, learning_rate=0.
 
     #looping through epochs
     for epoch in range(num_epochs):
-        print(f"Epoch: {epoch+1}")
-        running_loss = 0.0
+        print(f"Epoch: {epoch}")
+        epoch_train_loss = 0.0
+        epoch_eval_loss = 0.0
 
         #looping through batches in each epoch
         for i_batch, batch in enumerate(dataloading.train_dataloader):
@@ -84,19 +86,31 @@ def training_model(test_size=0.2, num_epochs=10, batch_size=16, learning_rate=0.
             loss = criterion(output["out"], target.long())
             loss.backward()
             optimizer.step()
+          
+            epoch_train_loss += loss.item()
+            if i_batch % 50 == 49:    # print every 2000 mini-batches
+                print('[%d, %5d] loss: %.3f' %
+                    (epoch + 1, i_batch + 1, epoch_train_loss / 50))
+                epoch_train_loss = 0.0
 
-            running_loss += loss.item()
-            # if i_batch % 50 == 49:    # print every 2000 mini-batches
-        print('[%d, %5d] loss: %.3f' %
-            (epoch + 1, i_batch + 1, running_loss / 50))
-        running_loss = 0.0
+        # calculate validation loss after training
+        fcn.eval()
+        for i_batch, batch in enumerate(dataloading.test_dataloader):
+            criterion = torch.nn.CrossEntropyLoss()
+            data = F.convert_image_dtype(batch["image"], dtype=torch.float).to(device)
+            target = batch["label"].to(device)
+            output = fcn(data)
+            loss = criterion(output["out"], target.long())
+            epoch_eval_loss += output["out"].shape[0]*loss.item()
 
-        loss_per_epoch.append(running_loss/len(dataloading.train_slicedata))
 
+        train_loss_per_epoch.append(epoch_train_loss/len(dataloading.train_slicedata))
+        eval_loss_per_epoch.append(epoch_eval_loss/len(dataloading.test_slicedata))
+    
     #saving calculated weights to "weights.h5"
     torch.save(fcn.state_dict(), os.path.join(currentdir, "weights.h5"))
 
-    return loss_per_epoch
+    return train_loss_per_epoch, eval_loss_per_epoch
 
 
 def running_model(pretrained=False, num_classes=4):
