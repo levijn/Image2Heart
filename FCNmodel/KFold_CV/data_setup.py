@@ -28,6 +28,7 @@ from torchvision.utils import make_grid
 from torchvision.io import read_image
 
 from sklearn.model_selection import KFold
+from preprocess import save_slice_array
 
 
 # directories set-up
@@ -51,7 +52,10 @@ def kfold_training(number_of_folds = 3,test_size=0.2, num_epochs=2, batch_size=1
 
 
     # prepare dataset bij concatenating Train/Test part; we split later.
-    dataloading = Dataloading(test_size=0.2, array_path=config.array_dir, batch_size=4, shuffle=True)
+    dataloading = Dataloading(test_size=test_size, array_path=array_path, batch_size=batch_size, shuffle=shuffle)
+
+    train_loss_per_fold = []
+    eval_loss_per_fold = []
 
     for fold, (train_ids, test_ids) in enumerate(kfold.split(dataloading.dataloaders_combined)):
         print(f"FOLD {fold}")
@@ -136,7 +140,59 @@ def kfold_training(number_of_folds = 3,test_size=0.2, num_epochs=2, batch_size=1
         #saving calculated weights to "weights.h5"
         torch.save(fcn.state_dict(), os.path.join(currentdir, "weights.h5"))
 
-    return train_loss_per_epoch, eval_loss_per_epoch
+        train_loss_per_fold.append(train_loss_per_epoch)
+        eval_loss_per_fold.append(eval_loss_per_epoch)
+    
+    #calculate the average per epoch
+
+    average_train_loss_per_epoch = []
+    average_eval_loss_per_epoch = []
+
+    for i in range(len(train_loss_per_fold[0])):
+        total_train = 0
+        total_eval = 0
+
+        for j in train_loss_per_fold:
+            total_train += train_loss_per_fold[j][i]
+            total_eval += eval_loss_per_fold[j][i]
+
+        average_train = total_train/len(train_loss_per_fold)
+        average_eval = total_eval/len(eval_loss_per_fold)
+        
+        average_train_loss_per_epoch.append(average_train)
+        average_eval_loss_per_epoch.append(average_eval)
+
+    return average_train_loss_per_epoch, average_eval_loss_per_epoch
+
+
+
+def evaluation_train():
+    """change the learning rates, epochs and batch size here, not in training_model"""
+    learning_rates = [0.001]
+    num_epochs = 2
+    batch_size = 16
+    num_folds = 2
+    # calculate the loss for each learning rate
+    train_loss_per_lr = []
+    eval_loss_per_lr = []
+    for learning_rate in learning_rates:
+        train_loss_per_epoch, eval_loss_per_epoch = kfold_training(number_of_folds=num_folds ,learning_rate = learning_rate, num_epochs = num_epochs, batch_size = batch_size)
+        train_loss_per_lr.append(train_loss_per_epoch)
+        eval_loss_per_lr.append(eval_loss_per_epoch)
+                
+        #plot the losses
+        plt.plot(range(num_epochs), train_loss_per_epoch, label = f" training loss for learning rate {learning_rate}")
+        plt.plot(range(num_epochs), eval_loss_per_epoch, label = f" evaluation loss for learning rate {learning_rate}")
+    plt.legend()
+    plt.xlabel("epoch")
+    plt.ylabel("loss")
+
+    plt.show()
+    print(f"training loss per learning rate = {train_loss_per_lr}")
+    print(f"evaluation loss per learning rate = {eval_loss_per_lr}")
+    save_slice_array(train_loss_per_lr, 'training loss per learning rate', currentdir)
+    save_slice_array(eval_loss_per_lr, 'evaluation loss per learning rate', currentdir)
+
 
 
 if __name__ == "__main__":
