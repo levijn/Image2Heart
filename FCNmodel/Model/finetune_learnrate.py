@@ -136,7 +136,7 @@ def training_model(test_size=0.2, num_epochs=10, batch_size=4, learning_rate=[0.
         torch.save(fcn.state_dict(), os.path.join(currentdir, f"weights_lr{int(LR*1000)}.h5"))
     
     #plotting learningrates
-    # plot_learningrate(train_loss_per_lr, eval_loss_per_lr, learning_rate)
+    plot_learningrate(train_loss_per_lr, eval_loss_per_lr, learning_rate)
 
 def running_model(pretrained=False, num_classes=4):
     """Running the model and testing it on 1 sample
@@ -190,7 +190,7 @@ def main():
 
     if trained is False:
         learningrates = [0.001]
-        training_model(pretrained=True, learning_rate=learningrates, batch_size=16, num_epochs=8, test_size=0.3)
+        training_model(pretrained=True, learning_rate=learningrates, batch_size=16, num_epochs=10, test_size=0.2)
         running_model(pretrained=True)
     elif trained is True:
         running_model(pretrained=True)
