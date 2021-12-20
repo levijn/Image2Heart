@@ -11,6 +11,7 @@ import nibabel as nib
 import matplotlib.pyplot as plt
 import numpy as np
 from PIL import Image
+import json
 
 #add the parent folder to the path so modules can be imported
 current_dir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
@@ -20,6 +21,21 @@ import config
 
 data_dir = config.data_dir
 sdata_dir = os.path.join(data_dir, "simpledata")
+
+
+def save_dict(dict, path, filename):
+    p = os.path.join(path, filename)
+    with open(f'{p}.json', 'w') as fp:
+        json.dump(dict, fp,  indent=4)
+
+
+def load_dict(path):
+    p = path
+    if ".json" not in path:
+        p += ".json"
+    with open(p, 'r') as fp:
+        data_dict = json.load(fp)
+    return data_dict
 
 
 def get_filenames(directory) -> list:
@@ -131,7 +147,6 @@ def create_indexed_file_dict(data_dir, max_size=300):
             "lbl_data_file": lbl_file
         }
         data_dict[int(i/2)-skippedfiles] = slice_dict
-    # print(max(img_sizesh), max(img_sizesw))
     return data_dict
 
 
@@ -177,6 +192,9 @@ def create_hist_imgsize(heights, widths, plot=False, save=False):
 
 def main():
     array_location = os.path.join(data_dir, "slice_arrays")
+    
+    loaded_dict = load_dict(os.path.join(current_dir, "filtered_data"))
+    print(loaded_dict)
     # if not os.path.exists(array_location):
     #         os.makedirs(os.path.join(data_dir, "slice_arrays"))
     # img_location = os.path.join(data_dir, "slice_images")
