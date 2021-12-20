@@ -50,14 +50,14 @@ def training_model(test_size=0.2, num_epochs=10, batch_size=16, learning_rate=0.
 
     #creating an empty list for the losses
     loss_per_epoch = []
-    
+
     # feezing its parameters
     for param in fcn.parameters():
         param.requires_grad = False
-    
+
     fcn = change_headsize(fcn, 4).to(device)
 
-    
+
     # Find total parameters and trainable parameters
     total_params = sum(p.numel() for p in fcn.parameters())
     print(f'{total_params:,} total parameters.')
@@ -69,7 +69,7 @@ def training_model(test_size=0.2, num_epochs=10, batch_size=16, learning_rate=0.
     for epoch in range(num_epochs):
         print(f"Epoch: {epoch+1}")
         running_loss = 0.0
-        
+
         #looping through batches in each epoch
         for i_batch, batch in enumerate(dataloading.train_dataloader):
             print(f"Batch: {i_batch+1}")
@@ -84,7 +84,7 @@ def training_model(test_size=0.2, num_epochs=10, batch_size=16, learning_rate=0.
             loss = criterion(output["out"], target.long())
             loss.backward()
             optimizer.step()
-            
+
             running_loss += loss.item()
             # if i_batch % 50 == 49:    # print every 2000 mini-batches
         print('[%d, %5d] loss: %.3f' %
@@ -92,7 +92,7 @@ def training_model(test_size=0.2, num_epochs=10, batch_size=16, learning_rate=0.
         running_loss = 0.0
 
         loss_per_epoch.append(running_loss/len(dataloading.train_slicedata))
-    
+
     #saving calculated weights to "weights.h5"
     torch.save(fcn.state_dict(), os.path.join(currentdir, "weights.h5"))
 
@@ -121,6 +121,7 @@ def running_model(pretrained=False, num_classes=4):
     for i_batch, batch in enumerate(dataloading.test_dataloader):
         one_batch = batch
         break
+    # print(batch)
 
     sample = one_batch["image"]
     sample = convert_image_dtype(sample, dtype=torch.float)
@@ -161,7 +162,7 @@ def main():
     trained = True
 
     if trained is False:
-        training_model(num_epochs=5, pretrained=True, learning_rate=0.001)
+        training_model(num_epochs=10, pretrained=True, learning_rate=0.001)
         running_model(pretrained=True)
     elif trained is True:
         running_model(pretrained=True)
