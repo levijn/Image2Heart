@@ -64,7 +64,7 @@ def create_segmentated_img(result):
 def main():
     one_batch = None
     dataloading = Dataloading(test_size=0.2, array_path=config.array_dir, batch_size=4, shuffle=True)
-    for i_batch, batch in enumerate(dataloading.train_dataloader):
+    for i_batch, batch in enumerate(dataloading.test_dataloader):
         #remove the padding
         one_batch = batch
         break
