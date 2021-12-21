@@ -38,12 +38,12 @@ def run_model_rtrn_results(image_tensor):
 
     image_float = F.convert_image_dtype(image_tensor, dtype=torch.float)
     fcn.eval()
-    output = fcn(image_float)["out"]
+    output = fcn(image_tensor)["out"]
     normalized_masks = torch.nn.functional.softmax(output, dim=1)
     
     return normalized_masks
 
-def create_segmentated_img(result, input_img):
+def create_segmentated_img(result):
     new_img = np.zeros((result.size(dim=1), result.size(dim=2)))
     p0_probabilities = []
     p1_probabilities = []
@@ -64,17 +64,19 @@ def create_segmentated_img(result, input_img):
 def main():
     one_batch = None
     dataloading = Dataloading(test_size=0.2, array_path=config.array_dir, batch_size=4, shuffle=True)
-    for i_batch, batch in enumerate(dataloading.test_dataloader):
+    for i_batch, batch in enumerate(dataloading.train_dataloader):
         #remove the padding
         one_batch = batch
         break
-    img = one_batch["image"][0,0,:,:]
-    for i in range(img.size(dim=0)):
-        for j in range(img.size(dim=1)):
-            print(img[i,j].item(), end=" ")
 
     results = run_model_rtrn_results(one_batch["image"])
-    create_segmentated_img(results[0,:,:,:], one_batch["image"][0,0,:,:])
+    img = create_segmentated_img(results[0,:,:,:])
+    fig = plt.figure(2)
+    ax1 = fig.add_subplot(1,2,1)
+    ax1.imshow(one_batch["image"][0,0,:,:], cmap="gray")
+    ax2 = fig.add_subplot(1,2,2)
+    ax2.imshow(img, cmap="gray")
+    plt.show()
     
     
 if __name__ == '__main__':

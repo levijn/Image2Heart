@@ -26,10 +26,11 @@ def load_patient_nif_to_tensor(file):
 
     for i in range(pt_array.shape[2]):
         slice = pt_array[:,:,i]
-        
         rgb_img = np.stack([slice]*3, axis=0)
         tensor_img = torch.from_numpy(rgb_img)
-        sudo_images.append(tensor_img)
+        tensor_img = F.convert_image_dtype(tensor_img, dtype=torch.float)
+        norm_img = F.normalize(tensor_img, mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+        sudo_images.append(norm_img)
 
     stacked_tensor = torch.stack(sudo_images)
     return stacked_tensor
@@ -38,7 +39,7 @@ def load_patient_nif_to_tensor(file):
 def create_3d_scatterplot(results, input_tensor):
     segmented_images = []
     for i in range(results.size(dim=0)):
-        segmented_images.append(create_segmentated_img(results[i,:,:,:], input_tensor[i,1,:,:]))
+        segmented_images.append(create_segmentated_img(results[i,:,:,:]))
     
     fig = plt.figure(1)
     ax = fig.add_subplot(projection="3d")
@@ -53,7 +54,7 @@ def create_3d_scatterplot(results, input_tensor):
 
 
 def main():
-    filepath = os.path.join(sdata_dir, "patient100_frame01.nii.gz")
+    filepath = os.path.join(sdata_dir, "patient020_frame01.nii.gz")
     img_tensor = load_patient_nif_to_tensor(filepath)
     results = run_model_rtrn_results(img_tensor)
     create_3d_scatterplot(results, img_tensor)
