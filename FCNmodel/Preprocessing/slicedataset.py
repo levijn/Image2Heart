@@ -97,7 +97,7 @@ class PadImage(object):
         
         # print(f"Padder: Final size: {new_image.shape}")
 
-        return {"image": new_image, "label": new_label, "size": np.array(self.output_size)}
+        return {"image": new_image, "label": new_label, "size": np.array([h, w])}
 
 
 class SudoRGB(object):
@@ -127,12 +127,14 @@ class RemovePadding(object):
     def __call__(self, sample):
         # print("Remove padding...")
         image, label, size = sample["image"], sample["label"], sample["size"]
+
+        # size = torch.from_numpy(size)
         
-        orig_img = torch.narrow(image, 1, 0, size[0])       #Deleting the padding rows from image
-        orig_img = torch.narrow(orig_img, 2, 0, size[1])       #Deleting the padding columns from image
+        orig_img = torch.narrow(image, 1, 0, int(size[0]))     #Deleting the padding rows from image
+        orig_img = torch.narrow(orig_img, 2, 0, int(size[1]))                    #Deleting the padding columns from image
         
-        orig_lbl = torch.narrow(label, 0, 0, size[0])       #Deleting the padding rows from label
-        orig_lbl = torch.narrow(orig_lbl, 1, 0, size[1])       #Deleting the padding columns from label
+        orig_lbl = torch.narrow(label, 0, 0, int(size[0]))                       #Deleting the padding rows from label
+        orig_lbl = torch.narrow(orig_lbl, 1, 0, int(size[1]))                    #Deleting the padding columns from label
 
         return {"image": orig_img, "label": orig_lbl, "size": size}
 
@@ -213,7 +215,7 @@ class Dataloading:
         shuffle: "True" to enable shuffle, "False" to disable shuffle
     """
 
-    def __init__(self, test_size, array_path, max_zoom=20, padding=(264, 288), min_size=(170, 200), batch_size=4, shuffle=False) -> None:
+    def __init__(self, test_size, array_path, max_zoom=10, padding=(264, 288), min_size=(170, 200), batch_size=4, shuffle=False) -> None:
         self.test_size = test_size
         self.array_path = array_path
         self.max_zoom = max_zoom
@@ -234,17 +236,18 @@ class Dataloading:
     def create_transforms(self):
         randomzoom = RandomZoom(self.max_zoom)
         padder = PadImage(self.padding)
+        removepadder = RemovePadding()
         resizer = Resize(output_size=self.min_size)
         sudorgb_converter = SudoRGB()
         to_tensor = ToTensor()
         normalizer = Normalizer()
         encoder = OneHotEncoder()
 
-        self.composed_transform = transforms.Compose([randomzoom, padder, sudorgb_converter, to_tensor, normalizer])
-    
+        self.train_composed_transform = transforms.Compose([padder, sudorgb_converter, to_tensor, normalizer])
+        self.test_composed_transform = transforms.Compose([padder, sudorgb_converter, to_tensor, normalizer])
     def create_dataloaders(self):
-        self.train_slicedata = SliceDataset(self.array_path, self.train_data_dict, transform=self.composed_transform)
-        self.test_slicedata = SliceDataset(self.array_path, self.test_data_dict, transform=self.composed_transform)
+        self.train_slicedata = SliceDataset(self.array_path, self.train_data_dict, transform=self.train_composed_transform)
+        self.test_slicedata = SliceDataset(self.array_path, self.test_data_dict, transform=self.test_composed_transform)
 
         self.train_dataloader = data.DataLoader(self.train_slicedata, batch_size=self.batch_size, shuffle=self.shuffle, num_workers=4)
         self.test_dataloader = data.DataLoader(self.test_slicedata, batch_size=self.batch_size, shuffle=self.shuffle, num_workers=4)

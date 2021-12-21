@@ -133,7 +133,7 @@ def training_model(test_size=0.2, num_epochs=10, batch_size=4, learning_rate=[0.
         eval_loss_per_lr.append(eval_loss_per_epoch)
         
         #saving calculated weights
-        torch.save(fcn.state_dict(), os.path.join(currentdir, f"weights_lr{int(LR*1000)}.h5"))
+        torch.save(fcn.state_dict(), os.path.join(currentdir, "weights_lr1_e10_pad_norm.h5"))
     
     #plotting learningrates
     plot_learningrate(train_loss_per_lr, eval_loss_per_lr, learning_rate)
@@ -149,7 +149,7 @@ def running_model(pretrained=False, num_classes=4):
     #loading the weights from "weights.h5"
     device = "cuda"
     fcn = change_headsize(fcn, 4)
-    fcn.load_state_dict(torch.load(os.path.join(currentdir, "weights_lr1.h5")))
+    fcn.load_state_dict(torch.load(os.path.join(currentdir, "weights_lr1_e10_pad_norm.h5")))
 
 
     plt.rcParams["savefig.bbox"] = 'tight'
@@ -188,7 +188,7 @@ def main():
     #set to True if the model has been trained with the weights stored at "weights.h5", False otherwise
     trained = False
     
-    print("Transforms: Resizing, RGB, Tensor, Normalize")
+    print("Transforms: Zoom, Padding, RGB, Tensor, Normalize, RemovePadding")
     if trained is False:
         learningrates = [0.001]
         training_model(pretrained=True, learning_rate=learningrates, batch_size=16, num_epochs=10, test_size=0.2)
