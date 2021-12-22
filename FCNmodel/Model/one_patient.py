@@ -26,6 +26,7 @@ from slicedataset import (RandomZoom,
                           SudoRGB,
                           ToTensor,
                           Normalizer)
+from voxelplot import create_voxelplot_from_results
 
 def load_patient_nif_to_tensor(file):
     pt_array = nib.load(file).get_fdata().astype("int")
@@ -77,8 +78,14 @@ def create_3d_scatterplot_labels(labels):
     plt.show()
 
 
+def convert_to_segmented_imgs(results):
+    images = []
+    for i in range(results.size(dim=0)):
+        images.append(create_segmentated_img(results[i,:,:,:]))
+    return images
+
 def main():
-    patient = "088"
+    patient = "097"
     img_path = os.path.join(config.data_dir, "simpledata", f"patient{patient}_frame01.nii.gz")
     lbl_path = os.path.join(config.data_dir, "simpledata", f"patient{patient}_frame01_gt.nii.gz")
     
@@ -99,10 +106,11 @@ def main():
         patient_batch = batch
     
     results = run_model_rtrn_results(patient_batch["image"])
-    labels = patient_batch["label"]
+    result_images = convert_to_segmented_imgs(results)
+    create_voxelplot_from_results(result_images)
     
-    create_3d_scatterplot(results)
-    create_3d_scatterplot_labels(labels)
+    # create_3d_scatterplot(results)
+    # create_3d_scatterplot_labels(labels)
 
     
     
