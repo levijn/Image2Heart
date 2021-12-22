@@ -28,7 +28,6 @@ from torchvision.utils import make_grid
 from torchvision.io import read_image
 
 from sklearn.model_selection import KFold
-from preprocess import save_slice_array
 
 
 # directories set-up
@@ -43,11 +42,12 @@ sys.path.append(modeldir)
 
 # make dataloaders
 from slicedataset import Dataloading
+from preprocess import save_slice_array
 from change_head import change_headsize
 import config
 
 
-def kfold_training(number_of_folds = 3,test_size=0.2, num_epochs=2, batch_size=16, learning_rate=0.001, pretrained=True, shuffle=True, array_path=config.array_dir, num_classes=4):
+def kfold_training(number_of_folds = 2, test_size=0.2, num_epochs=2, batch_size=16, learning_rate=0.001, pretrained=True, shuffle=True, array_path=config.array_dir, num_classes=4):
     kfold = KFold(n_splits = number_of_folds)
 
 
@@ -143,16 +143,18 @@ def kfold_training(number_of_folds = 3,test_size=0.2, num_epochs=2, batch_size=1
         train_loss_per_fold.append(train_loss_per_epoch)
         eval_loss_per_fold.append(eval_loss_per_epoch)
     
-    #calculate the average per epoch
+    #calculate the average per epoch and variances
 
     average_train_loss_per_epoch = []
     average_eval_loss_per_epoch = []
+    train_variance_per_epoch = []
+    eval_variance_per_epoch = []
 
     for i in range(len(train_loss_per_fold[0])):
         total_train = 0
         total_eval = 0
 
-        for j in train_loss_per_fold:
+        for j in range(len(train_loss_per_fold)):
             total_train += train_loss_per_fold[j][i]
             total_eval += eval_loss_per_fold[j][i]
 
@@ -162,38 +164,51 @@ def kfold_training(number_of_folds = 3,test_size=0.2, num_epochs=2, batch_size=1
         average_train_loss_per_epoch.append(average_train)
         average_eval_loss_per_epoch.append(average_eval)
 
-    return average_train_loss_per_epoch, average_eval_loss_per_epoch
+        train_variance_per_epoch.append(np.var(train_loss_per_fold[:][i]))
+        eval_variance_per_epoch.append(np.var(eval_loss_per_fold[:][i]))
+        
+
+
+    return average_train_loss_per_epoch, average_eval_loss_per_epoch, train_variance_per_epoch, eval_variance_per_epoch
 
 
 
 def evaluation_train():
     """change the learning rates, epochs and batch size here, not in training_model"""
     learning_rates = [0.001]
-    num_epochs = 2
-    batch_size = 16
-    num_folds = 2
+    num_epochs = 10
+    batch_size = 8
+    num_folds = 5
     # calculate the loss for each learning rate
     train_loss_per_lr = []
     eval_loss_per_lr = []
+    train_var_per_lr = []
+    eval_var_per_lr = []
     for learning_rate in learning_rates:
-        train_loss_per_epoch, eval_loss_per_epoch = kfold_training(number_of_folds=num_folds ,learning_rate = learning_rate, num_epochs = num_epochs, batch_size = batch_size)
+        train_loss_per_epoch, eval_loss_per_epoch, train_var_per_lr, eval_var_per_lr = kfold_training(number_of_folds=num_folds ,learning_rate = learning_rate, num_epochs = num_epochs, batch_size = batch_size)
         train_loss_per_lr.append(train_loss_per_epoch)
         eval_loss_per_lr.append(eval_loss_per_epoch)
-                
+        
         #plot the losses
         plt.plot(range(num_epochs), train_loss_per_epoch, label = f" training loss for learning rate {learning_rate}")
         plt.plot(range(num_epochs), eval_loss_per_epoch, label = f" evaluation loss for learning rate {learning_rate}")
+    
+    print(f"training loss per learning rate = {train_loss_per_lr}")
+    print(f"evaluation loss per learning rate = {eval_loss_per_lr}")
+    print(f"training variance per learning rate = {train_var_per_lr}")
+    print(f"evaluation variance per learning rate = {eval_var_per_lr}")
     plt.legend()
     plt.xlabel("epoch")
     plt.ylabel("loss")
 
     plt.show()
-    print(f"training loss per learning rate = {train_loss_per_lr}")
-    print(f"evaluation loss per learning rate = {eval_loss_per_lr}")
-    save_slice_array(train_loss_per_lr, 'training loss per learning rate', currentdir)
-    save_slice_array(eval_loss_per_lr, 'evaluation loss per learning rate', currentdir)
+
+
+ 
+    # save_slice_array(train_loss_per_lr, 'training loss per learning rate', currentdir)
+    # save_slice_array(eval_loss_per_lr, 'evaluation loss per learning rate', currentdir)
 
 
 
 if __name__ == "__main__":
-    kfold_training()
+    evaluation_train()
