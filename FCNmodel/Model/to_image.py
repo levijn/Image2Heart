@@ -44,7 +44,7 @@ def run_model_rtrn_results(image_tensor):
     return normalized_masks
 
 def create_segmentated_img(result):
-    new_img = np.zeros((result.size(dim=1), result.size(dim=2)))
+    new_img = np.zeros((result.size(dim=1), result.size(dim=2)), dtype=int)
     p0_probabilities = []
     p1_probabilities = []
     p2_probabilities = []
