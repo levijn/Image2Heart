@@ -1,5 +1,6 @@
 """
 Custom dataset class used by the DataLoader class.
+Also contains the transforms.
 """
 
 import os

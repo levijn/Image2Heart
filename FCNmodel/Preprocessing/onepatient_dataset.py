@@ -1,3 +1,8 @@
+"""
+Contains a dataset of a single nifti file.
+This can be used to precict the 3D image of a heart.
+"""
+
 import os
 import sys
 import inspect
