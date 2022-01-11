@@ -96,16 +96,17 @@ def kfold_training(number_of_folds = 2, test_size=0.2, num_epochs=2, batch_size=
 
 def evaluation_train():
     """change the learning rates, epochs and batch size here, not in training_model"""
-    learning_rates = [0.001]
+    learning_rates = [0.0001, 0.001, 0.01]
     num_epochs = 10
     batch_size = 12
-    num_folds = 3
+    num_folds = 5
     # calculate the loss for each learning rate
     train_loss_per_lr = {}
     eval_loss_per_lr = {}
     train_var_per_lr = {}
     eval_var_per_lr = {}
     for lr in learning_rates:
+        print(f"----- LEARNING RATE {lr} -----")
         train_loss_per_epoch, eval_loss_per_epoch, train_var_per_epoch, eval_var_per_epoch = kfold_training(number_of_folds=num_folds ,learning_rate = lr, num_epochs = num_epochs, batch_size = batch_size)
         train_loss_per_lr[lr] = train_loss_per_epoch
         eval_loss_per_lr[lr] = eval_loss_per_epoch
@@ -130,13 +131,25 @@ def get_graphs():
 
 
     # plot the dictionaries
+    fig, axs = plt.subplots(2,1)
     for lr in train_loss_per_lr:
-        plt.plot(range(len(train_loss_per_lr[lr])), train_loss_per_lr[lr], label = f'train loss for lr {lr}')
-        plt.plot(range(len(eval_loss_per_lr[lr])), eval_loss_per_lr[lr], label = f'eval loss for lr {lr}')
-        plt.plot(range(len(train_var_per_lr[lr])), train_var_per_lr[lr], label = f'train variance for lr {lr}')
-        plt.plot(range(len(eval_var_per_lr[lr])), eval_var_per_lr[lr], label = f'eval variance for lr {lr}')
+        axs[0].plot(range(len(train_loss_per_lr[lr])), train_loss_per_lr[lr], label = f'train loss for lr {lr}')
+        axs[0].plot(range(len(eval_loss_per_lr[lr])), eval_loss_per_lr[lr], label = f'eval loss for lr {lr}')
+        axs[1].plot(range(len(train_var_per_lr[lr])), train_var_per_lr[lr], label = f'train variance for lr {lr}')
+        axs[1].plot(range(len(eval_var_per_lr[lr])), eval_var_per_lr[lr], label = f'eval variance for lr {lr}')
+    
+    fig.suptitle('Average losses and variances')
 
-    plt.legend()
+    axs[0].set_title('Average loss')
+    axs[0].set_xlabel('Epoch')
+    axs[0].set_ylabel('Loss')
+    axs[0].legend()
+
+    axs[1].set_title('Average loss')
+    axs[1].set_xlabel('Epoch')
+    axs[1].set_ylabel('Loss')
+    axs[1].legend()
+
     plt.show()
 
 
@@ -145,7 +158,7 @@ def get_graphs():
 
 def main():
     """set trained to False the first time, after that you can re-use those values"""
-    trained = False
+    trained = True
     if trained is False:
         evaluation_train()
         get_graphs()
