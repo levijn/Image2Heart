@@ -28,7 +28,7 @@ from slicedataset import Dataloading
 from change_head import change_headsize
 
 
-def training_model(test_size=0.2, num_epochs=10, batch_size=16, learning_rate=0.001, pretrained=True, shuffle=True, array_path=config.array_dir, num_classes=4):
+def training_model(test_size=0.2, num_epochs=10, batch_size=16, learning_rate=0.001, pretrained=True, shuffle=True, array_path=config.array_dir, num_classes=4, dataloading = None):
     """Trains the model using the dataloader
     Args:
         test_size: fraction of data used for testing.
@@ -39,9 +39,11 @@ def training_model(test_size=0.2, num_epochs=10, batch_size=16, learning_rate=0.
         shuffle: "True" to enable shuffle, "False" to disable shuffle
         array_path: path to the folder containing the arrayfiles per slice.
         num_classes: number of classes the model has to look for.
+        dataloading: can pass specific dataloaders. If no dataloader is passed, it makes its own
     """
     #loading datafiles
-    dataloading = Dataloading(test_size=test_size, array_path=array_path, batch_size=batch_size, shuffle=shuffle)
+    if dataloading == None:
+        dataloading = Dataloading(test_size=test_size, array_path=array_path, batch_size=batch_size, shuffle=shuffle)
     #creating fcn model
     fcn = fcn_resnet50(pretrained=pretrained)
 
