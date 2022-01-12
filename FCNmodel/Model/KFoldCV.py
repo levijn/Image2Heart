@@ -34,9 +34,92 @@ sys.path.append(modeldir)
 from slicedataset import Dataloading
 from preprocess import save_slice_array, save_dict, load_dict
 from change_head import change_headsize
-from model_training import training_model
+#from model_training import training_model
 import config
 
+
+def training_model(test_size=0.2, num_epochs=10, batch_size=4, learning_rate=[0.001], pretrained=True, shuffle=True, array_path=config.array_dir, num_classes=4, dataloading = None):
+    """Trains the model using the dataloader
+    Args:
+        test_size: fraction of data used for testing.
+        num_epochs: number of epochs used for training.
+        batch_size: size of the batches.
+        learning_rate: value of the learning rate.
+        pretrained: True: use the pretrained model, False: use model without pretraining.
+        shuffle: "True" to enable shuffle, "False" to disable shuffle
+        array_path: path to the folder containing the arrayfiles per slice.
+        num_classes: number of classes the model has to look for.
+    """
+    #loading datafiles
+    if dataloading is None:
+        dataloading = Dataloading(test_size=test_size, array_path=array_path, batch_size=batch_size, shuffle=shuffle)
+    #creating fcn model
+    fcn = fcn_resnet50(pretrained=pretrained)
+
+    # setting model to trainingmode and set the device
+    fcn.train()
+    device = "cuda"
+    
+    # freezing its parameters
+    for param in fcn.parameters():
+        param.requires_grad = False
+    
+    # change head to output 4 classes
+    fcn = change_headsize(fcn, 4).to(device)
+
+    
+    # Find total parameters and trainable parameters
+    total_params = sum(p.numel() for p in fcn.parameters())
+    print(f'{total_params:,} total parameters.')
+    total_trainable_params = sum(
+        p.numel() for p in fcn.parameters() if p.requires_grad)
+    print(f'{total_trainable_params:,} training parameters.')
+
+    train_loss_per_epoch = []
+    eval_loss_per_epoch = []
+    #looping through epochs
+    for epoch in range(num_epochs):
+        print(f"------ Learning rate: {learning_rate} --> Epoch: {epoch+1} ------")
+        epoch_train_loss = 0.0
+        epoch_eval_loss = 0.0
+        fcn.train()
+        # Model training loop
+        for i_batch, batch in enumerate(dataloading.train_dataloader):
+            criterion = torch.nn.CrossEntropyLoss()
+            optimizer = torch.optim.Adam(fcn.parameters(), lr=learning_rate)
+
+            data = F.convert_image_dtype(batch["image"], dtype=torch.float).to(device)
+            target = batch["label"].to(device)
+            optimizer.zero_grad()
+            output = fcn(data)
+            loss = criterion(output["out"], target.long())
+            loss.backward()
+            optimizer.step()
+            
+            epoch_train_loss += output["out"].shape[0]*loss.item()
+        
+        # Calculate validation loss after training
+        fcn.eval()
+        for i_batch, batch in enumerate(dataloading.test_dataloader):
+            criterion = torch.nn.CrossEntropyLoss()
+            data = F.convert_image_dtype(batch["image"], dtype=torch.float).to(device)
+            target = batch["label"].to(device)
+            output = fcn(data)
+            loss = criterion(output["out"], target.long())
+            epoch_eval_loss += output["out"].shape[0]*loss.item()
+        
+        train_loss = epoch_train_loss/len(dataloading.train_slicedata)
+        eval_loss = epoch_eval_loss/len(dataloading.test_slicedata)
+        train_loss_per_epoch.append(train_loss)
+        eval_loss_per_epoch.append(eval_loss)
+        print("Training loss:", train_loss)
+        print("Evaluation loss:", eval_loss)
+
+        #saving calculated weights
+        torch.save(fcn.state_dict(), os.path.join(currentdir, "weights_lr1_e10_pad_norm.h5"))
+    
+    #plotting learningrates
+    return train_loss_per_epoch, eval_loss_per_epoch
 
 
 
@@ -52,7 +135,7 @@ def kfold_training(number_of_folds = 2, test_size=0.2, num_epochs=2, batch_size=
     eval_loss_per_fold = []
 
     for fold, (train_ids, test_ids) in enumerate(kfold.split(dataloading.dataloaders_combined)):
-        print(f"----- FOLD {fold} -----")
+        print(f"----- FOLD {fold+1} -----")
 
         # use training_model() uit model_training.py
         train_loss_per_epoch, eval_loss_per_epoch = training_model(dataloading=dataloading, num_epochs=num_epochs, batch_size = batch_size, learning_rate=learning_rate, pretrained=pretrained, shuffle=shuffle, array_path=array_path, num_classes=num_classes)
@@ -94,12 +177,10 @@ def kfold_training(number_of_folds = 2, test_size=0.2, num_epochs=2, batch_size=
 
   
 
-def evaluation_train():
-    """change the learning rates, epochs and batch size here, not in training_model"""
-    learning_rates = [0.001]
-    num_epochs = 10
-    batch_size = 12
-    num_folds = 3
+def evaluation_train(learning_rates = [0.001], num_epochs = 5, batch_size = 8, num_folds = 3):
+    """uses kfold_training() in order to get the average loss and variance for KFold
+    Saves the losses as dictionaries"""
+
     # calculate the loss for each learning rate
     train_loss_per_lr = {}
     eval_loss_per_lr = {}
@@ -123,6 +204,7 @@ def evaluation_train():
 
 
 def get_graphs():
+    """Uses the dictionaries made in evaluation_train() and plots them"""
     train_loss_per_lr = load_dict(os.path.join(currentdir,"avg_train_loss_per_epoch"))
     eval_loss_per_lr = load_dict(os.path.join(currentdir,'avg_eval_loss_per_epoch'))
     train_var_per_lr = load_dict(os.path.join(currentdir,'var_train_loss_per_epoch'))
@@ -130,13 +212,27 @@ def get_graphs():
 
 
     # plot the dictionaries
+    fig, axs = plt.subplots(2,1)
     for lr in train_loss_per_lr:
-        plt.plot(range(len(train_loss_per_lr[lr])), train_loss_per_lr[lr], label = f'train loss for lr {lr}')
-        plt.plot(range(len(eval_loss_per_lr[lr])), eval_loss_per_lr[lr], label = f'eval loss for lr {lr}')
-        plt.plot(range(len(train_var_per_lr[lr])), train_var_per_lr[lr], label = f'train variance for lr {lr}')
-        plt.plot(range(len(eval_var_per_lr[lr])), eval_var_per_lr[lr], label = f'eval variance for lr {lr}')
+        x_axis = range(1, len(train_loss_per_lr[lr]) + 1)
+        axs[0].plot(x_axis, train_loss_per_lr[lr], label = f'train loss for lr {lr}')
+        axs[0].plot(x_axis, eval_loss_per_lr[lr], label = f'eval loss for lr {lr}')
+        axs[1].plot(x_axis, train_var_per_lr[lr], label = f'train variance for lr {lr}')
+        axs[1].plot(x_axis, eval_var_per_lr[lr], label = f'eval variance for lr {lr}')
 
-    plt.legend()
+    fig.suptitle('Average losses and variances')
+
+    axs[0].set_title('Average loss')
+    axs[0].set_xlabel('Epoch')
+    axs[0].set_ylabel('Loss')
+    axs[0].legend()
+
+    axs[1].set_title('Average variance')
+    axs[1].set_xlabel('Epoch')
+    axs[1].set_ylabel('Loss')
+    axs[1].legend()
+    plt.subplots_adjust(hspace=0.5)
+    plt.savefig(os.path.join(currentdir, "KFold_losses.png"))
     plt.show()
 
 
@@ -145,9 +241,13 @@ def get_graphs():
 
 def main():
     """set trained to False the first time, after that you can re-use those values"""
-    trained = False
+    learning_rates = [0.001]
+    num_epochs = 10
+    batch_size = 16
+    num_folds = 5
+    trained = True
     if trained is False:
-        evaluation_train()
+        evaluation_train(learning_rates = learning_rates, num_epochs=num_epochs, batch_size=batch_size, num_folds=num_folds)
         get_graphs()
     else:
         get_graphs()
@@ -155,3 +255,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
