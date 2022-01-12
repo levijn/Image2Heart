@@ -177,6 +177,7 @@ def kfold_training(number_of_folds = 2, test_size=0.2, num_epochs=2, batch_size=
 
   
 
+
 def evaluation_train(learning_rates = [0.001], num_epochs = 5, batch_size = 8, num_folds = 3):
     """uses kfold_training() in order to get the average loss and variance for KFold
     Saves the losses as dictionaries"""
@@ -187,6 +188,7 @@ def evaluation_train(learning_rates = [0.001], num_epochs = 5, batch_size = 8, n
     train_var_per_lr = {}
     eval_var_per_lr = {}
     for lr in learning_rates:
+        print(f"----- LEARNING RATE {lr} -----")
         train_loss_per_epoch, eval_loss_per_epoch, train_var_per_epoch, eval_var_per_epoch = kfold_training(number_of_folds=num_folds ,learning_rate = lr, num_epochs = num_epochs, batch_size = batch_size)
         train_loss_per_lr[lr] = train_loss_per_epoch
         eval_loss_per_lr[lr] = eval_loss_per_epoch
@@ -226,6 +228,7 @@ def get_graphs():
     axs[0].set_xlabel('Epoch')
     axs[0].set_ylabel('Loss')
     axs[0].legend()
+
 
     axs[1].set_title('Average variance')
     axs[1].set_xlabel('Epoch')
