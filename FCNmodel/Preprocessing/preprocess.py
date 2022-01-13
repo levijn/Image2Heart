@@ -194,7 +194,12 @@ def main():
     array_location = os.path.join(data_dir, "slice_arrays")
     
     loaded_dict = load_dict(os.path.join(current_dir, "filtered_data"))
+    generated_dict = create_indexed_file_dict(array_location)
     print(loaded_dict)
+    print()
+    print()
+    print()
+    print(generated_dict)
     # if not os.path.exists(array_location):
     #         os.makedirs(os.path.join(data_dir, "slice_arrays"))
     # img_location = os.path.join(data_dir, "slice_images")

@@ -27,7 +27,8 @@ from preprocess import (get_filenames,
                         create_indexed_file_dict,
                         load_slice_array,
                         plot_slice_with_lbl,
-                        get_all_shapes_hw)
+                        get_all_shapes_hw,
+                        load_dict)
 
 
 class SliceDataset(data.Dataset):
@@ -231,7 +232,8 @@ class Dataloading:
         self.create_dataloaders()
 
     def create_dicts(self):
-        self.data_dict = create_indexed_file_dict(self.array_path)
+        # self.data_dict = create_indexed_file_dict(self.array_path)
+        self.data_dict = load_dict(os.path.join(current_dir, "filtered_data"))
         self.train_data_dict = {key: self.data_dict[key] for i, key in enumerate(self.data_dict.keys()) if i < (1-self.test_size)*len(self.data_dict)}
         self.test_data_dict = {key: self.data_dict[key] for i, key in enumerate(self.data_dict.keys()) if i >= (1-self.test_size)*len(self.data_dict)}
 
@@ -286,18 +288,18 @@ def main():
 
     dataloading = Dataloading(0.1, array_path)
 
-    onefile = ""
+    # onefile = ""
     
-    for i_batch, sample_batched in enumerate(dataloading.test_dataloader):
-        print(i_batch, sample_batched['image'].size(),
-           sample_batched['label'].size(),
-           sample_batched["size"])
-        onefile = sample_batched
-        break
-    print(onefile)
-    img = tF.to_pil_image(onefile["image"][0,0,:,:])
-    plt.imshow(img, cmap="gray")
-    plt.show()
+    # for i_batch, sample_batched in enumerate(dataloading.test_dataloader):
+    #     print(i_batch, sample_batched['image'].size(),
+    #        sample_batched['label'].size(),
+    #        sample_batched["size"])
+    #     onefile = sample_batched
+    #     break
+    # print(onefile)
+    # img = tF.to_pil_image(onefile["image"][0,0,:,:])
+    # plt.imshow(img, cmap="gray")
+    # plt.show()
     # test_size = 0.2
 
     # train_data_dict = {key: data_dict[key] for i, key in enumerate(data_dict.keys()) if i < (1-test_size)*len(data_dict)}
