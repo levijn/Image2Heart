@@ -245,7 +245,7 @@ class Dataloading:
         normalizer = Normalizer()
         encoder = OneHotEncoder()
 
-        self.train_composed_transform = transforms.Compose([padder, sudorgb_converter, to_tensor, normalizer])
+        self.train_composed_transform = transforms.Compose([randomzoom, padder, sudorgb_converter, to_tensor, normalizer])
         self.test_composed_transform = transforms.Compose([padder, sudorgb_converter, to_tensor, normalizer])
     def create_dataloaders(self):
         self.train_slicedata = SliceDataset(self.array_path, self.train_data_dict, transform=self.train_composed_transform)

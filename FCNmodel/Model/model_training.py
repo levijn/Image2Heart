@@ -126,7 +126,7 @@ def running_model(pretrained=False, num_classes=4):
     #loading the weights from "weights.h5"
     device = "cuda"
     fcn = change_headsize(fcn, 4)
-    fcn.load_state_dict(torch.load(os.path.join(currentdir, "weights.h5")))
+    fcn.load_state_dict(torch.load(os.path.join(currentdir, "weights_lr1.h5")))
 
 
     plt.rcParams["savefig.bbox"] = 'tight'

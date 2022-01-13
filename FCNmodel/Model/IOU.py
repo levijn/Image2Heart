@@ -10,6 +10,10 @@ import tensorflow as tf
 from torchvision.models.segmentation import fcn_resnet50
 import torchvision.transforms.functional as F
 
+from torchmetrics import IoU
+from sklearn.metrics import jaccard_score
+from keras import backend as K
+
 #adding needed folderpaths
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 parentdir = os.path.dirname(currentdir)
@@ -49,6 +53,39 @@ def plot_results(input, output):
         fig.add_subplot(rows, columns, i + 1)
         plt.imshow(img2)
     plt.show()
+
+# def IOU(label_stack, output_stack, n_classes=4):
+#     label_list = []
+#     for k in range(label_stack.size(dim=0)):
+#         label_list.append(label_stack[k,:,:])
+#     output_list = convert_to_segmented_imgs(output_stack)
+
+#     total_iou = 0
+#     for i in range(len(label_list)):
+#         # m = tf.keras.metrics.MeanIoU(num_classes=num_classes)
+#         # m.update_state(label_list[i], output_list[i])
+#         # total_iou += m.result().numpy()
+
+        
+#         jac = jaccard_score(label_list[i], output_list[i])
+#         print(jac)
+#     return total_iou
+
+def IOU(label_stack, output_stack):
+    label_list = []
+    for k in range(label_stack.size(dim=0)):
+        label_list.append(label_stack[k,:,:])
+    output_list = convert_to_segmented_imgs(output_stack)
+
+    total_iou = 0
+    for i in range(len(label_list)):
+        metric = tf.keras.metrics.MeanIoU(num_classes=4)
+        metric.update_state(label_list[i], output_list[i])
+        iou = metric.result().numpy()
+        total_iou += iou
+        print(f"iou: {iou}")
+    print(f"Total iou of batch: {total_iou}")
+    return total_iou
 
 
 def training_model(test_size=0.2, num_epochs=10, batch_size=4, learning_rate=[0.001], pretrained=True, shuffle=True, array_path=config.array_dir, num_classes=4, savingfile="weights.h5"):
@@ -98,11 +135,13 @@ def training_model(test_size=0.2, num_epochs=10, batch_size=4, learning_rate=[0.
         #looping through epochs
         for epoch in range(num_epochs):
             print(f"------ Learning rate: {LR} --> Epoch: {epoch+1} ------")
-            epoch_train_loss = 0.0
-            epoch_eval_loss = 0.0
+            epoch_train_iou = 0.0
+            epoch_eval_iou = 0.0
             fcn.train()
             # Model training loop
+            print("Going through training data....")
             for i_batch, batch in enumerate(dataloading.train_dataloader):
+                print(f"Batch: {i_batch}")
                 criterion = torch.nn.CrossEntropyLoss()
                 optimizer = torch.optim.Adam(fcn.parameters(), lr=LR)
 
@@ -114,7 +153,9 @@ def training_model(test_size=0.2, num_epochs=10, batch_size=4, learning_rate=[0.
                 loss.backward()
                 optimizer.step()
                 
-                epoch_train_loss += output["out"].shape[0]*loss.item()
+                epoch_train_iou += IOU(batch["label"], output["out"].detach())
+                
+            print("Going through testing data....")
 
             # Calculate validation loss after training
             fcn.eval()
@@ -123,15 +164,14 @@ def training_model(test_size=0.2, num_epochs=10, batch_size=4, learning_rate=[0.
                 data = F.convert_image_dtype(batch["image"], dtype=torch.float).to(device)
                 target = batch["label"].to(device)
                 output = fcn(data)
-                loss = criterion(output["out"], target.long())
-                epoch_eval_loss += output["out"].shape[0]*loss.item()
+
+                epoch_eval_iou += IOU(batch["label"], output["out"].detach())
             
-            train_loss = epoch_train_loss/len(dataloading.train_slicedata)
-            eval_loss = epoch_eval_loss/len(dataloading.test_slicedata)
-            train_loss_per_epoch.append(train_loss)
-            eval_loss_per_epoch.append(eval_loss)
-            print("Training loss:", train_loss)
-            print("Evaluation loss:", eval_loss)
+
+            train_iou = epoch_train_iou/len(dataloading.train_slicedata)
+            eval_iou = epoch_eval_iou/len(dataloading.test_slicedata)
+            print("Training IoU:", train_iou)
+            print("Evaluation IoU:", eval_iou)
 
         train_loss_per_lr.append(train_loss_per_epoch)
         eval_loss_per_lr.append(eval_loss_per_epoch)
@@ -189,8 +229,9 @@ def running_model(pretrained=False, num_classes=4, savingfile="weights.h5"):
 
 
 def main():
-    #set to True if the model has been trained with the weights stored at "weights.h5", False otherwise
+    #set to True if the model has been trained with the weights stored at "weights.h5", False otherwise:
     trained = False
+    #Define the name of the weights file for saving or loading:
     weightsfile = "weights_lr1_e10_z10_pad_norm.h5"
     
     print("Transforms: Zoom, Padding, RGB, Tensor, Normalize, RemovePadding")

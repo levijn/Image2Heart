@@ -6,6 +6,7 @@ import PIL
 import matplotlib.pyplot as plt
 import sys
 from torch.utils.data import dataloader
+import tensorflow as tf
 
 from torchvision.models.segmentation import fcn_resnet50
 import torchvision.transforms.functional as F
@@ -34,7 +35,7 @@ def run_model_rtrn_results(image_tensor):
     #loading the weights from "weights.h5"
     device = "cuda"
     fcn = change_headsize(fcn, 4)
-    fcn.load_state_dict(torch.load(os.path.join(currentdir, "weights_lr1.h5")))
+    fcn.load_state_dict(torch.load(os.path.join(currentdir, "weights_lr1_e10_z10_pad_norm.h5")))
 
     image_float = F.convert_image_dtype(image_tensor, dtype=torch.float)
     fcn.eval()
@@ -70,13 +71,22 @@ def main():
         break
 
     results = run_model_rtrn_results(one_batch["image"])
+  
     img = create_segmentated_img(results[0,:,:,:])
+    
     fig = plt.figure(2)
     ax1 = fig.add_subplot(1,2,1)
     ax1.imshow(one_batch["image"][0,0,:,:], cmap="gray")
     ax2 = fig.add_subplot(1,2,2)
     ax2.imshow(img, cmap="gray")
     plt.show()
+
+    labels = one_batch["label"]
+    label = labels[0,:,:]
+
+    m = tf.keras.metrics.MeanIoU(num_classes=4)
+    m.update_state(label, img)
+    print(m.result().numpy())
     
     
 if __name__ == '__main__':
