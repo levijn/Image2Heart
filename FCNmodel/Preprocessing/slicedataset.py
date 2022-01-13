@@ -44,7 +44,7 @@ class SliceDataset(data.Dataset):
         self.data_dir = data_dir
         self.idx_dict = idx_dict
         keys = self.idx_dict.keys()
-        self.start_index = min(keys)
+        self.start_index = int(min(keys))
         self.transform = transform
     
     def __len__(self):
@@ -52,7 +52,7 @@ class SliceDataset(data.Dataset):
 
     def __getitem__(self, idx):
         #get filenames
-        slice = self.idx_dict[idx+self.start_index]
+        slice = self.idx_dict[str(idx+self.start_index)]
         img_data_file = slice["img_data_file"]
         lbl_data_file = slice["lbl_data_file"]
         

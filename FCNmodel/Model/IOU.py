@@ -232,12 +232,12 @@ def main():
     #set to True if the model has been trained with the weights stored at "weights.h5", False otherwise:
     trained = False
     #Define the name of the weights file for saving or loading:
-    weightsfile = "weights_lr1_e10_z10_pad_norm.h5"
+    weightsfile = "weights_lr1_e5_z10_pad_norm.h5"
     
     print("Transforms: Zoom, Padding, RGB, Tensor, Normalize, RemovePadding")
     if trained is False:
         learningrates = [0.001]
-        training_model(pretrained=True, learning_rate=learningrates, batch_size=8, num_epochs=2, test_size=0.2, savingfile=weightsfile)
+        training_model(pretrained=True, learning_rate=learningrates, batch_size=8, num_epochs=5, test_size=0.2, savingfile=weightsfile)
         running_model(pretrained=True, savingfile=weightsfile)
     elif trained is True:
         running_model(pretrained=True, savingfile=weightsfile)
