@@ -1,27 +1,31 @@
 ##Calculate Intersection Over Union Score for predicted layer
 import numpy as np
 import scipy.misc as misc
+import tensorflow as tf
 
-def GetIOU(Pred,GT,NumClasses,ClassNames=[], DisplyResults=False):
-    #Given A ground true and predicted labels per pixel return the intersection over union for each class
-    # and the union for each class
-    ClassIOU=np.zeros(NumClasses)#Vector that Contain IOU per class
-    ClassWeight=np.zeros(NumClasses)#Vector that Contain Number of pixel per class Predicted U Ground true (Union for this class)
-    for i in range(NumClasses): # Go over all classes
-        Intersection=np.float32(np.sum((Pred==GT)*(GT==i)))# Calculate class intersection
-        Union=np.sum(GT==i)+np.sum(Pred==i)-Intersection # Calculate class Union
-        if Union>0:
-            ClassIOU[i]=Intersection/Union# Calculate intesection over union
-            ClassWeight[i]=Union
+# def GetIOU(Pred,GT,NumClasses,ClassNames=[], DisplyResults=False):
+#     #Given A ground true and predicted labels per pixel return the intersection over union for each class
+#     # and the union for each class
+#     ClassIOU=np.zeros(NumClasses)#Vector that Contain IOU per class
+#     ClassWeight=np.zeros(NumClasses)#Vector that Contain Number of pixel per class Predicted U Ground true (Union for this class)
+#     for i in range(NumClasses): # Go over all classes
+#         Intersection=np.float32(np.sum((Pred==GT)*(GT==i)))# Calculate class intersection
+#         Union=np.sum(GT==i)+np.sum(Pred==i)-Intersection # Calculate class Union
+#         if Union>0:
+#             ClassIOU[i]=Intersection/Union# Calculate intesection over union
+#             ClassWeight[i]=Union
 
-    #------------Display results (optional)-------------------------------------------------------------------------------------
-    if DisplyResults:
-       for i in range(len(ClassNames)):
-            print(ClassNames[i]+") "+str(ClassIOU[i]))
-       print("Mean Classes IOU) "+str(np.mean(ClassIOU)))
-       print("Image Predicition Accuracy)" + str(np.float32(np.sum(Pred == GT)) / GT.size))
-    #-------------------------------------------------------------------------------------------------
+#     #------------Display results (optional)-------------------------------------------------------------------------------------
+#     if DisplyResults:
+#        for i in range(len(ClassNames)):
+#             print(ClassNames[i]+") "+str(ClassIOU[i]))
+#        print("Mean Classes IOU) "+str(np.mean(ClassIOU)))
+#        print("Image Predicition Accuracy)" + str(np.float32(np.sum(Pred == GT)) / GT.size))
+#     #-------------------------------------------------------------------------------------------------
 
-    return ClassIOU, ClassWeight
+#     return ClassIOU, ClassWeight
 
+m = tf.keras.metrics.MeanIoU(num_classes=2)
+m.update_state([0, 0, 1, 1], [0, 1, 0, 1])
+print(m.result().numpy())
 
