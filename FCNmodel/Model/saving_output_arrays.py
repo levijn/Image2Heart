@@ -6,7 +6,6 @@ import PIL
 import matplotlib.pyplot as plt
 import sys
 import tensorflow as tf
-import torch
 
 from torchvision.models.segmentation import fcn_resnet50
 import torchvision.transforms.functional as F
@@ -29,6 +28,9 @@ from slicedataset import Dataloading
 from change_head import change_headsize
 from to_image import create_segmentated_img
 from one_patient import convert_to_segmented_imgs
+
+import numpy as np
+np.set_printoptions(threshold=np.inf)
 
 
 def plot_learningrate(train_loss, eval_loss, learningrates):
@@ -55,79 +57,39 @@ def plot_results(input, output):
         plt.imshow(img2)
     plt.show()
 
-# def IOU(label_stack, output_stack, n_classes=4):
-#     label_list = []
-#     for k in range(label_stack.size(dim=0)):
-#         label_list.append(label_stack[k,:,:])
-#     output_list = convert_to_segmented_imgs(output_stack)
+def list2string(lst):
+    string = ""
+    for row in lst:
+        row_str = ""
+        for pixel in row:
+            row_str += f"{str(int(pixel))} "
+        string += row_str + "\n"
+    return string
 
-#     total_iou = 0
-#     for i in range(len(label_list)):
-#         # m = tf.keras.metrics.MeanIoU(num_classes=num_classes)
-#         # m.update_state(label_list[i], output_list[i])
-#         # total_iou += m.result().numpy()
 
-        
-#         jac = jaccard_score(label_list[i], output_list[i])
-#         print(jac)
-#     return total_iou
-
-def IOU(label_stack, output_stack):
+def Dice(label_stack, output_stack, smooth=1):
     label_list = []
     for k in range(label_stack.size(dim=0)):
         label_list.append(label_stack[k,:,:])
     output_list = convert_to_segmented_imgs(output_stack)
+    f = open("checking_output.txt", "w")
 
-    total_iou = 0
+    total_dice = 0
     for i in range(len(label_list)):
-        label_f = K.flatten(tf.cast(label_list[i], dtype=float)).numpy()
-        output_f = K.flatten(tf.cast(output_list[i], dtype=float)).numpy()
-        intersection = list(np.subtract(label_f, output_f)).count(0)
-        iou = (intersection) / (len(label_f) + len(output_f) - intersection)
-        total_iou += iou
-        print(f"iou: {iou}")
-    print(f"Total iou of batch: {total_iou}")
-    return total_iou
-
-# werkt niet
-# def jaccard(label_stack, output_stack):
-#     jac = IoU(num_classes=4)
-#     seg_output = convert_to_segmented_imgs(output_stack)
-#     seg_output_ts = []
-#     for img in seg_output:
-#         seg_output_ts.append(torch.tensor(img, dtype=torch.int32))
-#     pred = torch.stack(seg_output_ts, dim=0)
-#     target = label_stack.int()
-#     print(pred.dtype)
-#     print(target.dtype)
-#     jacindex = jac(output_stack, label_stack)
-#     return jacindex.item()
-    
-
-# SMOOTH = 1e-6
-
-# def iou_pytorch(outputs: torch.Tensor, labels: torch.Tensor):
-#     # You can comment out this line if you are passing tensors of equal shape
-#     # But if you are passing output from UNet or something it will most probably
-#     # be with the BATCH x 1 x H x W shape
-#     seg_output = convert_to_segmented_imgs(outputs)
-#     seg_output_ts = []
-#     for img in seg_output:
-#         seg_output_ts.append(torch.tensor(img, dtype=torch.int32))
-#     outputs = torch.stack(seg_output_ts)
-#     print(outputs.size())
-#     print(labels.size())
-    
-#     outputs = outputs.squeeze(1)  # BATCH x 1 x H x W => BATCH x H x W
-    
-#     intersection = (outputs & labels).float().sum((1, 2))  # Will be zero if Truth=0 or Prediction=0
-#     union = (outputs | labels).float().sum((1, 2))         # Will be zzero if both are 0
-    
-#     iou = (intersection + SMOOTH) / (union + SMOOTH)  # We smooth our devision to avoid 0/0
-    
-#     thresholded = torch.clamp(20 * (iou - 0.5), 0, 10).ceil() / 10  # This is equal to comparing with thresolds
-    
-#     return thresholded  # Or thresholded.mean() if you are interested in average across the batch
+        f.write(f"<============================== Image: {i} ===========================>\n")
+        f.write("<------------------------- Label List ----------------------------->\n")
+        lst = label_list[i].tolist()
+        f.write(list2string(lst))
+        f.write("<------------------------- Output List ----------------------------->\n")
+        f.write(list2string(output_list[i]))
+        label_f = K.flatten(tf.cast(label_list[i], dtype=float))
+        output_f = K.flatten(tf.cast(output_list[i], dtype=float))
+        intersection = K.sum(label_f * output_f)
+        dice = (2. * intersection * smooth) / (K.sum(label_f) + K.sum(output_f) + smooth)
+        total_dice += dice
+        f.write(f"Dice: {dice}\n")
+    print(f"Total dice of batch: {total_dice}")
+    return total_dice
 
 
 def training_model(test_size=0.2, num_epochs=10, batch_size=4, learning_rate=[0.001], pretrained=True, shuffle=True, array_path=config.array_dir, num_classes=4, savingfile="weights.h5"):
@@ -148,6 +110,9 @@ def training_model(test_size=0.2, num_epochs=10, batch_size=4, learning_rate=[0.
     #creating fcn model
     fcn = fcn_resnet50(pretrained=pretrained)
 
+    f = open("checking_output.txt", "w")
+
+
     # setting model to trainingmode and set the device
     fcn.train()
     device = "cuda"
@@ -158,6 +123,7 @@ def training_model(test_size=0.2, num_epochs=10, batch_size=4, learning_rate=[0.
     
     # change head to output 4 classes
     fcn = change_headsize(fcn, 4).to(device)
+
     
     # Find total parameters and trainable parameters
     total_params = sum(p.numel() for p in fcn.parameters())
@@ -174,16 +140,22 @@ def training_model(test_size=0.2, num_epochs=10, batch_size=4, learning_rate=[0.
         train_loss_per_epoch = []
         eval_loss_per_epoch = []
         #looping through epochs
+        counte = 0
         for epoch in range(num_epochs):
+            if counte == 1:
+                    break
             print(f"------ Learning rate: {LR} --> Epoch: {epoch+1} ------")
-            epoch_train_iou = 0.0
-            epoch_eval_iou = 0.0
-            epoch_train_loss = 0.0
-            epoch_eval_loss = 0.0
+            epoch_train_dice = 0.0
+            epoch_eval_dice = 0.0
             fcn.train()
             # Model training loop
-            print("Going through training data....")
+            f.write("........................................................Going through training data......................................................\n")
+            
+            count = 0
             for i_batch, batch in enumerate(dataloading.train_dataloader):
+                if count == 2:
+                    break
+                f.write(f"||||||||||||||||||||||||||||||| Batch: {i_batch} |||||||||||||||||||||||||||||||\n")
                 print(f"Batch: {i_batch}")
                 criterion = torch.nn.CrossEntropyLoss()
                 optimizer = torch.optim.Adam(fcn.parameters(), lr=LR)
@@ -196,36 +168,36 @@ def training_model(test_size=0.2, num_epochs=10, batch_size=4, learning_rate=[0.
                 loss.backward()
                 optimizer.step()
                 
-                epoch_train_loss += output["out"].shape[0]*loss.item()
-                # epoch_train_iou += IOU(batch["label"], output["out"].detach())
-                print(iou_pytorch(output["out"], batch["label"]))
-            print("Going through testing data....")
+                epoch_train_dice += Dice(batch["label"], output["out"].detach())
+
+                count += 1
+                
+            f.write("........................................................Going through testing data......................................................\n")
 
             # Calculate validation loss after training
             fcn.eval()
+            countt = 0
             for i_batch, batch in enumerate(dataloading.test_dataloader):
+                if countt == 2:
+                    break
                 criterion = torch.nn.CrossEntropyLoss()
                 data = F.convert_image_dtype(batch["image"], dtype=torch.float).to(device)
                 target = batch["label"].to(device)
                 output = fcn(data)
-                loss = criterion(output["out"], target.long())
-                
-                epoch_eval_loss += output["out"].shape[0]*loss.item()
-                # epoch_eval_iou += IOU(batch["label"], output["out"].detach())
+
+                epoch_eval_dice += Dice(batch["label"], output["out"].detach())
+                countt += 1
             
 
-            train_iou = epoch_train_iou/len(dataloading.train_slicedata)
-            eval_iou = epoch_eval_iou/len(dataloading.test_slicedata)
-            print("Training IoU:", train_iou)
-            print("Evaluation IoU:", eval_iou)
-            
-            train_loss = epoch_train_loss/len(dataloading.train_slicedata)
-            eval_loss = epoch_eval_loss/len(dataloading.test_slicedata)
-            print("Training loss:", train_loss)
-            print("Evaluation loss:", eval_loss)
+            train_dice = epoch_train_dice/len(dataloading.train_slicedata)
+            eval_dice = epoch_eval_dice/len(dataloading.test_slicedata)
+            print("Training Dice:", train_dice)
+            print("Evaluation Dice:", eval_dice)
 
-        # train_loss_per_lr.append(train_loss_per_epoch)
-        # eval_loss_per_lr.append(eval_loss_per_epoch)
+            counte += 1
+
+        train_loss_per_lr.append(train_loss_per_epoch)
+        eval_loss_per_lr.append(eval_loss_per_epoch)
         
         #saving calculated weights
         torch.save(fcn.state_dict(), os.path.join(currentdir, savingfile))
@@ -283,12 +255,12 @@ def main():
     #set to True if the model has been trained with the weights stored at "weights.h5", False otherwise:
     trained = False
     #Define the name of the weights file for saving or loading:
-    weightsfile = "weights_lr1_e5_z10_pad_norm.h5"
+    weightsfile = "weights_lr1_e10_z10_pad_norm.h5"
     
     print("Transforms: Zoom, Padding, RGB, Tensor, Normalize, RemovePadding")
     if trained is False:
         learningrates = [0.001]
-        training_model(pretrained=True, learning_rate=learningrates, batch_size=8, num_epochs=5, test_size=0.2, savingfile=weightsfile)
+        training_model(pretrained=True, learning_rate=learningrates, batch_size=8, num_epochs=2, test_size=0.2, savingfile=weightsfile)
         running_model(pretrained=True, savingfile=weightsfile)
     elif trained is True:
         running_model(pretrained=True, savingfile=weightsfile)
