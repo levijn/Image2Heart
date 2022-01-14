@@ -115,8 +115,9 @@ def training_model(test_size=0.2, num_epochs=10, batch_size=4, learning_rate=[0.
                 optimizer.step()
                 
                 epoch_train_cel += output["out"].shape[0]*loss.item()
-                if i_batch%4 == 0:
-                    epoch_train_iou += IOU(batch["label"], output["out"].detach())
+                if i_batch%16 == 0:
+                    # epoch_train_iou += IOU(batch["label"], output["out"].detach())
+                    pass
 
 
             print("Going through testing data....")
@@ -129,13 +130,14 @@ def training_model(test_size=0.2, num_epochs=10, batch_size=4, learning_rate=[0.
                 loss = criterion(output["out"], target.long())
                 
                 epoch_eval_cel += output["out"].shape[0]*loss.item()
-                if i_batch%4 == 0:
-                    epoch_eval_iou += IOU(batch["label"], output["out"].detach())
+                if i_batch%16 == 0:
+                    # epoch_eval_iou += IOU(batch["label"], output["out"].detach())
+                    pass
             
 
-            train_iou = epoch_train_iou/(len(dataloading.train_slicedata)/4)
+            train_iou = epoch_train_iou/(len(dataloading.train_slicedata)/16)
             train_cel = epoch_train_cel/len(dataloading.train_slicedata)
-            eval_iou = epoch_eval_iou/(len(dataloading.test_slicedata)/4)
+            eval_iou = epoch_eval_iou/(len(dataloading.test_slicedata)/16)
             eval_cel = epoch_eval_cel/len(dataloading.test_slicedata)
             print("Training Cross Entropy loss:", train_cel)
             print("Evaluation Cross Entropy loss:", eval_cel)
@@ -153,10 +155,18 @@ def training_model(test_size=0.2, num_epochs=10, batch_size=4, learning_rate=[0.
         eval_loss_iou_per_lr.append(eval_loss_iou_per_epoch)
         eval_loss_cel_per_lr.append(eval_loss_cel_per_epoch)
         
-        print(train_loss_cel_per_lr, train_loss_iou_per_lr, eval_loss_cel_per_lr, eval_loss_iou_per_lr)
-        
         #saving calculated weights
-        torch.save(fcn.state_dict(), os.path.join(currentdir, savingfile))
+        #torch.save(fcn.state_dict(), os.path.join(currentdir, savingfile))
+    
+    print(train_loss_cel_per_lr, train_loss_iou_per_lr, eval_loss_cel_per_lr, eval_loss_iou_per_lr)
+    loss_list = [train_loss_cel_per_lr, train_loss_iou_per_lr, eval_loss_cel_per_lr, eval_loss_iou_per_lr]
+    loss_name_list = ["train cross entropy", "train iou", "evaluation cross entropy", "evaluation iou"]
+    
+    with open(os.path.join(currentdir, "results.txt"), "w") as f:
+        for i, loss_type in enumerate(loss_list):
+            f.write(f"{loss_name_list[i]}\n")
+            for j, lr in enumerate(loss_type):
+                f.write(str(learning_rate[j]) + " " + str(lr) + ",\n")
 
 
 
@@ -165,8 +175,8 @@ def main():
     weightsfile = "weights_lr1_e3_z10_pad_norm.h5"
     
     print("Transforms: Zoom, Padding, RGB, Tensor, Normalize, RemovePadding")
-    learningrates = [0.001]
-    training_model(pretrained=True, learning_rate=learningrates, batch_size=16, num_epochs=3, test_size=0.2, savingfile=weightsfile)
+    learningrates = [0.0001, 0.001, 0.01, 0.1]
+    training_model(pretrained=True, learning_rate=learningrates, batch_size=16, num_epochs=40, test_size=0.3, savingfile=weightsfile)
     
 
 if __name__ == '__main__':
