@@ -29,6 +29,9 @@ from change_head import change_headsize
 from to_image import create_segmentated_img
 from one_patient import convert_to_segmented_imgs
 
+import numpy as np
+np.set_printoptions(threshold=np.inf)
+
 
 def plot_learningrate(train_loss, eval_loss, learningrates):
     fig = plt.figure(1)
@@ -54,39 +57,39 @@ def plot_results(input, output):
         plt.imshow(img2)
     plt.show()
 
-# def IOU(label_stack, output_stack, n_classes=4):
-#     label_list = []
-#     for k in range(label_stack.size(dim=0)):
-#         label_list.append(label_stack[k,:,:])
-#     output_list = convert_to_segmented_imgs(output_stack)
+def list2string(lst):
+    string = ""
+    for row in lst:
+        row_str = ""
+        for pixel in row:
+            row_str += f"{str(int(pixel))} "
+        string += row_str + "\n"
+    return string
 
-#     total_iou = 0
-#     for i in range(len(label_list)):
-#         # m = tf.keras.metrics.MeanIoU(num_classes=num_classes)
-#         # m.update_state(label_list[i], output_list[i])
-#         # total_iou += m.result().numpy()
 
-        
-#         jac = jaccard_score(label_list[i], output_list[i])
-#         print(jac)
-#     return total_iou
-
-def IOU(label_stack, output_stack):
+def Dice(label_stack, output_stack, smooth=1):
     label_list = []
     for k in range(label_stack.size(dim=0)):
         label_list.append(label_stack[k,:,:])
     output_list = convert_to_segmented_imgs(output_stack)
+    f = open("checking_output.txt", "w")
 
-    total_iou = 0
+    total_dice = 0
     for i in range(len(label_list)):
-        label_f = K.flatten(tf.cast(label_list[i], dtype=float)).numpy()
-        output_f = K.flatten(tf.cast(output_list[i], dtype=float)).numpy()
-        intersection = list(np.subtract(label_f, output_f)).count(0)
-        iou = (intersection) / (len(label_f) + len(output_f) - intersection)
-        total_iou += iou
-        print(f"iou: {iou}")
-    print(f"Total iou of batch: {total_iou}")
-    return total_iou
+        f.write(f"<============================== Image: {i} ===========================>\n")
+        f.write("<------------------------- Label List ----------------------------->\n")
+        lst = label_list[i].tolist()
+        f.write(list2string(lst))
+        f.write("<------------------------- Output List ----------------------------->\n")
+        f.write(list2string(output_list[i]))
+        label_f = K.flatten(tf.cast(label_list[i], dtype=float))
+        output_f = K.flatten(tf.cast(output_list[i], dtype=float))
+        intersection = K.sum(label_f * output_f)
+        dice = (2. * intersection * smooth) / (K.sum(label_f) + K.sum(output_f) + smooth)
+        total_dice += dice
+        f.write(f"Dice: {dice}\n")
+    print(f"Total dice of batch: {total_dice}")
+    return total_dice
 
 
 def training_model(test_size=0.2, num_epochs=10, batch_size=4, learning_rate=[0.001], pretrained=True, shuffle=True, array_path=config.array_dir, num_classes=4, savingfile="weights.h5"):
@@ -106,6 +109,9 @@ def training_model(test_size=0.2, num_epochs=10, batch_size=4, learning_rate=[0.
     dataloading = Dataloading(test_size=test_size, array_path=array_path, batch_size=batch_size, shuffle=shuffle)
     #creating fcn model
     fcn = fcn_resnet50(pretrained=pretrained)
+
+    f = open("checking_output.txt", "w")
+
 
     # setting model to trainingmode and set the device
     fcn.train()
@@ -134,14 +140,22 @@ def training_model(test_size=0.2, num_epochs=10, batch_size=4, learning_rate=[0.
         train_loss_per_epoch = []
         eval_loss_per_epoch = []
         #looping through epochs
+        counte = 0
         for epoch in range(num_epochs):
+            if counte == 1:
+                    break
             print(f"------ Learning rate: {LR} --> Epoch: {epoch+1} ------")
-            epoch_train_iou = 0.0
-            epoch_eval_iou = 0.0
+            epoch_train_dice = 0.0
+            epoch_eval_dice = 0.0
             fcn.train()
             # Model training loop
-            print("Going through training data....")
+            f.write("........................................................Going through training data......................................................\n")
+            
+            count = 0
             for i_batch, batch in enumerate(dataloading.train_dataloader):
+                if count == 2:
+                    break
+                f.write(f"||||||||||||||||||||||||||||||| Batch: {i_batch} |||||||||||||||||||||||||||||||\n")
                 print(f"Batch: {i_batch}")
                 criterion = torch.nn.CrossEntropyLoss()
                 optimizer = torch.optim.Adam(fcn.parameters(), lr=LR)
@@ -154,25 +168,33 @@ def training_model(test_size=0.2, num_epochs=10, batch_size=4, learning_rate=[0.
                 loss.backward()
                 optimizer.step()
                 
-                epoch_train_iou += IOU(batch["label"], output["out"].detach())
+                epoch_train_dice += Dice(batch["label"], output["out"].detach())
+
+                count += 1
                 
-            print("Going through testing data....")
+            f.write("........................................................Going through testing data......................................................\n")
 
             # Calculate validation loss after training
             fcn.eval()
+            countt = 0
             for i_batch, batch in enumerate(dataloading.test_dataloader):
+                if countt == 2:
+                    break
                 criterion = torch.nn.CrossEntropyLoss()
                 data = F.convert_image_dtype(batch["image"], dtype=torch.float).to(device)
                 target = batch["label"].to(device)
                 output = fcn(data)
 
-                epoch_eval_iou += IOU(batch["label"], output["out"].detach())
+                epoch_eval_dice += Dice(batch["label"], output["out"].detach())
+                countt += 1
             
 
-            train_iou = epoch_train_iou/len(dataloading.train_slicedata)
-            eval_iou = epoch_eval_iou/len(dataloading.test_slicedata)
-            print("Training IoU:", train_iou)
-            print("Evaluation IoU:", eval_iou)
+            train_dice = epoch_train_dice/len(dataloading.train_slicedata)
+            eval_dice = epoch_eval_dice/len(dataloading.test_slicedata)
+            print("Training Dice:", train_dice)
+            print("Evaluation Dice:", eval_dice)
+
+            counte += 1
 
         train_loss_per_lr.append(train_loss_per_epoch)
         eval_loss_per_lr.append(eval_loss_per_epoch)
