@@ -57,7 +57,31 @@ def plot_results(input, output):
         plt.imshow(img2)
     plt.show()
 
-def Dice(label_stack, output_stack, smooth=1):
+def Intersect(label_array, output_array, num_classes=4):
+    intersect_per_class = []
+    label_occurence_per_class = []
+    output_occurence_per_class = []
+    for c in range(num_classes):
+        intersect = 0
+        label_occurence = 0
+        output_occurence = 0
+
+        for i in range(len(label_array)):
+            if label_array[i] == c and output_array[i] == c:
+                intersect += 1
+                label_occurence += 1
+                output_occurence += 1
+            elif output_array[i] == c:
+                output_occurence += 1
+            elif label_array[i] == c:
+                label_occurence += 1
+        
+        intersect_per_class.append(intersect)
+        label_occurence_per_class.append(label_occurence)
+        output_occurence_per_class.append(output_occurence)
+    return (intersect_per_class, label_occurence_per_class, output_occurence_per_class)
+
+def Dice(label_stack, output_stack, num_classes=4, smooth=1):
     label_list = []
     for k in range(label_stack.size(dim=0)):
         label_list.append(label_stack[k,:,:])
@@ -65,15 +89,48 @@ def Dice(label_stack, output_stack, smooth=1):
 
     total_dice = 0
     for i in range(len(label_list)):
+        print(f"<-- Sample: {i} -->")
         label_f = K.flatten(tf.cast(label_list[i], dtype=float)).numpy()
         output_f = K.flatten(tf.cast(output_list[i], dtype=float)).numpy()
-        
-        intersection = list(np.subtract(label_f, output_f)).count(0)
-        dice = (2 * intersection) / (len(label_f) + len(output_f))
-        total_dice += dice
-        print(f"Dice: {dice}")
-    print(f"Total dice of batch: {total_dice}")
+
+        print(f"Total number of parameters: {len(label_f)}")
+
+        weighted_dice = 0
+        intersect_per_class, label_occurence_per_class, output_occurence_per_class = Intersect(label_f, output_f)
+
+        for c in range(num_classes):
+            if label_occurence_per_class[c] == 0 and output_occurence_per_class[c] == 0:
+                dice_class = 1
+            else:
+                dice_class = 2 * intersect_per_class[c] / (label_occurence_per_class[c] + output_occurence_per_class[c])
+            weight = (len(label_f)-label_occurence_per_class[c]) / len(label_f)
+            weighted_dice += dice_class * weight
+
+            print(f"- Class: {c} || Intersect: {intersect_per_class[c]} | Label_occ: {label_occurence_per_class[c]} | Output_occ: {output_occurence_per_class[c]}")
+            print(f"              Dice_class: {dice_class} | Weight: {weight}")
+
+        total_dice += weighted_dice
+        print(f"Weighted Dice: {weighted_dice}\n")
+    # print(f"Total dice of batch: {total_dice}")
     return total_dice
+
+# def Dice(label_stack, output_stack, num_classes=4, smooth=1):
+#     label_list = []
+#     for k in range(label_stack.size(dim=0)):
+#         label_list.append(label_stack[k,:,:])
+#     output_list = convert_to_segmented_imgs(output_stack)
+
+#     total_dice = 0
+#     for i in range(len(label_list)):
+#         label_f = K.flatten(tf.cast(label_list[i], dtype=float)).numpy()
+#         output_f = K.flatten(tf.cast(output_list[i], dtype=float)).numpy()
+
+#         intersection = list(np.subtract(label_f, output_f)).count(0)
+#         dice = (2 * intersection) / (len(label_f) + len(output_f))
+#         total_dice += dice
+#         # print(f"Dice: {dice}")
+#     # print(f"Total dice of batch: {total_dice}")
+#     return total_dice
 
 
 def training_model(test_size=0.2, num_epochs=10, batch_size=4, learning_rate=[0.001], pretrained=True, shuffle=True, array_path=config.array_dir, num_classes=4, savingfile="weights.h5"):
@@ -89,6 +146,10 @@ def training_model(test_size=0.2, num_epochs=10, batch_size=4, learning_rate=[0.
         num_classes: number of classes the model has to look for.
         savingfile: File name for saving the data.
     """
+
+    f = open("Dice_scores.txt", "w")
+
+
     #loading datafiles
     dataloading = Dataloading(test_size=test_size, array_path=array_path, batch_size=batch_size, shuffle=shuffle)
     #creating fcn model
@@ -122,12 +183,12 @@ def training_model(test_size=0.2, num_epochs=10, batch_size=4, learning_rate=[0.
         eval_loss_per_epoch = []
         #looping through epochs
         for epoch in range(num_epochs):
-            print(f"<---------------------------------------------------- Learning rate: {LR} --> Epoch: {epoch+1} -------------------------------------------------->\n")
+            print(f"<---------------------- Learning rate: {LR} --> Epoch: {epoch+1} ----------------------->\n")
             epoch_train_dice = 0.0
             epoch_eval_dice = 0.0
             fcn.train()
             # Model training loop
-            print("........................................................Going through training data......................................................\n")
+            print("....Going through training data....\n")
             
             for i_batch, batch in enumerate(dataloading.train_dataloader):
                 print(f"Batch: {i_batch}")
@@ -144,7 +205,7 @@ def training_model(test_size=0.2, num_epochs=10, batch_size=4, learning_rate=[0.
                 
                 epoch_train_dice += Dice(batch["label"], output["out"].detach())
                 
-            print("........................................................Going through testing data......................................................\n")
+            print("....Going through testing data....\n")
 
             # Calculate validation loss after training
             fcn.eval()
@@ -159,9 +220,12 @@ def training_model(test_size=0.2, num_epochs=10, batch_size=4, learning_rate=[0.
 
             train_dice = epoch_train_dice/len(dataloading.train_slicedata)
             eval_dice = epoch_eval_dice/len(dataloading.test_slicedata)
+            f.write(f"____________ Epoch: {epoch+1} ____________\n")
             print("Training Dice:", train_dice)
+            f.write(f"Training Dice: {train_dice} \n")
             print("Evaluation Dice:", eval_dice)
-
+            f.write(f"Evaluation Dice: {eval_dice} \n")
+            
 
         train_loss_per_lr.append(train_loss_per_epoch)
         eval_loss_per_lr.append(eval_loss_per_epoch)
@@ -227,7 +291,7 @@ def main():
     print("Transforms: Zoom, Padding, RGB, Tensor, Normalize, RemovePadding")
     if trained is False:
         learningrates = [0.001]
-        training_model(pretrained=True, learning_rate=learningrates, batch_size=8, num_epochs=2, test_size=0.2, savingfile=weightsfile)
+        training_model(pretrained=True, learning_rate=learningrates, batch_size=8, num_epochs=1, test_size=0.2, savingfile=weightsfile)
         running_model(pretrained=True, savingfile=weightsfile)
     elif trained is True:
         running_model(pretrained=True, savingfile=weightsfile)
