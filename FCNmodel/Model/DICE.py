@@ -81,7 +81,9 @@ def Intersect(label_array, output_array, num_classes=4):
         output_occurence_per_class.append(output_occurence)
     return (intersect_per_class, label_occurence_per_class, output_occurence_per_class)
 
-def Dice(label_stack, output_stack, num_classes=4, smooth=1):
+def Dice(label_stack, output_stack, num_classes=4, bg_weight=0.05,smooth=1):
+    weights = [bg_weight, (1-bg_weight)/3, (1-bg_weight)/3, (1-bg_weight)/3]
+
     label_list = []
     for k in range(label_stack.size(dim=0)):
         label_list.append(label_stack[k,:,:])
@@ -103,11 +105,11 @@ def Dice(label_stack, output_stack, num_classes=4, smooth=1):
                 dice_class = 1
             else:
                 dice_class = 2 * intersect_per_class[c] / (label_occurence_per_class[c] + output_occurence_per_class[c])
-            weight = (len(label_f)-label_occurence_per_class[c]) / len(label_f)
-            weighted_dice += dice_class * weight
+            # weight = (len(label_f)-label_occurence_per_class[c]) / len(label_f)
+            weighted_dice += dice_class * weights[c]
 
             print(f"- Class: {c} || Intersect: {intersect_per_class[c]} | Label_occ: {label_occurence_per_class[c]} | Output_occ: {output_occurence_per_class[c]}")
-            print(f"              Dice_class: {dice_class} | Weight: {weight}")
+            print(f"              Dice_class: {dice_class} | Weight: {weights[c]}")
 
         total_dice += weighted_dice
         print(f"Weighted Dice: {weighted_dice}\n")
@@ -249,6 +251,8 @@ def running_model(pretrained=False, num_classes=4, savingfile="weights.h5"):
     fcn = change_headsize(fcn, 4)
     fcn.load_state_dict(torch.load(os.path.join(currentdir, savingfile)))
 
+    total_dice = 0
+
 
     plt.rcParams["savefig.bbox"] = 'tight'
 
@@ -256,17 +260,17 @@ def running_model(pretrained=False, num_classes=4, savingfile="weights.h5"):
     one_batch = None
     dataloading = Dataloading(test_size=0.2, array_path=config.array_dir, batch_size=4, shuffle=True)
     for i_batch, batch in enumerate(dataloading.test_dataloader):
-        #remove the padding
-        one_batch = batch
-        break
+        #remove the padding        
+        print(f"Batch: {i_batch}")
+        sample = batch["image"]
+        sample = F.convert_image_dtype(sample, dtype=torch.float)
 
-    sample = one_batch["image"]
-    sample = F.convert_image_dtype(sample, dtype=torch.float)
+        fcn.eval()
 
-    fcn.eval()
+        # normalized_sample = F.normalize(sample, mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225))
+        output = fcn(sample)["out"]
+        total_dice += Dice(batch["label"], output.detach())
 
-    # normalized_sample = F.normalize(sample, mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225))
-    output = fcn(sample)["out"]
     normalized_masks = torch.nn.functional.softmax(output, dim=1)
     
     # # Displaying input image
@@ -284,7 +288,7 @@ def running_model(pretrained=False, num_classes=4, savingfile="weights.h5"):
 
 def main():
     #set to True if the model has been trained with the weights stored at "weights.h5", False otherwise:
-    trained = False
+    trained = True
     #Define the name of the weights file for saving or loading:
     weightsfile = "weights_lr1_e10_z10_pad_norm.h5"
     
