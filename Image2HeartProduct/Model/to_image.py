@@ -35,7 +35,7 @@ def run_model_rtrn_results(image_tensor):
     #loading the weights from "weights.h5"
     device = "cuda"
     fcn = change_headsize(fcn, 4)
-    fcn.load_state_dict(torch.load(os.path.join(currentdir, "weights_lr1_e10_z10_pad_norm.h5")))
+    fcn.load_state_dict(torch.load(os.path.join(currentdir, "weights_lr1_e15_z10_pad_norm.h5")))
 
     image_float = F.convert_image_dtype(image_tensor, dtype=torch.float)
     fcn.eval()
@@ -61,6 +61,14 @@ def create_segmentated_img(result):
             largest_prob_cls = probalities.index(largest_prob)
             new_img[i,j] = largest_prob_cls
     return new_img
+
+
+def convert_to_segmented_imgs(results):
+    images = []
+    for i in range(results.size(dim=0)):
+        images.append(create_segmentated_img(results[i,:,:,:]))
+    return images
+
 
 def main():
     one_batch = None

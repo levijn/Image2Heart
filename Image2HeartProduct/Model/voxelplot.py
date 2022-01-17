@@ -16,6 +16,7 @@ data_dir = config.data_dir
 sdata_dir = os.path.join(data_dir, "simpledata")
 
 from preprocess import load_slice_array
+from to_image import create_segmentated_img
 
 def example():
     # prepare some coordinates
@@ -68,6 +69,38 @@ def create_voxelplot_from_results(images):
 
     plt.show()
 
+def create_3d_scatterplot(results):
+    segmented_images = []
+    for i in range(results.size(dim=0)):
+        segmented_images.append(create_segmentated_img(results[i,:,:,:]))
+    
+    fig = plt.figure(1)
+    ax = fig.add_subplot(projection="3d")
+    colors = ["r", "b", "g"]
+    for k in range(len(segmented_images)):
+        img = segmented_images[k]
+        for i in range(0, img.shape[0], 5):
+            for j in range(0, img.shape[1], 5):
+                if img[i,j] != 0:
+                    ax.scatter(i, j, k*20, c=colors[int(img[i,j])-1], marker="o")
+    plt.show()
+
+
+def create_3d_scatterplot_labels(labels):
+    list_labels = []
+    for i in range(labels.size(dim=0)):
+        list_labels.append(labels[i,:,:].numpy())
+    
+    fig = plt.figure(1)
+    ax = fig.add_subplot(projection="3d")
+    colors = ["r", "b", "g"]
+    for k in range(len(list_labels)):
+        img = list_labels[k]
+        for i in range(0, img.shape[0], 5):
+            for j in range(0, img.shape[1], 5):
+                if img[i,j] != 0:
+                    ax.scatter(i, j, k*20, c=colors[int(img[i,j])-1], marker="o")
+    plt.show()
 
 def main():
     patient = "0097"

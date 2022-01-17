@@ -13,9 +13,9 @@ from torchvision import transforms
 
 
 # Import the path of different folders
-current_dir = Path(__file__).resolve()
+current_dir = Path(__file__).resolve().parent
 parent_dir = current_dir.parent
-sys.path.append(os.path.dirname(parent_dir))
+sys.path.append(str(parent_dir))
 
 import config
 from slicedataset import (RandomZoom,
@@ -60,7 +60,22 @@ class OnePatientDataset(data.Dataset):
             sample = self.transform(sample)
         
         return sample
+
+
+def get_patient_dataloader(img_path, lbl_path):
+    """Returns a dataloader with the right transforms"""
+    randomzoom = RandomZoom(10)
+    padder = PadImage((264, 288))
+    sudorgb_converter = SudoRGB()
+    to_tensor = ToTensor()
+    normalizer = Normalizer()
+    composed_transform = transforms.Compose([randomzoom, padder, sudorgb_converter, to_tensor, normalizer])
     
+    dataset = OnePatientDataset(img_path, lbl_path, transform=composed_transform)
+    dataloader = data.DataLoader(dataset, batch_size=16)
+    
+    return dataloader
+
 
 def main():
     img_path = os.path.join(config.data_dir, "simpledata", "patient001_frame01.nii.gz")

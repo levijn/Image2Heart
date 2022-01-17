@@ -14,9 +14,7 @@ from torchvision import transforms
 import torch
 import torch.nn.functional as nnF
 import torchvision.transforms.functional as tF
-import torchvision.transforms as trans
 import random
-import matplotlib.pyplot as plt
 from PIL import Image
 
 # Import the path of different folders
@@ -225,7 +223,6 @@ class Dataloading:
         self.create_dataloaders()
 
     def create_dicts(self):
-        # self.data_dict = create_indexed_file_dict(self.array_path)
         self.data_dict = load_dict(os.path.join(current_dir, "filtered_data"))
         self.train_data_dict = {key: self.data_dict[key] for i, key in enumerate(self.data_dict.keys()) if i < (1-self.test_size)*len(self.data_dict)}
         self.test_data_dict = {key: self.data_dict[key] for i, key in enumerate(self.data_dict.keys()) if i >= (1-self.test_size)*len(self.data_dict)}

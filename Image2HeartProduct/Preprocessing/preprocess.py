@@ -98,9 +98,10 @@ def load_slice_array(filename):
     return array
 
 
-def save_all_slices_array(array_location, img_location):
+def save_all_slices_array(array_location):
+    """Saves all the slices as arrays in the slice_arrays folder"""
+    print("Creating arrays...")
     nifti_files = sorted(get_filenames(sdata_dir))
-    print(nifti_files)
     for i in range(0, len(nifti_files), 2):
         img_file = nifti_files[i]
         lbl_file = nifti_files[i+1]
@@ -120,30 +121,62 @@ def save_all_slices_array(array_location, img_location):
         for slice_name in img_slices:
             name = f"patient{patient_str}_{slice_name}"
             save_slice_array(img_slices[slice_name], name, array_location)
-            save_slice_img(img_slices[slice_name], name, img_location, "png")
             
         for slice_name in lbl_slices:
             name = f"patient{patient_str}_{slice_name}_label"
             save_slice_array(lbl_slices[slice_name], name, array_location)
+        print(f"Saving arrays patient {patient_str}")
+    print("Done")
+
+
+def save_all_slice_image(img_location):
+    """Saves all the slices as images in the slice_images folder"""
+    print("Creating images...")
+    nifti_files = sorted(get_filenames(sdata_dir))
+    for i in range(0, len(nifti_files), 2):
+        img_file = nifti_files[i]
+        lbl_file = nifti_files[i+1]
+        
+        img_path = os.path.join(sdata_dir, img_file)
+        lbl_path = os.path.join(sdata_dir, lbl_file)
+
+        img = nib.load(img_path)
+        lbl = nib.load(lbl_path)
+        
+        img_array = img.get_fdata()
+        lbl_array = lbl.get_fdata()
+        img_slices, lbl_slices = convert_nifti_to_slices(img_array, lbl_array)
+        
+        patient_str = create_four_digit_num_str(int(1+i/4))
+        
+        for slice_name in img_slices:
+            name = f"patient{patient_str}_{slice_name}"
+            save_slice_img(img_slices[slice_name], name, img_location, "png")
+            
+        for slice_name in lbl_slices:
+            name = f"patient{patient_str}_{slice_name}_label"
             save_slice_img(lbl_slices[slice_name], name, img_location, "png")
+        
+        print(f"Saving images patient {patient_str}")
+    print("Done")
 
 
-def create_indexed_file_dict(data_dir, max_size=300):
+def create_indexed_file_dict(array_dir, max_size=300):
     data_dict = {}
-    filenames = sorted(get_filenames(data_dir))
+    filenames = sorted(get_filenames(array_dir))
     skippedfiles = 0
-    img_sizesh = []
-    img_sizesw = []
+    # img_sizesh = []
+    # img_sizesw = []
     for i in range(0, len(filenames), 2):
         img_file = filenames[i]
         lbl_file = filenames[i+1]
         
-        img = load_slice_array(os.path.join(data_dir, filenames[i]))
+        img = load_slice_array(os.path.join(array_dir, filenames[i]))
         if img.shape[0] > max_size or img.shape[1] > max_size:
             skippedfiles += 2
             continue
-        img_sizesh.append(img.shape[0])
-        img_sizesw.append(img.shape[1])
+        # img_sizesh.append(img.shape[0])
+        # img_sizesw.append(img.shape[1])
         slice_dict = {
             "img_data_file": img_file,
             "lbl_data_file": lbl_file
@@ -153,6 +186,7 @@ def create_indexed_file_dict(data_dir, max_size=300):
 
 
 def get_all_shapes_hw(data_dir, idx_dict):
+    """Returns the height and width of all images"""
     widths = []
     heights = []
     for i in range(len(idx_dict)):
@@ -193,23 +227,23 @@ def create_hist_imgsize(heights, widths, plot=False, save=False):
 
 
 def main():
-    array_location = config.array_dir
-    loaded_dict = load_dict(os.path.join(current_dir, "filtered_data"))
-    # generated_dict = create_indexed_file_dict(array_location)
-    print(loaded_dict)
-    # print()
-    # print()
-    # print()
-    # print(generated_dict)
-    # if not os.path.exists(array_location):
-    #         os.makedirs(os.path.join(data_dir, "slice_arrays"))
-    # img_location = os.path.join(data_dir, "slice_images")
-    # if not os.path.exists(img_location):
-    #         os.makedirs(os.path.join(data_dir, "slice_images"))
-    # save_all_slices_array(array_location, img_location)
+    # Save all slices as arrays in the array_dir
+    if len([x for x in config.array_dir.iterdir()]) == 0:
+        save_all_slices_array(config.array_dir)
     
-    # datadict = create_indexed_file_dict(array_location)
-
+    # Optional to save all slices as png-images. Set save_images = True to save.
+    save_images = False
+    if save_images == True and len([x for x in config.image_dir.iterdir()]) == 0:
+        save_all_slice_image(config.image_dir)
+    
+    # Filter the slices to size. A couple of large images are will not be used for training.
+    # The filtered data is saved in a JSON file
+    print("Creating filtered dictionary")
+    filtered_dict = create_indexed_file_dict(config.array_dir)
+    print("Saving dictionary")
+    save_dict(filtered_dict, current_dir, "filtered_data")
+    print("Saved dictionary successfully.")
+    
 
 if __name__ == '__main__':
     main()
