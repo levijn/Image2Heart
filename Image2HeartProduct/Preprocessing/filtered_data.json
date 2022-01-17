@@ -1,0 +1,3646 @@
+{
+    "0": {
+        "img_data_file": "patient0001_slice0001",
+        "lbl_data_file": "patient0001_slice0001_label"
+    },
+    "1": {
+        "img_data_file": "patient0001_slice0002",
+        "lbl_data_file": "patient0001_slice0002_label"
+    },
+    "2": {
+        "img_data_file": "patient0001_slice0003",
+        "lbl_data_file": "patient0001_slice0003_label"
+    },
+    "3": {
+        "img_data_file": "patient0001_slice0004",
+        "lbl_data_file": "patient0001_slice0004_label"
+    },
+    "4": {
+        "img_data_file": "patient0001_slice0005",
+        "lbl_data_file": "patient0001_slice0005_label"
+    },
+    "5": {
+        "img_data_file": "patient0001_slice0006",
+        "lbl_data_file": "patient0001_slice0006_label"
+    },
+    "6": {
+        "img_data_file": "patient0001_slice0007",
+        "lbl_data_file": "patient0001_slice0007_label"
+    },
+    "7": {
+        "img_data_file": "patient0001_slice0008",
+        "lbl_data_file": "patient0001_slice0008_label"
+    },
+    "8": {
+        "img_data_file": "patient0001_slice0009",
+        "lbl_data_file": "patient0001_slice0009_label"
+    },
+    "9": {
+        "img_data_file": "patient0001_slice0010",
+        "lbl_data_file": "patient0001_slice0010_label"
+    },
+    "10": {
+        "img_data_file": "patient0002_slice0001",
+        "lbl_data_file": "patient0002_slice0001_label"
+    },
+    "11": {
+        "img_data_file": "patient0002_slice0002",
+        "lbl_data_file": "patient0002_slice0002_label"
+    },
+    "12": {
+        "img_data_file": "patient0002_slice0003",
+        "lbl_data_file": "patient0002_slice0003_label"
+    },
+    "13": {
+        "img_data_file": "patient0002_slice0004",
+        "lbl_data_file": "patient0002_slice0004_label"
+    },
+    "14": {
+        "img_data_file": "patient0002_slice0005",
+        "lbl_data_file": "patient0002_slice0005_label"
+    },
+    "15": {
+        "img_data_file": "patient0002_slice0006",
+        "lbl_data_file": "patient0002_slice0006_label"
+    },
+    "16": {
+        "img_data_file": "patient0002_slice0007",
+        "lbl_data_file": "patient0002_slice0007_label"
+    },
+    "17": {
+        "img_data_file": "patient0002_slice0008",
+        "lbl_data_file": "patient0002_slice0008_label"
+    },
+    "18": {
+        "img_data_file": "patient0002_slice0009",
+        "lbl_data_file": "patient0002_slice0009_label"
+    },
+    "19": {
+        "img_data_file": "patient0002_slice0010",
+        "lbl_data_file": "patient0002_slice0010_label"
+    },
+    "20": {
+        "img_data_file": "patient0003_slice0001",
+        "lbl_data_file": "patient0003_slice0001_label"
+    },
+    "21": {
+        "img_data_file": "patient0003_slice0002",
+        "lbl_data_file": "patient0003_slice0002_label"
+    },
+    "22": {
+        "img_data_file": "patient0003_slice0003",
+        "lbl_data_file": "patient0003_slice0003_label"
+    },
+    "23": {
+        "img_data_file": "patient0003_slice0004",
+        "lbl_data_file": "patient0003_slice0004_label"
+    },
+    "24": {
+        "img_data_file": "patient0003_slice0005",
+        "lbl_data_file": "patient0003_slice0005_label"
+    },
+    "25": {
+        "img_data_file": "patient0003_slice0006",
+        "lbl_data_file": "patient0003_slice0006_label"
+    },
+    "26": {
+        "img_data_file": "patient0003_slice0007",
+        "lbl_data_file": "patient0003_slice0007_label"
+    },
+    "27": {
+        "img_data_file": "patient0003_slice0008",
+        "lbl_data_file": "patient0003_slice0008_label"
+    },
+    "28": {
+        "img_data_file": "patient0003_slice0009",
+        "lbl_data_file": "patient0003_slice0009_label"
+    },
+    "29": {
+        "img_data_file": "patient0003_slice0010",
+        "lbl_data_file": "patient0003_slice0010_label"
+    },
+    "30": {
+        "img_data_file": "patient0004_slice0001",
+        "lbl_data_file": "patient0004_slice0001_label"
+    },
+    "31": {
+        "img_data_file": "patient0004_slice0002",
+        "lbl_data_file": "patient0004_slice0002_label"
+    },
+    "32": {
+        "img_data_file": "patient0004_slice0003",
+        "lbl_data_file": "patient0004_slice0003_label"
+    },
+    "33": {
+        "img_data_file": "patient0004_slice0004",
+        "lbl_data_file": "patient0004_slice0004_label"
+    },
+    "34": {
+        "img_data_file": "patient0004_slice0005",
+        "lbl_data_file": "patient0004_slice0005_label"
+    },
+    "35": {
+        "img_data_file": "patient0004_slice0006",
+        "lbl_data_file": "patient0004_slice0006_label"
+    },
+    "36": {
+        "img_data_file": "patient0004_slice0007",
+        "lbl_data_file": "patient0004_slice0007_label"
+    },
+    "37": {
+        "img_data_file": "patient0004_slice0008",
+        "lbl_data_file": "patient0004_slice0008_label"
+    },
+    "38": {
+        "img_data_file": "patient0004_slice0009",
+        "lbl_data_file": "patient0004_slice0009_label"
+    },
+    "39": {
+        "img_data_file": "patient0004_slice0010",
+        "lbl_data_file": "patient0004_slice0010_label"
+    },
+    "40": {
+        "img_data_file": "patient0005_slice0001",
+        "lbl_data_file": "patient0005_slice0001_label"
+    },
+    "41": {
+        "img_data_file": "patient0005_slice0002",
+        "lbl_data_file": "patient0005_slice0002_label"
+    },
+    "42": {
+        "img_data_file": "patient0005_slice0003",
+        "lbl_data_file": "patient0005_slice0003_label"
+    },
+    "43": {
+        "img_data_file": "patient0005_slice0004",
+        "lbl_data_file": "patient0005_slice0004_label"
+    },
+    "44": {
+        "img_data_file": "patient0005_slice0005",
+        "lbl_data_file": "patient0005_slice0005_label"
+    },
+    "45": {
+        "img_data_file": "patient0005_slice0006",
+        "lbl_data_file": "patient0005_slice0006_label"
+    },
+    "46": {
+        "img_data_file": "patient0005_slice0007",
+        "lbl_data_file": "patient0005_slice0007_label"
+    },
+    "47": {
+        "img_data_file": "patient0005_slice0008",
+        "lbl_data_file": "patient0005_slice0008_label"
+    },
+    "48": {
+        "img_data_file": "patient0005_slice0009",
+        "lbl_data_file": "patient0005_slice0009_label"
+    },
+    "49": {
+        "img_data_file": "patient0005_slice0010",
+        "lbl_data_file": "patient0005_slice0010_label"
+    },
+    "50": {
+        "img_data_file": "patient0006_slice0001",
+        "lbl_data_file": "patient0006_slice0001_label"
+    },
+    "51": {
+        "img_data_file": "patient0006_slice0002",
+        "lbl_data_file": "patient0006_slice0002_label"
+    },
+    "52": {
+        "img_data_file": "patient0006_slice0003",
+        "lbl_data_file": "patient0006_slice0003_label"
+    },
+    "53": {
+        "img_data_file": "patient0006_slice0004",
+        "lbl_data_file": "patient0006_slice0004_label"
+    },
+    "54": {
+        "img_data_file": "patient0006_slice0005",
+        "lbl_data_file": "patient0006_slice0005_label"
+    },
+    "55": {
+        "img_data_file": "patient0006_slice0006",
+        "lbl_data_file": "patient0006_slice0006_label"
+    },
+    "56": {
+        "img_data_file": "patient0006_slice0007",
+        "lbl_data_file": "patient0006_slice0007_label"
+    },
+    "57": {
+        "img_data_file": "patient0006_slice0008",
+        "lbl_data_file": "patient0006_slice0008_label"
+    },
+    "58": {
+        "img_data_file": "patient0006_slice0009",
+        "lbl_data_file": "patient0006_slice0009_label"
+    },
+    "59": {
+        "img_data_file": "patient0006_slice0010",
+        "lbl_data_file": "patient0006_slice0010_label"
+    },
+    "60": {
+        "img_data_file": "patient0006_slice0011",
+        "lbl_data_file": "patient0006_slice0011_label"
+    },
+    "61": {
+        "img_data_file": "patient0007_slice0001",
+        "lbl_data_file": "patient0007_slice0001_label"
+    },
+    "62": {
+        "img_data_file": "patient0007_slice0002",
+        "lbl_data_file": "patient0007_slice0002_label"
+    },
+    "63": {
+        "img_data_file": "patient0007_slice0003",
+        "lbl_data_file": "patient0007_slice0003_label"
+    },
+    "64": {
+        "img_data_file": "patient0007_slice0004",
+        "lbl_data_file": "patient0007_slice0004_label"
+    },
+    "65": {
+        "img_data_file": "patient0007_slice0005",
+        "lbl_data_file": "patient0007_slice0005_label"
+    },
+    "66": {
+        "img_data_file": "patient0007_slice0006",
+        "lbl_data_file": "patient0007_slice0006_label"
+    },
+    "67": {
+        "img_data_file": "patient0007_slice0007",
+        "lbl_data_file": "patient0007_slice0007_label"
+    },
+    "68": {
+        "img_data_file": "patient0007_slice0008",
+        "lbl_data_file": "patient0007_slice0008_label"
+    },
+    "69": {
+        "img_data_file": "patient0007_slice0009",
+        "lbl_data_file": "patient0007_slice0009_label"
+    },
+    "70": {
+        "img_data_file": "patient0007_slice0010",
+        "lbl_data_file": "patient0007_slice0010_label"
+    },
+    "71": {
+        "img_data_file": "patient0008_slice0001",
+        "lbl_data_file": "patient0008_slice0001_label"
+    },
+    "72": {
+        "img_data_file": "patient0008_slice0002",
+        "lbl_data_file": "patient0008_slice0002_label"
+    },
+    "73": {
+        "img_data_file": "patient0008_slice0003",
+        "lbl_data_file": "patient0008_slice0003_label"
+    },
+    "74": {
+        "img_data_file": "patient0008_slice0004",
+        "lbl_data_file": "patient0008_slice0004_label"
+    },
+    "75": {
+        "img_data_file": "patient0008_slice0005",
+        "lbl_data_file": "patient0008_slice0005_label"
+    },
+    "76": {
+        "img_data_file": "patient0008_slice0006",
+        "lbl_data_file": "patient0008_slice0006_label"
+    },
+    "77": {
+        "img_data_file": "patient0008_slice0007",
+        "lbl_data_file": "patient0008_slice0007_label"
+    },
+    "78": {
+        "img_data_file": "patient0008_slice0008",
+        "lbl_data_file": "patient0008_slice0008_label"
+    },
+    "79": {
+        "img_data_file": "patient0008_slice0009",
+        "lbl_data_file": "patient0008_slice0009_label"
+    },
+    "80": {
+        "img_data_file": "patient0008_slice0010",
+        "lbl_data_file": "patient0008_slice0010_label"
+    },
+    "81": {
+        "img_data_file": "patient0009_slice0001",
+        "lbl_data_file": "patient0009_slice0001_label"
+    },
+    "82": {
+        "img_data_file": "patient0009_slice0002",
+        "lbl_data_file": "patient0009_slice0002_label"
+    },
+    "83": {
+        "img_data_file": "patient0009_slice0003",
+        "lbl_data_file": "patient0009_slice0003_label"
+    },
+    "84": {
+        "img_data_file": "patient0009_slice0004",
+        "lbl_data_file": "patient0009_slice0004_label"
+    },
+    "85": {
+        "img_data_file": "patient0009_slice0005",
+        "lbl_data_file": "patient0009_slice0005_label"
+    },
+    "86": {
+        "img_data_file": "patient0009_slice0006",
+        "lbl_data_file": "patient0009_slice0006_label"
+    },
+    "87": {
+        "img_data_file": "patient0009_slice0007",
+        "lbl_data_file": "patient0009_slice0007_label"
+    },
+    "88": {
+        "img_data_file": "patient0009_slice0008",
+        "lbl_data_file": "patient0009_slice0008_label"
+    },
+    "89": {
+        "img_data_file": "patient0009_slice0009",
+        "lbl_data_file": "patient0009_slice0009_label"
+    },
+    "90": {
+        "img_data_file": "patient0009_slice0010",
+        "lbl_data_file": "patient0009_slice0010_label"
+    },
+    "91": {
+        "img_data_file": "patient0010_slice0001",
+        "lbl_data_file": "patient0010_slice0001_label"
+    },
+    "92": {
+        "img_data_file": "patient0010_slice0002",
+        "lbl_data_file": "patient0010_slice0002_label"
+    },
+    "93": {
+        "img_data_file": "patient0010_slice0003",
+        "lbl_data_file": "patient0010_slice0003_label"
+    },
+    "94": {
+        "img_data_file": "patient0010_slice0004",
+        "lbl_data_file": "patient0010_slice0004_label"
+    },
+    "95": {
+        "img_data_file": "patient0010_slice0005",
+        "lbl_data_file": "patient0010_slice0005_label"
+    },
+    "96": {
+        "img_data_file": "patient0010_slice0006",
+        "lbl_data_file": "patient0010_slice0006_label"
+    },
+    "97": {
+        "img_data_file": "patient0010_slice0007",
+        "lbl_data_file": "patient0010_slice0007_label"
+    },
+    "98": {
+        "img_data_file": "patient0010_slice0008",
+        "lbl_data_file": "patient0010_slice0008_label"
+    },
+    "99": {
+        "img_data_file": "patient0010_slice0009",
+        "lbl_data_file": "patient0010_slice0009_label"
+    },
+    "100": {
+        "img_data_file": "patient0010_slice0010",
+        "lbl_data_file": "patient0010_slice0010_label"
+    },
+    "101": {
+        "img_data_file": "patient0011_slice0001",
+        "lbl_data_file": "patient0011_slice0001_label"
+    },
+    "102": {
+        "img_data_file": "patient0011_slice0002",
+        "lbl_data_file": "patient0011_slice0002_label"
+    },
+    "103": {
+        "img_data_file": "patient0011_slice0003",
+        "lbl_data_file": "patient0011_slice0003_label"
+    },
+    "104": {
+        "img_data_file": "patient0011_slice0004",
+        "lbl_data_file": "patient0011_slice0004_label"
+    },
+    "105": {
+        "img_data_file": "patient0011_slice0005",
+        "lbl_data_file": "patient0011_slice0005_label"
+    },
+    "106": {
+        "img_data_file": "patient0011_slice0006",
+        "lbl_data_file": "patient0011_slice0006_label"
+    },
+    "107": {
+        "img_data_file": "patient0011_slice0007",
+        "lbl_data_file": "patient0011_slice0007_label"
+    },
+    "108": {
+        "img_data_file": "patient0011_slice0008",
+        "lbl_data_file": "patient0011_slice0008_label"
+    },
+    "109": {
+        "img_data_file": "patient0011_slice0009",
+        "lbl_data_file": "patient0011_slice0009_label"
+    },
+    "110": {
+        "img_data_file": "patient0012_slice0001",
+        "lbl_data_file": "patient0012_slice0001_label"
+    },
+    "111": {
+        "img_data_file": "patient0012_slice0002",
+        "lbl_data_file": "patient0012_slice0002_label"
+    },
+    "112": {
+        "img_data_file": "patient0012_slice0003",
+        "lbl_data_file": "patient0012_slice0003_label"
+    },
+    "113": {
+        "img_data_file": "patient0012_slice0004",
+        "lbl_data_file": "patient0012_slice0004_label"
+    },
+    "114": {
+        "img_data_file": "patient0012_slice0005",
+        "lbl_data_file": "patient0012_slice0005_label"
+    },
+    "115": {
+        "img_data_file": "patient0012_slice0006",
+        "lbl_data_file": "patient0012_slice0006_label"
+    },
+    "116": {
+        "img_data_file": "patient0012_slice0007",
+        "lbl_data_file": "patient0012_slice0007_label"
+    },
+    "117": {
+        "img_data_file": "patient0012_slice0008",
+        "lbl_data_file": "patient0012_slice0008_label"
+    },
+    "118": {
+        "img_data_file": "patient0012_slice0009",
+        "lbl_data_file": "patient0012_slice0009_label"
+    },
+    "119": {
+        "img_data_file": "patient0012_slice0010",
+        "lbl_data_file": "patient0012_slice0010_label"
+    },
+    "120": {
+        "img_data_file": "patient0013_slice0001",
+        "lbl_data_file": "patient0013_slice0001_label"
+    },
+    "121": {
+        "img_data_file": "patient0013_slice0002",
+        "lbl_data_file": "patient0013_slice0002_label"
+    },
+    "122": {
+        "img_data_file": "patient0013_slice0003",
+        "lbl_data_file": "patient0013_slice0003_label"
+    },
+    "123": {
+        "img_data_file": "patient0013_slice0004",
+        "lbl_data_file": "patient0013_slice0004_label"
+    },
+    "124": {
+        "img_data_file": "patient0013_slice0005",
+        "lbl_data_file": "patient0013_slice0005_label"
+    },
+    "125": {
+        "img_data_file": "patient0013_slice0006",
+        "lbl_data_file": "patient0013_slice0006_label"
+    },
+    "126": {
+        "img_data_file": "patient0013_slice0007",
+        "lbl_data_file": "patient0013_slice0007_label"
+    },
+    "127": {
+        "img_data_file": "patient0013_slice0008",
+        "lbl_data_file": "patient0013_slice0008_label"
+    },
+    "128": {
+        "img_data_file": "patient0013_slice0009",
+        "lbl_data_file": "patient0013_slice0009_label"
+    },
+    "129": {
+        "img_data_file": "patient0013_slice0010",
+        "lbl_data_file": "patient0013_slice0010_label"
+    },
+    "130": {
+        "img_data_file": "patient0014_slice0001",
+        "lbl_data_file": "patient0014_slice0001_label"
+    },
+    "131": {
+        "img_data_file": "patient0014_slice0002",
+        "lbl_data_file": "patient0014_slice0002_label"
+    },
+    "132": {
+        "img_data_file": "patient0014_slice0003",
+        "lbl_data_file": "patient0014_slice0003_label"
+    },
+    "133": {
+        "img_data_file": "patient0014_slice0004",
+        "lbl_data_file": "patient0014_slice0004_label"
+    },
+    "134": {
+        "img_data_file": "patient0014_slice0005",
+        "lbl_data_file": "patient0014_slice0005_label"
+    },
+    "135": {
+        "img_data_file": "patient0014_slice0006",
+        "lbl_data_file": "patient0014_slice0006_label"
+    },
+    "136": {
+        "img_data_file": "patient0014_slice0007",
+        "lbl_data_file": "patient0014_slice0007_label"
+    },
+    "137": {
+        "img_data_file": "patient0014_slice0008",
+        "lbl_data_file": "patient0014_slice0008_label"
+    },
+    "138": {
+        "img_data_file": "patient0014_slice0009",
+        "lbl_data_file": "patient0014_slice0009_label"
+    },
+    "139": {
+        "img_data_file": "patient0014_slice0010",
+        "lbl_data_file": "patient0014_slice0010_label"
+    },
+    "140": {
+        "img_data_file": "patient0015_slice0001",
+        "lbl_data_file": "patient0015_slice0001_label"
+    },
+    "141": {
+        "img_data_file": "patient0015_slice0002",
+        "lbl_data_file": "patient0015_slice0002_label"
+    },
+    "142": {
+        "img_data_file": "patient0015_slice0003",
+        "lbl_data_file": "patient0015_slice0003_label"
+    },
+    "143": {
+        "img_data_file": "patient0015_slice0004",
+        "lbl_data_file": "patient0015_slice0004_label"
+    },
+    "144": {
+        "img_data_file": "patient0015_slice0005",
+        "lbl_data_file": "patient0015_slice0005_label"
+    },
+    "145": {
+        "img_data_file": "patient0015_slice0006",
+        "lbl_data_file": "patient0015_slice0006_label"
+    },
+    "146": {
+        "img_data_file": "patient0015_slice0007",
+        "lbl_data_file": "patient0015_slice0007_label"
+    },
+    "147": {
+        "img_data_file": "patient0015_slice0008",
+        "lbl_data_file": "patient0015_slice0008_label"
+    },
+    "148": {
+        "img_data_file": "patient0015_slice0009",
+        "lbl_data_file": "patient0015_slice0009_label"
+    },
+    "149": {
+        "img_data_file": "patient0016_slice0001",
+        "lbl_data_file": "patient0016_slice0001_label"
+    },
+    "150": {
+        "img_data_file": "patient0016_slice0002",
+        "lbl_data_file": "patient0016_slice0002_label"
+    },
+    "151": {
+        "img_data_file": "patient0016_slice0003",
+        "lbl_data_file": "patient0016_slice0003_label"
+    },
+    "152": {
+        "img_data_file": "patient0016_slice0004",
+        "lbl_data_file": "patient0016_slice0004_label"
+    },
+    "153": {
+        "img_data_file": "patient0016_slice0005",
+        "lbl_data_file": "patient0016_slice0005_label"
+    },
+    "154": {
+        "img_data_file": "patient0016_slice0006",
+        "lbl_data_file": "patient0016_slice0006_label"
+    },
+    "155": {
+        "img_data_file": "patient0016_slice0007",
+        "lbl_data_file": "patient0016_slice0007_label"
+    },
+    "156": {
+        "img_data_file": "patient0016_slice0008",
+        "lbl_data_file": "patient0016_slice0008_label"
+    },
+    "157": {
+        "img_data_file": "patient0016_slice0009",
+        "lbl_data_file": "patient0016_slice0009_label"
+    },
+    "158": {
+        "img_data_file": "patient0016_slice0010",
+        "lbl_data_file": "patient0016_slice0010_label"
+    },
+    "159": {
+        "img_data_file": "patient0017_slice0001",
+        "lbl_data_file": "patient0017_slice0001_label"
+    },
+    "160": {
+        "img_data_file": "patient0017_slice0002",
+        "lbl_data_file": "patient0017_slice0002_label"
+    },
+    "161": {
+        "img_data_file": "patient0017_slice0003",
+        "lbl_data_file": "patient0017_slice0003_label"
+    },
+    "162": {
+        "img_data_file": "patient0017_slice0004",
+        "lbl_data_file": "patient0017_slice0004_label"
+    },
+    "163": {
+        "img_data_file": "patient0017_slice0005",
+        "lbl_data_file": "patient0017_slice0005_label"
+    },
+    "164": {
+        "img_data_file": "patient0017_slice0006",
+        "lbl_data_file": "patient0017_slice0006_label"
+    },
+    "165": {
+        "img_data_file": "patient0017_slice0007",
+        "lbl_data_file": "patient0017_slice0007_label"
+    },
+    "166": {
+        "img_data_file": "patient0017_slice0008",
+        "lbl_data_file": "patient0017_slice0008_label"
+    },
+    "167": {
+        "img_data_file": "patient0017_slice0009",
+        "lbl_data_file": "patient0017_slice0009_label"
+    },
+    "168": {
+        "img_data_file": "patient0018_slice0001",
+        "lbl_data_file": "patient0018_slice0001_label"
+    },
+    "169": {
+        "img_data_file": "patient0018_slice0002",
+        "lbl_data_file": "patient0018_slice0002_label"
+    },
+    "170": {
+        "img_data_file": "patient0018_slice0003",
+        "lbl_data_file": "patient0018_slice0003_label"
+    },
+    "171": {
+        "img_data_file": "patient0018_slice0004",
+        "lbl_data_file": "patient0018_slice0004_label"
+    },
+    "172": {
+        "img_data_file": "patient0018_slice0005",
+        "lbl_data_file": "patient0018_slice0005_label"
+    },
+    "173": {
+        "img_data_file": "patient0018_slice0006",
+        "lbl_data_file": "patient0018_slice0006_label"
+    },
+    "174": {
+        "img_data_file": "patient0018_slice0007",
+        "lbl_data_file": "patient0018_slice0007_label"
+    },
+    "175": {
+        "img_data_file": "patient0018_slice0008",
+        "lbl_data_file": "patient0018_slice0008_label"
+    },
+    "176": {
+        "img_data_file": "patient0019_slice0001",
+        "lbl_data_file": "patient0019_slice0001_label"
+    },
+    "177": {
+        "img_data_file": "patient0019_slice0002",
+        "lbl_data_file": "patient0019_slice0002_label"
+    },
+    "178": {
+        "img_data_file": "patient0019_slice0003",
+        "lbl_data_file": "patient0019_slice0003_label"
+    },
+    "179": {
+        "img_data_file": "patient0019_slice0004",
+        "lbl_data_file": "patient0019_slice0004_label"
+    },
+    "180": {
+        "img_data_file": "patient0019_slice0005",
+        "lbl_data_file": "patient0019_slice0005_label"
+    },
+    "181": {
+        "img_data_file": "patient0019_slice0006",
+        "lbl_data_file": "patient0019_slice0006_label"
+    },
+    "182": {
+        "img_data_file": "patient0019_slice0007",
+        "lbl_data_file": "patient0019_slice0007_label"
+    },
+    "183": {
+        "img_data_file": "patient0019_slice0008",
+        "lbl_data_file": "patient0019_slice0008_label"
+    },
+    "184": {
+        "img_data_file": "patient0019_slice0009",
+        "lbl_data_file": "patient0019_slice0009_label"
+    },
+    "185": {
+        "img_data_file": "patient0019_slice0010",
+        "lbl_data_file": "patient0019_slice0010_label"
+    },
+    "186": {
+        "img_data_file": "patient0019_slice0011",
+        "lbl_data_file": "patient0019_slice0011_label"
+    },
+    "187": {
+        "img_data_file": "patient0020_slice0001",
+        "lbl_data_file": "patient0020_slice0001_label"
+    },
+    "188": {
+        "img_data_file": "patient0020_slice0002",
+        "lbl_data_file": "patient0020_slice0002_label"
+    },
+    "189": {
+        "img_data_file": "patient0020_slice0003",
+        "lbl_data_file": "patient0020_slice0003_label"
+    },
+    "190": {
+        "img_data_file": "patient0020_slice0004",
+        "lbl_data_file": "patient0020_slice0004_label"
+    },
+    "191": {
+        "img_data_file": "patient0020_slice0005",
+        "lbl_data_file": "patient0020_slice0005_label"
+    },
+    "192": {
+        "img_data_file": "patient0020_slice0006",
+        "lbl_data_file": "patient0020_slice0006_label"
+    },
+    "193": {
+        "img_data_file": "patient0020_slice0007",
+        "lbl_data_file": "patient0020_slice0007_label"
+    },
+    "194": {
+        "img_data_file": "patient0020_slice0008",
+        "lbl_data_file": "patient0020_slice0008_label"
+    },
+    "195": {
+        "img_data_file": "patient0021_slice0001",
+        "lbl_data_file": "patient0021_slice0001_label"
+    },
+    "196": {
+        "img_data_file": "patient0021_slice0002",
+        "lbl_data_file": "patient0021_slice0002_label"
+    },
+    "197": {
+        "img_data_file": "patient0021_slice0003",
+        "lbl_data_file": "patient0021_slice0003_label"
+    },
+    "198": {
+        "img_data_file": "patient0021_slice0004",
+        "lbl_data_file": "patient0021_slice0004_label"
+    },
+    "199": {
+        "img_data_file": "patient0021_slice0005",
+        "lbl_data_file": "patient0021_slice0005_label"
+    },
+    "200": {
+        "img_data_file": "patient0021_slice0006",
+        "lbl_data_file": "patient0021_slice0006_label"
+    },
+    "201": {
+        "img_data_file": "patient0021_slice0007",
+        "lbl_data_file": "patient0021_slice0007_label"
+    },
+    "202": {
+        "img_data_file": "patient0021_slice0008",
+        "lbl_data_file": "patient0021_slice0008_label"
+    },
+    "203": {
+        "img_data_file": "patient0021_slice0009",
+        "lbl_data_file": "patient0021_slice0009_label"
+    },
+    "204": {
+        "img_data_file": "patient0021_slice0010",
+        "lbl_data_file": "patient0021_slice0010_label"
+    },
+    "205": {
+        "img_data_file": "patient0022_slice0001",
+        "lbl_data_file": "patient0022_slice0001_label"
+    },
+    "206": {
+        "img_data_file": "patient0022_slice0002",
+        "lbl_data_file": "patient0022_slice0002_label"
+    },
+    "207": {
+        "img_data_file": "patient0022_slice0003",
+        "lbl_data_file": "patient0022_slice0003_label"
+    },
+    "208": {
+        "img_data_file": "patient0022_slice0004",
+        "lbl_data_file": "patient0022_slice0004_label"
+    },
+    "209": {
+        "img_data_file": "patient0022_slice0005",
+        "lbl_data_file": "patient0022_slice0005_label"
+    },
+    "210": {
+        "img_data_file": "patient0022_slice0006",
+        "lbl_data_file": "patient0022_slice0006_label"
+    },
+    "211": {
+        "img_data_file": "patient0022_slice0007",
+        "lbl_data_file": "patient0022_slice0007_label"
+    },
+    "212": {
+        "img_data_file": "patient0023_slice0001",
+        "lbl_data_file": "patient0023_slice0001_label"
+    },
+    "213": {
+        "img_data_file": "patient0023_slice0002",
+        "lbl_data_file": "patient0023_slice0002_label"
+    },
+    "214": {
+        "img_data_file": "patient0023_slice0003",
+        "lbl_data_file": "patient0023_slice0003_label"
+    },
+    "215": {
+        "img_data_file": "patient0023_slice0004",
+        "lbl_data_file": "patient0023_slice0004_label"
+    },
+    "216": {
+        "img_data_file": "patient0023_slice0005",
+        "lbl_data_file": "patient0023_slice0005_label"
+    },
+    "217": {
+        "img_data_file": "patient0023_slice0006",
+        "lbl_data_file": "patient0023_slice0006_label"
+    },
+    "218": {
+        "img_data_file": "patient0023_slice0007",
+        "lbl_data_file": "patient0023_slice0007_label"
+    },
+    "219": {
+        "img_data_file": "patient0023_slice0008",
+        "lbl_data_file": "patient0023_slice0008_label"
+    },
+    "220": {
+        "img_data_file": "patient0023_slice0009",
+        "lbl_data_file": "patient0023_slice0009_label"
+    },
+    "221": {
+        "img_data_file": "patient0024_slice0001",
+        "lbl_data_file": "patient0024_slice0001_label"
+    },
+    "222": {
+        "img_data_file": "patient0024_slice0002",
+        "lbl_data_file": "patient0024_slice0002_label"
+    },
+    "223": {
+        "img_data_file": "patient0024_slice0003",
+        "lbl_data_file": "patient0024_slice0003_label"
+    },
+    "224": {
+        "img_data_file": "patient0024_slice0004",
+        "lbl_data_file": "patient0024_slice0004_label"
+    },
+    "225": {
+        "img_data_file": "patient0024_slice0005",
+        "lbl_data_file": "patient0024_slice0005_label"
+    },
+    "226": {
+        "img_data_file": "patient0024_slice0006",
+        "lbl_data_file": "patient0024_slice0006_label"
+    },
+    "227": {
+        "img_data_file": "patient0024_slice0007",
+        "lbl_data_file": "patient0024_slice0007_label"
+    },
+    "228": {
+        "img_data_file": "patient0024_slice0008",
+        "lbl_data_file": "patient0024_slice0008_label"
+    },
+    "229": {
+        "img_data_file": "patient0025_slice0001",
+        "lbl_data_file": "patient0025_slice0001_label"
+    },
+    "230": {
+        "img_data_file": "patient0025_slice0002",
+        "lbl_data_file": "patient0025_slice0002_label"
+    },
+    "231": {
+        "img_data_file": "patient0025_slice0003",
+        "lbl_data_file": "patient0025_slice0003_label"
+    },
+    "232": {
+        "img_data_file": "patient0025_slice0004",
+        "lbl_data_file": "patient0025_slice0004_label"
+    },
+    "233": {
+        "img_data_file": "patient0025_slice0005",
+        "lbl_data_file": "patient0025_slice0005_label"
+    },
+    "234": {
+        "img_data_file": "patient0025_slice0006",
+        "lbl_data_file": "patient0025_slice0006_label"
+    },
+    "235": {
+        "img_data_file": "patient0025_slice0007",
+        "lbl_data_file": "patient0025_slice0007_label"
+    },
+    "236": {
+        "img_data_file": "patient0025_slice0008",
+        "lbl_data_file": "patient0025_slice0008_label"
+    },
+    "237": {
+        "img_data_file": "patient0025_slice0009",
+        "lbl_data_file": "patient0025_slice0009_label"
+    },
+    "238": {
+        "img_data_file": "patient0026_slice0001",
+        "lbl_data_file": "patient0026_slice0001_label"
+    },
+    "239": {
+        "img_data_file": "patient0026_slice0002",
+        "lbl_data_file": "patient0026_slice0002_label"
+    },
+    "240": {
+        "img_data_file": "patient0026_slice0003",
+        "lbl_data_file": "patient0026_slice0003_label"
+    },
+    "241": {
+        "img_data_file": "patient0026_slice0004",
+        "lbl_data_file": "patient0026_slice0004_label"
+    },
+    "242": {
+        "img_data_file": "patient0026_slice0005",
+        "lbl_data_file": "patient0026_slice0005_label"
+    },
+    "243": {
+        "img_data_file": "patient0026_slice0006",
+        "lbl_data_file": "patient0026_slice0006_label"
+    },
+    "244": {
+        "img_data_file": "patient0026_slice0007",
+        "lbl_data_file": "patient0026_slice0007_label"
+    },
+    "245": {
+        "img_data_file": "patient0026_slice0008",
+        "lbl_data_file": "patient0026_slice0008_label"
+    },
+    "246": {
+        "img_data_file": "patient0026_slice0009",
+        "lbl_data_file": "patient0026_slice0009_label"
+    },
+    "247": {
+        "img_data_file": "patient0026_slice0010",
+        "lbl_data_file": "patient0026_slice0010_label"
+    },
+    "248": {
+        "img_data_file": "patient0027_slice0001",
+        "lbl_data_file": "patient0027_slice0001_label"
+    },
+    "249": {
+        "img_data_file": "patient0027_slice0002",
+        "lbl_data_file": "patient0027_slice0002_label"
+    },
+    "250": {
+        "img_data_file": "patient0027_slice0003",
+        "lbl_data_file": "patient0027_slice0003_label"
+    },
+    "251": {
+        "img_data_file": "patient0027_slice0004",
+        "lbl_data_file": "patient0027_slice0004_label"
+    },
+    "252": {
+        "img_data_file": "patient0027_slice0005",
+        "lbl_data_file": "patient0027_slice0005_label"
+    },
+    "253": {
+        "img_data_file": "patient0027_slice0006",
+        "lbl_data_file": "patient0027_slice0006_label"
+    },
+    "254": {
+        "img_data_file": "patient0027_slice0007",
+        "lbl_data_file": "patient0027_slice0007_label"
+    },
+    "255": {
+        "img_data_file": "patient0027_slice0008",
+        "lbl_data_file": "patient0027_slice0008_label"
+    },
+    "256": {
+        "img_data_file": "patient0027_slice0009",
+        "lbl_data_file": "patient0027_slice0009_label"
+    },
+    "257": {
+        "img_data_file": "patient0027_slice0010",
+        "lbl_data_file": "patient0027_slice0010_label"
+    },
+    "258": {
+        "img_data_file": "patient0028_slice0001",
+        "lbl_data_file": "patient0028_slice0001_label"
+    },
+    "259": {
+        "img_data_file": "patient0028_slice0002",
+        "lbl_data_file": "patient0028_slice0002_label"
+    },
+    "260": {
+        "img_data_file": "patient0028_slice0003",
+        "lbl_data_file": "patient0028_slice0003_label"
+    },
+    "261": {
+        "img_data_file": "patient0028_slice0004",
+        "lbl_data_file": "patient0028_slice0004_label"
+    },
+    "262": {
+        "img_data_file": "patient0028_slice0005",
+        "lbl_data_file": "patient0028_slice0005_label"
+    },
+    "263": {
+        "img_data_file": "patient0028_slice0006",
+        "lbl_data_file": "patient0028_slice0006_label"
+    },
+    "264": {
+        "img_data_file": "patient0028_slice0007",
+        "lbl_data_file": "patient0028_slice0007_label"
+    },
+    "265": {
+        "img_data_file": "patient0028_slice0008",
+        "lbl_data_file": "patient0028_slice0008_label"
+    },
+    "266": {
+        "img_data_file": "patient0028_slice0009",
+        "lbl_data_file": "patient0028_slice0009_label"
+    },
+    "267": {
+        "img_data_file": "patient0028_slice0010",
+        "lbl_data_file": "patient0028_slice0010_label"
+    },
+    "268": {
+        "img_data_file": "patient0029_slice0001",
+        "lbl_data_file": "patient0029_slice0001_label"
+    },
+    "269": {
+        "img_data_file": "patient0029_slice0002",
+        "lbl_data_file": "patient0029_slice0002_label"
+    },
+    "270": {
+        "img_data_file": "patient0029_slice0003",
+        "lbl_data_file": "patient0029_slice0003_label"
+    },
+    "271": {
+        "img_data_file": "patient0029_slice0004",
+        "lbl_data_file": "patient0029_slice0004_label"
+    },
+    "272": {
+        "img_data_file": "patient0029_slice0005",
+        "lbl_data_file": "patient0029_slice0005_label"
+    },
+    "273": {
+        "img_data_file": "patient0029_slice0006",
+        "lbl_data_file": "patient0029_slice0006_label"
+    },
+    "274": {
+        "img_data_file": "patient0029_slice0007",
+        "lbl_data_file": "patient0029_slice0007_label"
+    },
+    "275": {
+        "img_data_file": "patient0029_slice0008",
+        "lbl_data_file": "patient0029_slice0008_label"
+    },
+    "276": {
+        "img_data_file": "patient0029_slice0009",
+        "lbl_data_file": "patient0029_slice0009_label"
+    },
+    "277": {
+        "img_data_file": "patient0029_slice0010",
+        "lbl_data_file": "patient0029_slice0010_label"
+    },
+    "278": {
+        "img_data_file": "patient0029_slice0011",
+        "lbl_data_file": "patient0029_slice0011_label"
+    },
+    "279": {
+        "img_data_file": "patient0030_slice0001",
+        "lbl_data_file": "patient0030_slice0001_label"
+    },
+    "280": {
+        "img_data_file": "patient0030_slice0002",
+        "lbl_data_file": "patient0030_slice0002_label"
+    },
+    "281": {
+        "img_data_file": "patient0030_slice0003",
+        "lbl_data_file": "patient0030_slice0003_label"
+    },
+    "282": {
+        "img_data_file": "patient0030_slice0004",
+        "lbl_data_file": "patient0030_slice0004_label"
+    },
+    "283": {
+        "img_data_file": "patient0030_slice0005",
+        "lbl_data_file": "patient0030_slice0005_label"
+    },
+    "284": {
+        "img_data_file": "patient0030_slice0006",
+        "lbl_data_file": "patient0030_slice0006_label"
+    },
+    "285": {
+        "img_data_file": "patient0030_slice0007",
+        "lbl_data_file": "patient0030_slice0007_label"
+    },
+    "286": {
+        "img_data_file": "patient0030_slice0008",
+        "lbl_data_file": "patient0030_slice0008_label"
+    },
+    "287": {
+        "img_data_file": "patient0030_slice0009",
+        "lbl_data_file": "patient0030_slice0009_label"
+    },
+    "288": {
+        "img_data_file": "patient0030_slice0010",
+        "lbl_data_file": "patient0030_slice0010_label"
+    },
+    "289": {
+        "img_data_file": "patient0031_slice0001",
+        "lbl_data_file": "patient0031_slice0001_label"
+    },
+    "290": {
+        "img_data_file": "patient0031_slice0002",
+        "lbl_data_file": "patient0031_slice0002_label"
+    },
+    "291": {
+        "img_data_file": "patient0031_slice0003",
+        "lbl_data_file": "patient0031_slice0003_label"
+    },
+    "292": {
+        "img_data_file": "patient0031_slice0004",
+        "lbl_data_file": "patient0031_slice0004_label"
+    },
+    "293": {
+        "img_data_file": "patient0031_slice0005",
+        "lbl_data_file": "patient0031_slice0005_label"
+    },
+    "294": {
+        "img_data_file": "patient0031_slice0006",
+        "lbl_data_file": "patient0031_slice0006_label"
+    },
+    "295": {
+        "img_data_file": "patient0031_slice0007",
+        "lbl_data_file": "patient0031_slice0007_label"
+    },
+    "296": {
+        "img_data_file": "patient0031_slice0008",
+        "lbl_data_file": "patient0031_slice0008_label"
+    },
+    "297": {
+        "img_data_file": "patient0031_slice0009",
+        "lbl_data_file": "patient0031_slice0009_label"
+    },
+    "298": {
+        "img_data_file": "patient0031_slice0010",
+        "lbl_data_file": "patient0031_slice0010_label"
+    },
+    "299": {
+        "img_data_file": "patient0032_slice0001",
+        "lbl_data_file": "patient0032_slice0001_label"
+    },
+    "300": {
+        "img_data_file": "patient0032_slice0002",
+        "lbl_data_file": "patient0032_slice0002_label"
+    },
+    "301": {
+        "img_data_file": "patient0032_slice0003",
+        "lbl_data_file": "patient0032_slice0003_label"
+    },
+    "302": {
+        "img_data_file": "patient0032_slice0004",
+        "lbl_data_file": "patient0032_slice0004_label"
+    },
+    "303": {
+        "img_data_file": "patient0032_slice0005",
+        "lbl_data_file": "patient0032_slice0005_label"
+    },
+    "304": {
+        "img_data_file": "patient0032_slice0006",
+        "lbl_data_file": "patient0032_slice0006_label"
+    },
+    "305": {
+        "img_data_file": "patient0032_slice0007",
+        "lbl_data_file": "patient0032_slice0007_label"
+    },
+    "306": {
+        "img_data_file": "patient0032_slice0008",
+        "lbl_data_file": "patient0032_slice0008_label"
+    },
+    "307": {
+        "img_data_file": "patient0032_slice0009",
+        "lbl_data_file": "patient0032_slice0009_label"
+    },
+    "308": {
+        "img_data_file": "patient0032_slice0010",
+        "lbl_data_file": "patient0032_slice0010_label"
+    },
+    "309": {
+        "img_data_file": "patient0033_slice0001",
+        "lbl_data_file": "patient0033_slice0001_label"
+    },
+    "310": {
+        "img_data_file": "patient0033_slice0002",
+        "lbl_data_file": "patient0033_slice0002_label"
+    },
+    "311": {
+        "img_data_file": "patient0033_slice0003",
+        "lbl_data_file": "patient0033_slice0003_label"
+    },
+    "312": {
+        "img_data_file": "patient0033_slice0004",
+        "lbl_data_file": "patient0033_slice0004_label"
+    },
+    "313": {
+        "img_data_file": "patient0033_slice0005",
+        "lbl_data_file": "patient0033_slice0005_label"
+    },
+    "314": {
+        "img_data_file": "patient0033_slice0006",
+        "lbl_data_file": "patient0033_slice0006_label"
+    },
+    "315": {
+        "img_data_file": "patient0033_slice0007",
+        "lbl_data_file": "patient0033_slice0007_label"
+    },
+    "316": {
+        "img_data_file": "patient0033_slice0008",
+        "lbl_data_file": "patient0033_slice0008_label"
+    },
+    "317": {
+        "img_data_file": "patient0033_slice0009",
+        "lbl_data_file": "patient0033_slice0009_label"
+    },
+    "318": {
+        "img_data_file": "patient0033_slice0010",
+        "lbl_data_file": "patient0033_slice0010_label"
+    },
+    "319": {
+        "img_data_file": "patient0034_slice0001",
+        "lbl_data_file": "patient0034_slice0001_label"
+    },
+    "320": {
+        "img_data_file": "patient0034_slice0002",
+        "lbl_data_file": "patient0034_slice0002_label"
+    },
+    "321": {
+        "img_data_file": "patient0034_slice0003",
+        "lbl_data_file": "patient0034_slice0003_label"
+    },
+    "322": {
+        "img_data_file": "patient0034_slice0004",
+        "lbl_data_file": "patient0034_slice0004_label"
+    },
+    "323": {
+        "img_data_file": "patient0034_slice0005",
+        "lbl_data_file": "patient0034_slice0005_label"
+    },
+    "324": {
+        "img_data_file": "patient0034_slice0006",
+        "lbl_data_file": "patient0034_slice0006_label"
+    },
+    "325": {
+        "img_data_file": "patient0034_slice0007",
+        "lbl_data_file": "patient0034_slice0007_label"
+    },
+    "326": {
+        "img_data_file": "patient0034_slice0008",
+        "lbl_data_file": "patient0034_slice0008_label"
+    },
+    "327": {
+        "img_data_file": "patient0034_slice0009",
+        "lbl_data_file": "patient0034_slice0009_label"
+    },
+    "328": {
+        "img_data_file": "patient0034_slice0010",
+        "lbl_data_file": "patient0034_slice0010_label"
+    },
+    "329": {
+        "img_data_file": "patient0035_slice0001",
+        "lbl_data_file": "patient0035_slice0001_label"
+    },
+    "330": {
+        "img_data_file": "patient0035_slice0002",
+        "lbl_data_file": "patient0035_slice0002_label"
+    },
+    "331": {
+        "img_data_file": "patient0035_slice0003",
+        "lbl_data_file": "patient0035_slice0003_label"
+    },
+    "332": {
+        "img_data_file": "patient0035_slice0004",
+        "lbl_data_file": "patient0035_slice0004_label"
+    },
+    "333": {
+        "img_data_file": "patient0035_slice0005",
+        "lbl_data_file": "patient0035_slice0005_label"
+    },
+    "334": {
+        "img_data_file": "patient0035_slice0006",
+        "lbl_data_file": "patient0035_slice0006_label"
+    },
+    "335": {
+        "img_data_file": "patient0035_slice0007",
+        "lbl_data_file": "patient0035_slice0007_label"
+    },
+    "336": {
+        "img_data_file": "patient0035_slice0008",
+        "lbl_data_file": "patient0035_slice0008_label"
+    },
+    "337": {
+        "img_data_file": "patient0035_slice0009",
+        "lbl_data_file": "patient0035_slice0009_label"
+    },
+    "338": {
+        "img_data_file": "patient0035_slice0010",
+        "lbl_data_file": "patient0035_slice0010_label"
+    },
+    "339": {
+        "img_data_file": "patient0035_slice0011",
+        "lbl_data_file": "patient0035_slice0011_label"
+    },
+    "340": {
+        "img_data_file": "patient0035_slice0012",
+        "lbl_data_file": "patient0035_slice0012_label"
+    },
+    "341": {
+        "img_data_file": "patient0035_slice0013",
+        "lbl_data_file": "patient0035_slice0013_label"
+    },
+    "342": {
+        "img_data_file": "patient0036_slice0001",
+        "lbl_data_file": "patient0036_slice0001_label"
+    },
+    "343": {
+        "img_data_file": "patient0036_slice0002",
+        "lbl_data_file": "patient0036_slice0002_label"
+    },
+    "344": {
+        "img_data_file": "patient0036_slice0003",
+        "lbl_data_file": "patient0036_slice0003_label"
+    },
+    "345": {
+        "img_data_file": "patient0036_slice0004",
+        "lbl_data_file": "patient0036_slice0004_label"
+    },
+    "346": {
+        "img_data_file": "patient0036_slice0005",
+        "lbl_data_file": "patient0036_slice0005_label"
+    },
+    "347": {
+        "img_data_file": "patient0036_slice0006",
+        "lbl_data_file": "patient0036_slice0006_label"
+    },
+    "348": {
+        "img_data_file": "patient0036_slice0007",
+        "lbl_data_file": "patient0036_slice0007_label"
+    },
+    "349": {
+        "img_data_file": "patient0039_slice0001",
+        "lbl_data_file": "patient0039_slice0001_label"
+    },
+    "350": {
+        "img_data_file": "patient0039_slice0002",
+        "lbl_data_file": "patient0039_slice0002_label"
+    },
+    "351": {
+        "img_data_file": "patient0039_slice0003",
+        "lbl_data_file": "patient0039_slice0003_label"
+    },
+    "352": {
+        "img_data_file": "patient0039_slice0004",
+        "lbl_data_file": "patient0039_slice0004_label"
+    },
+    "353": {
+        "img_data_file": "patient0039_slice0005",
+        "lbl_data_file": "patient0039_slice0005_label"
+    },
+    "354": {
+        "img_data_file": "patient0039_slice0006",
+        "lbl_data_file": "patient0039_slice0006_label"
+    },
+    "355": {
+        "img_data_file": "patient0039_slice0007",
+        "lbl_data_file": "patient0039_slice0007_label"
+    },
+    "356": {
+        "img_data_file": "patient0039_slice0008",
+        "lbl_data_file": "patient0039_slice0008_label"
+    },
+    "357": {
+        "img_data_file": "patient0039_slice0009",
+        "lbl_data_file": "patient0039_slice0009_label"
+    },
+    "358": {
+        "img_data_file": "patient0040_slice0001",
+        "lbl_data_file": "patient0040_slice0001_label"
+    },
+    "359": {
+        "img_data_file": "patient0040_slice0002",
+        "lbl_data_file": "patient0040_slice0002_label"
+    },
+    "360": {
+        "img_data_file": "patient0040_slice0003",
+        "lbl_data_file": "patient0040_slice0003_label"
+    },
+    "361": {
+        "img_data_file": "patient0040_slice0004",
+        "lbl_data_file": "patient0040_slice0004_label"
+    },
+    "362": {
+        "img_data_file": "patient0040_slice0005",
+        "lbl_data_file": "patient0040_slice0005_label"
+    },
+    "363": {
+        "img_data_file": "patient0040_slice0006",
+        "lbl_data_file": "patient0040_slice0006_label"
+    },
+    "364": {
+        "img_data_file": "patient0040_slice0007",
+        "lbl_data_file": "patient0040_slice0007_label"
+    },
+    "365": {
+        "img_data_file": "patient0040_slice0008",
+        "lbl_data_file": "patient0040_slice0008_label"
+    },
+    "366": {
+        "img_data_file": "patient0040_slice0009",
+        "lbl_data_file": "patient0040_slice0009_label"
+    },
+    "367": {
+        "img_data_file": "patient0040_slice0010",
+        "lbl_data_file": "patient0040_slice0010_label"
+    },
+    "368": {
+        "img_data_file": "patient0041_slice0001",
+        "lbl_data_file": "patient0041_slice0001_label"
+    },
+    "369": {
+        "img_data_file": "patient0041_slice0002",
+        "lbl_data_file": "patient0041_slice0002_label"
+    },
+    "370": {
+        "img_data_file": "patient0041_slice0003",
+        "lbl_data_file": "patient0041_slice0003_label"
+    },
+    "371": {
+        "img_data_file": "patient0041_slice0004",
+        "lbl_data_file": "patient0041_slice0004_label"
+    },
+    "372": {
+        "img_data_file": "patient0041_slice0005",
+        "lbl_data_file": "patient0041_slice0005_label"
+    },
+    "373": {
+        "img_data_file": "patient0041_slice0006",
+        "lbl_data_file": "patient0041_slice0006_label"
+    },
+    "374": {
+        "img_data_file": "patient0042_slice0001",
+        "lbl_data_file": "patient0042_slice0001_label"
+    },
+    "375": {
+        "img_data_file": "patient0042_slice0002",
+        "lbl_data_file": "patient0042_slice0002_label"
+    },
+    "376": {
+        "img_data_file": "patient0042_slice0003",
+        "lbl_data_file": "patient0042_slice0003_label"
+    },
+    "377": {
+        "img_data_file": "patient0042_slice0004",
+        "lbl_data_file": "patient0042_slice0004_label"
+    },
+    "378": {
+        "img_data_file": "patient0042_slice0005",
+        "lbl_data_file": "patient0042_slice0005_label"
+    },
+    "379": {
+        "img_data_file": "patient0042_slice0006",
+        "lbl_data_file": "patient0042_slice0006_label"
+    },
+    "380": {
+        "img_data_file": "patient0042_slice0007",
+        "lbl_data_file": "patient0042_slice0007_label"
+    },
+    "381": {
+        "img_data_file": "patient0042_slice0008",
+        "lbl_data_file": "patient0042_slice0008_label"
+    },
+    "382": {
+        "img_data_file": "patient0042_slice0009",
+        "lbl_data_file": "patient0042_slice0009_label"
+    },
+    "383": {
+        "img_data_file": "patient0043_slice0001",
+        "lbl_data_file": "patient0043_slice0001_label"
+    },
+    "384": {
+        "img_data_file": "patient0043_slice0002",
+        "lbl_data_file": "patient0043_slice0002_label"
+    },
+    "385": {
+        "img_data_file": "patient0043_slice0003",
+        "lbl_data_file": "patient0043_slice0003_label"
+    },
+    "386": {
+        "img_data_file": "patient0043_slice0004",
+        "lbl_data_file": "patient0043_slice0004_label"
+    },
+    "387": {
+        "img_data_file": "patient0043_slice0005",
+        "lbl_data_file": "patient0043_slice0005_label"
+    },
+    "388": {
+        "img_data_file": "patient0043_slice0006",
+        "lbl_data_file": "patient0043_slice0006_label"
+    },
+    "389": {
+        "img_data_file": "patient0043_slice0007",
+        "lbl_data_file": "patient0043_slice0007_label"
+    },
+    "390": {
+        "img_data_file": "patient0043_slice0008",
+        "lbl_data_file": "patient0043_slice0008_label"
+    },
+    "391": {
+        "img_data_file": "patient0043_slice0009",
+        "lbl_data_file": "patient0043_slice0009_label"
+    },
+    "392": {
+        "img_data_file": "patient0043_slice0010",
+        "lbl_data_file": "patient0043_slice0010_label"
+    },
+    "393": {
+        "img_data_file": "patient0043_slice0011",
+        "lbl_data_file": "patient0043_slice0011_label"
+    },
+    "394": {
+        "img_data_file": "patient0043_slice0012",
+        "lbl_data_file": "patient0043_slice0012_label"
+    },
+    "395": {
+        "img_data_file": "patient0044_slice0001",
+        "lbl_data_file": "patient0044_slice0001_label"
+    },
+    "396": {
+        "img_data_file": "patient0044_slice0002",
+        "lbl_data_file": "patient0044_slice0002_label"
+    },
+    "397": {
+        "img_data_file": "patient0044_slice0003",
+        "lbl_data_file": "patient0044_slice0003_label"
+    },
+    "398": {
+        "img_data_file": "patient0044_slice0004",
+        "lbl_data_file": "patient0044_slice0004_label"
+    },
+    "399": {
+        "img_data_file": "patient0044_slice0005",
+        "lbl_data_file": "patient0044_slice0005_label"
+    },
+    "400": {
+        "img_data_file": "patient0044_slice0006",
+        "lbl_data_file": "patient0044_slice0006_label"
+    },
+    "401": {
+        "img_data_file": "patient0044_slice0007",
+        "lbl_data_file": "patient0044_slice0007_label"
+    },
+    "402": {
+        "img_data_file": "patient0044_slice0008",
+        "lbl_data_file": "patient0044_slice0008_label"
+    },
+    "403": {
+        "img_data_file": "patient0044_slice0009",
+        "lbl_data_file": "patient0044_slice0009_label"
+    },
+    "404": {
+        "img_data_file": "patient0045_slice0001",
+        "lbl_data_file": "patient0045_slice0001_label"
+    },
+    "405": {
+        "img_data_file": "patient0045_slice0002",
+        "lbl_data_file": "patient0045_slice0002_label"
+    },
+    "406": {
+        "img_data_file": "patient0045_slice0003",
+        "lbl_data_file": "patient0045_slice0003_label"
+    },
+    "407": {
+        "img_data_file": "patient0045_slice0004",
+        "lbl_data_file": "patient0045_slice0004_label"
+    },
+    "408": {
+        "img_data_file": "patient0045_slice0005",
+        "lbl_data_file": "patient0045_slice0005_label"
+    },
+    "409": {
+        "img_data_file": "patient0045_slice0006",
+        "lbl_data_file": "patient0045_slice0006_label"
+    },
+    "410": {
+        "img_data_file": "patient0045_slice0007",
+        "lbl_data_file": "patient0045_slice0007_label"
+    },
+    "411": {
+        "img_data_file": "patient0045_slice0008",
+        "lbl_data_file": "patient0045_slice0008_label"
+    },
+    "412": {
+        "img_data_file": "patient0046_slice0001",
+        "lbl_data_file": "patient0046_slice0001_label"
+    },
+    "413": {
+        "img_data_file": "patient0046_slice0002",
+        "lbl_data_file": "patient0046_slice0002_label"
+    },
+    "414": {
+        "img_data_file": "patient0046_slice0003",
+        "lbl_data_file": "patient0046_slice0003_label"
+    },
+    "415": {
+        "img_data_file": "patient0046_slice0004",
+        "lbl_data_file": "patient0046_slice0004_label"
+    },
+    "416": {
+        "img_data_file": "patient0046_slice0005",
+        "lbl_data_file": "patient0046_slice0005_label"
+    },
+    "417": {
+        "img_data_file": "patient0046_slice0006",
+        "lbl_data_file": "patient0046_slice0006_label"
+    },
+    "418": {
+        "img_data_file": "patient0046_slice0007",
+        "lbl_data_file": "patient0046_slice0007_label"
+    },
+    "419": {
+        "img_data_file": "patient0046_slice0008",
+        "lbl_data_file": "patient0046_slice0008_label"
+    },
+    "420": {
+        "img_data_file": "patient0046_slice0009",
+        "lbl_data_file": "patient0046_slice0009_label"
+    },
+    "421": {
+        "img_data_file": "patient0047_slice0001",
+        "lbl_data_file": "patient0047_slice0001_label"
+    },
+    "422": {
+        "img_data_file": "patient0047_slice0002",
+        "lbl_data_file": "patient0047_slice0002_label"
+    },
+    "423": {
+        "img_data_file": "patient0047_slice0003",
+        "lbl_data_file": "patient0047_slice0003_label"
+    },
+    "424": {
+        "img_data_file": "patient0047_slice0004",
+        "lbl_data_file": "patient0047_slice0004_label"
+    },
+    "425": {
+        "img_data_file": "patient0047_slice0005",
+        "lbl_data_file": "patient0047_slice0005_label"
+    },
+    "426": {
+        "img_data_file": "patient0047_slice0006",
+        "lbl_data_file": "patient0047_slice0006_label"
+    },
+    "427": {
+        "img_data_file": "patient0047_slice0007",
+        "lbl_data_file": "patient0047_slice0007_label"
+    },
+    "428": {
+        "img_data_file": "patient0047_slice0008",
+        "lbl_data_file": "patient0047_slice0008_label"
+    },
+    "429": {
+        "img_data_file": "patient0047_slice0009",
+        "lbl_data_file": "patient0047_slice0009_label"
+    },
+    "430": {
+        "img_data_file": "patient0048_slice0001",
+        "lbl_data_file": "patient0048_slice0001_label"
+    },
+    "431": {
+        "img_data_file": "patient0048_slice0002",
+        "lbl_data_file": "patient0048_slice0002_label"
+    },
+    "432": {
+        "img_data_file": "patient0048_slice0003",
+        "lbl_data_file": "patient0048_slice0003_label"
+    },
+    "433": {
+        "img_data_file": "patient0048_slice0004",
+        "lbl_data_file": "patient0048_slice0004_label"
+    },
+    "434": {
+        "img_data_file": "patient0048_slice0005",
+        "lbl_data_file": "patient0048_slice0005_label"
+    },
+    "435": {
+        "img_data_file": "patient0048_slice0006",
+        "lbl_data_file": "patient0048_slice0006_label"
+    },
+    "436": {
+        "img_data_file": "patient0048_slice0007",
+        "lbl_data_file": "patient0048_slice0007_label"
+    },
+    "437": {
+        "img_data_file": "patient0048_slice0008",
+        "lbl_data_file": "patient0048_slice0008_label"
+    },
+    "438": {
+        "img_data_file": "patient0049_slice0001",
+        "lbl_data_file": "patient0049_slice0001_label"
+    },
+    "439": {
+        "img_data_file": "patient0049_slice0002",
+        "lbl_data_file": "patient0049_slice0002_label"
+    },
+    "440": {
+        "img_data_file": "patient0049_slice0003",
+        "lbl_data_file": "patient0049_slice0003_label"
+    },
+    "441": {
+        "img_data_file": "patient0049_slice0004",
+        "lbl_data_file": "patient0049_slice0004_label"
+    },
+    "442": {
+        "img_data_file": "patient0049_slice0005",
+        "lbl_data_file": "patient0049_slice0005_label"
+    },
+    "443": {
+        "img_data_file": "patient0049_slice0006",
+        "lbl_data_file": "patient0049_slice0006_label"
+    },
+    "444": {
+        "img_data_file": "patient0049_slice0007",
+        "lbl_data_file": "patient0049_slice0007_label"
+    },
+    "445": {
+        "img_data_file": "patient0050_slice0001",
+        "lbl_data_file": "patient0050_slice0001_label"
+    },
+    "446": {
+        "img_data_file": "patient0050_slice0002",
+        "lbl_data_file": "patient0050_slice0002_label"
+    },
+    "447": {
+        "img_data_file": "patient0050_slice0003",
+        "lbl_data_file": "patient0050_slice0003_label"
+    },
+    "448": {
+        "img_data_file": "patient0050_slice0004",
+        "lbl_data_file": "patient0050_slice0004_label"
+    },
+    "449": {
+        "img_data_file": "patient0050_slice0005",
+        "lbl_data_file": "patient0050_slice0005_label"
+    },
+    "450": {
+        "img_data_file": "patient0050_slice0006",
+        "lbl_data_file": "patient0050_slice0006_label"
+    },
+    "451": {
+        "img_data_file": "patient0050_slice0007",
+        "lbl_data_file": "patient0050_slice0007_label"
+    },
+    "452": {
+        "img_data_file": "patient0050_slice0008",
+        "lbl_data_file": "patient0050_slice0008_label"
+    },
+    "453": {
+        "img_data_file": "patient0050_slice0009",
+        "lbl_data_file": "patient0050_slice0009_label"
+    },
+    "454": {
+        "img_data_file": "patient0050_slice0010",
+        "lbl_data_file": "patient0050_slice0010_label"
+    },
+    "455": {
+        "img_data_file": "patient0051_slice0001",
+        "lbl_data_file": "patient0051_slice0001_label"
+    },
+    "456": {
+        "img_data_file": "patient0051_slice0002",
+        "lbl_data_file": "patient0051_slice0002_label"
+    },
+    "457": {
+        "img_data_file": "patient0051_slice0003",
+        "lbl_data_file": "patient0051_slice0003_label"
+    },
+    "458": {
+        "img_data_file": "patient0051_slice0004",
+        "lbl_data_file": "patient0051_slice0004_label"
+    },
+    "459": {
+        "img_data_file": "patient0051_slice0005",
+        "lbl_data_file": "patient0051_slice0005_label"
+    },
+    "460": {
+        "img_data_file": "patient0051_slice0006",
+        "lbl_data_file": "patient0051_slice0006_label"
+    },
+    "461": {
+        "img_data_file": "patient0051_slice0007",
+        "lbl_data_file": "patient0051_slice0007_label"
+    },
+    "462": {
+        "img_data_file": "patient0051_slice0008",
+        "lbl_data_file": "patient0051_slice0008_label"
+    },
+    "463": {
+        "img_data_file": "patient0051_slice0009",
+        "lbl_data_file": "patient0051_slice0009_label"
+    },
+    "464": {
+        "img_data_file": "patient0051_slice0010",
+        "lbl_data_file": "patient0051_slice0010_label"
+    },
+    "465": {
+        "img_data_file": "patient0052_slice0001",
+        "lbl_data_file": "patient0052_slice0001_label"
+    },
+    "466": {
+        "img_data_file": "patient0052_slice0002",
+        "lbl_data_file": "patient0052_slice0002_label"
+    },
+    "467": {
+        "img_data_file": "patient0052_slice0003",
+        "lbl_data_file": "patient0052_slice0003_label"
+    },
+    "468": {
+        "img_data_file": "patient0052_slice0004",
+        "lbl_data_file": "patient0052_slice0004_label"
+    },
+    "469": {
+        "img_data_file": "patient0052_slice0005",
+        "lbl_data_file": "patient0052_slice0005_label"
+    },
+    "470": {
+        "img_data_file": "patient0052_slice0006",
+        "lbl_data_file": "patient0052_slice0006_label"
+    },
+    "471": {
+        "img_data_file": "patient0052_slice0007",
+        "lbl_data_file": "patient0052_slice0007_label"
+    },
+    "472": {
+        "img_data_file": "patient0052_slice0008",
+        "lbl_data_file": "patient0052_slice0008_label"
+    },
+    "473": {
+        "img_data_file": "patient0053_slice0001",
+        "lbl_data_file": "patient0053_slice0001_label"
+    },
+    "474": {
+        "img_data_file": "patient0053_slice0002",
+        "lbl_data_file": "patient0053_slice0002_label"
+    },
+    "475": {
+        "img_data_file": "patient0053_slice0003",
+        "lbl_data_file": "patient0053_slice0003_label"
+    },
+    "476": {
+        "img_data_file": "patient0053_slice0004",
+        "lbl_data_file": "patient0053_slice0004_label"
+    },
+    "477": {
+        "img_data_file": "patient0053_slice0005",
+        "lbl_data_file": "patient0053_slice0005_label"
+    },
+    "478": {
+        "img_data_file": "patient0053_slice0006",
+        "lbl_data_file": "patient0053_slice0006_label"
+    },
+    "479": {
+        "img_data_file": "patient0053_slice0007",
+        "lbl_data_file": "patient0053_slice0007_label"
+    },
+    "480": {
+        "img_data_file": "patient0054_slice0001",
+        "lbl_data_file": "patient0054_slice0001_label"
+    },
+    "481": {
+        "img_data_file": "patient0054_slice0002",
+        "lbl_data_file": "patient0054_slice0002_label"
+    },
+    "482": {
+        "img_data_file": "patient0054_slice0003",
+        "lbl_data_file": "patient0054_slice0003_label"
+    },
+    "483": {
+        "img_data_file": "patient0054_slice0004",
+        "lbl_data_file": "patient0054_slice0004_label"
+    },
+    "484": {
+        "img_data_file": "patient0054_slice0005",
+        "lbl_data_file": "patient0054_slice0005_label"
+    },
+    "485": {
+        "img_data_file": "patient0054_slice0006",
+        "lbl_data_file": "patient0054_slice0006_label"
+    },
+    "486": {
+        "img_data_file": "patient0054_slice0007",
+        "lbl_data_file": "patient0054_slice0007_label"
+    },
+    "487": {
+        "img_data_file": "patient0054_slice0008",
+        "lbl_data_file": "patient0054_slice0008_label"
+    },
+    "488": {
+        "img_data_file": "patient0055_slice0001",
+        "lbl_data_file": "patient0055_slice0001_label"
+    },
+    "489": {
+        "img_data_file": "patient0055_slice0002",
+        "lbl_data_file": "patient0055_slice0002_label"
+    },
+    "490": {
+        "img_data_file": "patient0055_slice0003",
+        "lbl_data_file": "patient0055_slice0003_label"
+    },
+    "491": {
+        "img_data_file": "patient0055_slice0004",
+        "lbl_data_file": "patient0055_slice0004_label"
+    },
+    "492": {
+        "img_data_file": "patient0055_slice0005",
+        "lbl_data_file": "patient0055_slice0005_label"
+    },
+    "493": {
+        "img_data_file": "patient0055_slice0006",
+        "lbl_data_file": "patient0055_slice0006_label"
+    },
+    "494": {
+        "img_data_file": "patient0055_slice0007",
+        "lbl_data_file": "patient0055_slice0007_label"
+    },
+    "495": {
+        "img_data_file": "patient0055_slice0008",
+        "lbl_data_file": "patient0055_slice0008_label"
+    },
+    "496": {
+        "img_data_file": "patient0055_slice0009",
+        "lbl_data_file": "patient0055_slice0009_label"
+    },
+    "497": {
+        "img_data_file": "patient0056_slice0001",
+        "lbl_data_file": "patient0056_slice0001_label"
+    },
+    "498": {
+        "img_data_file": "patient0058_slice0001",
+        "lbl_data_file": "patient0058_slice0001_label"
+    },
+    "499": {
+        "img_data_file": "patient0058_slice0002",
+        "lbl_data_file": "patient0058_slice0002_label"
+    },
+    "500": {
+        "img_data_file": "patient0058_slice0003",
+        "lbl_data_file": "patient0058_slice0003_label"
+    },
+    "501": {
+        "img_data_file": "patient0058_slice0004",
+        "lbl_data_file": "patient0058_slice0004_label"
+    },
+    "502": {
+        "img_data_file": "patient0058_slice0005",
+        "lbl_data_file": "patient0058_slice0005_label"
+    },
+    "503": {
+        "img_data_file": "patient0058_slice0006",
+        "lbl_data_file": "patient0058_slice0006_label"
+    },
+    "504": {
+        "img_data_file": "patient0058_slice0007",
+        "lbl_data_file": "patient0058_slice0007_label"
+    },
+    "505": {
+        "img_data_file": "patient0058_slice0008",
+        "lbl_data_file": "patient0058_slice0008_label"
+    },
+    "506": {
+        "img_data_file": "patient0058_slice0009",
+        "lbl_data_file": "patient0058_slice0009_label"
+    },
+    "507": {
+        "img_data_file": "patient0059_slice0001",
+        "lbl_data_file": "patient0059_slice0001_label"
+    },
+    "508": {
+        "img_data_file": "patient0059_slice0002",
+        "lbl_data_file": "patient0059_slice0002_label"
+    },
+    "509": {
+        "img_data_file": "patient0059_slice0003",
+        "lbl_data_file": "patient0059_slice0003_label"
+    },
+    "510": {
+        "img_data_file": "patient0059_slice0004",
+        "lbl_data_file": "patient0059_slice0004_label"
+    },
+    "511": {
+        "img_data_file": "patient0059_slice0005",
+        "lbl_data_file": "patient0059_slice0005_label"
+    },
+    "512": {
+        "img_data_file": "patient0059_slice0006",
+        "lbl_data_file": "patient0059_slice0006_label"
+    },
+    "513": {
+        "img_data_file": "patient0059_slice0007",
+        "lbl_data_file": "patient0059_slice0007_label"
+    },
+    "514": {
+        "img_data_file": "patient0059_slice0008",
+        "lbl_data_file": "patient0059_slice0008_label"
+    },
+    "515": {
+        "img_data_file": "patient0059_slice0009",
+        "lbl_data_file": "patient0059_slice0009_label"
+    },
+    "516": {
+        "img_data_file": "patient0060_slice0001",
+        "lbl_data_file": "patient0060_slice0001_label"
+    },
+    "517": {
+        "img_data_file": "patient0060_slice0002",
+        "lbl_data_file": "patient0060_slice0002_label"
+    },
+    "518": {
+        "img_data_file": "patient0060_slice0003",
+        "lbl_data_file": "patient0060_slice0003_label"
+    },
+    "519": {
+        "img_data_file": "patient0060_slice0004",
+        "lbl_data_file": "patient0060_slice0004_label"
+    },
+    "520": {
+        "img_data_file": "patient0060_slice0005",
+        "lbl_data_file": "patient0060_slice0005_label"
+    },
+    "521": {
+        "img_data_file": "patient0060_slice0006",
+        "lbl_data_file": "patient0060_slice0006_label"
+    },
+    "522": {
+        "img_data_file": "patient0060_slice0007",
+        "lbl_data_file": "patient0060_slice0007_label"
+    },
+    "523": {
+        "img_data_file": "patient0060_slice0008",
+        "lbl_data_file": "patient0060_slice0008_label"
+    },
+    "524": {
+        "img_data_file": "patient0060_slice0009",
+        "lbl_data_file": "patient0060_slice0009_label"
+    },
+    "525": {
+        "img_data_file": "patient0061_slice0001",
+        "lbl_data_file": "patient0061_slice0001_label"
+    },
+    "526": {
+        "img_data_file": "patient0061_slice0002",
+        "lbl_data_file": "patient0061_slice0002_label"
+    },
+    "527": {
+        "img_data_file": "patient0061_slice0003",
+        "lbl_data_file": "patient0061_slice0003_label"
+    },
+    "528": {
+        "img_data_file": "patient0061_slice0004",
+        "lbl_data_file": "patient0061_slice0004_label"
+    },
+    "529": {
+        "img_data_file": "patient0061_slice0005",
+        "lbl_data_file": "patient0061_slice0005_label"
+    },
+    "530": {
+        "img_data_file": "patient0061_slice0006",
+        "lbl_data_file": "patient0061_slice0006_label"
+    },
+    "531": {
+        "img_data_file": "patient0061_slice0007",
+        "lbl_data_file": "patient0061_slice0007_label"
+    },
+    "532": {
+        "img_data_file": "patient0061_slice0008",
+        "lbl_data_file": "patient0061_slice0008_label"
+    },
+    "533": {
+        "img_data_file": "patient0061_slice0009",
+        "lbl_data_file": "patient0061_slice0009_label"
+    },
+    "534": {
+        "img_data_file": "patient0062_slice0001",
+        "lbl_data_file": "patient0062_slice0001_label"
+    },
+    "535": {
+        "img_data_file": "patient0062_slice0002",
+        "lbl_data_file": "patient0062_slice0002_label"
+    },
+    "536": {
+        "img_data_file": "patient0062_slice0003",
+        "lbl_data_file": "patient0062_slice0003_label"
+    },
+    "537": {
+        "img_data_file": "patient0062_slice0004",
+        "lbl_data_file": "patient0062_slice0004_label"
+    },
+    "538": {
+        "img_data_file": "patient0062_slice0005",
+        "lbl_data_file": "patient0062_slice0005_label"
+    },
+    "539": {
+        "img_data_file": "patient0062_slice0006",
+        "lbl_data_file": "patient0062_slice0006_label"
+    },
+    "540": {
+        "img_data_file": "patient0062_slice0007",
+        "lbl_data_file": "patient0062_slice0007_label"
+    },
+    "541": {
+        "img_data_file": "patient0062_slice0008",
+        "lbl_data_file": "patient0062_slice0008_label"
+    },
+    "542": {
+        "img_data_file": "patient0062_slice0009",
+        "lbl_data_file": "patient0062_slice0009_label"
+    },
+    "543": {
+        "img_data_file": "patient0062_slice0010",
+        "lbl_data_file": "patient0062_slice0010_label"
+    },
+    "544": {
+        "img_data_file": "patient0063_slice0001",
+        "lbl_data_file": "patient0063_slice0001_label"
+    },
+    "545": {
+        "img_data_file": "patient0063_slice0002",
+        "lbl_data_file": "patient0063_slice0002_label"
+    },
+    "546": {
+        "img_data_file": "patient0063_slice0003",
+        "lbl_data_file": "patient0063_slice0003_label"
+    },
+    "547": {
+        "img_data_file": "patient0063_slice0004",
+        "lbl_data_file": "patient0063_slice0004_label"
+    },
+    "548": {
+        "img_data_file": "patient0063_slice0005",
+        "lbl_data_file": "patient0063_slice0005_label"
+    },
+    "549": {
+        "img_data_file": "patient0063_slice0006",
+        "lbl_data_file": "patient0063_slice0006_label"
+    },
+    "550": {
+        "img_data_file": "patient0063_slice0007",
+        "lbl_data_file": "patient0063_slice0007_label"
+    },
+    "551": {
+        "img_data_file": "patient0063_slice0008",
+        "lbl_data_file": "patient0063_slice0008_label"
+    },
+    "552": {
+        "img_data_file": "patient0064_slice0001",
+        "lbl_data_file": "patient0064_slice0001_label"
+    },
+    "553": {
+        "img_data_file": "patient0064_slice0002",
+        "lbl_data_file": "patient0064_slice0002_label"
+    },
+    "554": {
+        "img_data_file": "patient0064_slice0003",
+        "lbl_data_file": "patient0064_slice0003_label"
+    },
+    "555": {
+        "img_data_file": "patient0064_slice0004",
+        "lbl_data_file": "patient0064_slice0004_label"
+    },
+    "556": {
+        "img_data_file": "patient0064_slice0005",
+        "lbl_data_file": "patient0064_slice0005_label"
+    },
+    "557": {
+        "img_data_file": "patient0064_slice0006",
+        "lbl_data_file": "patient0064_slice0006_label"
+    },
+    "558": {
+        "img_data_file": "patient0064_slice0007",
+        "lbl_data_file": "patient0064_slice0007_label"
+    },
+    "559": {
+        "img_data_file": "patient0064_slice0008",
+        "lbl_data_file": "patient0064_slice0008_label"
+    },
+    "560": {
+        "img_data_file": "patient0064_slice0009",
+        "lbl_data_file": "patient0064_slice0009_label"
+    },
+    "561": {
+        "img_data_file": "patient0064_slice0010",
+        "lbl_data_file": "patient0064_slice0010_label"
+    },
+    "562": {
+        "img_data_file": "patient0065_slice0001",
+        "lbl_data_file": "patient0065_slice0001_label"
+    },
+    "563": {
+        "img_data_file": "patient0065_slice0002",
+        "lbl_data_file": "patient0065_slice0002_label"
+    },
+    "564": {
+        "img_data_file": "patient0065_slice0003",
+        "lbl_data_file": "patient0065_slice0003_label"
+    },
+    "565": {
+        "img_data_file": "patient0065_slice0004",
+        "lbl_data_file": "patient0065_slice0004_label"
+    },
+    "566": {
+        "img_data_file": "patient0065_slice0005",
+        "lbl_data_file": "patient0065_slice0005_label"
+    },
+    "567": {
+        "img_data_file": "patient0065_slice0006",
+        "lbl_data_file": "patient0065_slice0006_label"
+    },
+    "568": {
+        "img_data_file": "patient0065_slice0007",
+        "lbl_data_file": "patient0065_slice0007_label"
+    },
+    "569": {
+        "img_data_file": "patient0065_slice0008",
+        "lbl_data_file": "patient0065_slice0008_label"
+    },
+    "570": {
+        "img_data_file": "patient0066_slice0001",
+        "lbl_data_file": "patient0066_slice0001_label"
+    },
+    "571": {
+        "img_data_file": "patient0066_slice0002",
+        "lbl_data_file": "patient0066_slice0002_label"
+    },
+    "572": {
+        "img_data_file": "patient0066_slice0003",
+        "lbl_data_file": "patient0066_slice0003_label"
+    },
+    "573": {
+        "img_data_file": "patient0066_slice0004",
+        "lbl_data_file": "patient0066_slice0004_label"
+    },
+    "574": {
+        "img_data_file": "patient0066_slice0005",
+        "lbl_data_file": "patient0066_slice0005_label"
+    },
+    "575": {
+        "img_data_file": "patient0066_slice0006",
+        "lbl_data_file": "patient0066_slice0006_label"
+    },
+    "576": {
+        "img_data_file": "patient0066_slice0007",
+        "lbl_data_file": "patient0066_slice0007_label"
+    },
+    "577": {
+        "img_data_file": "patient0066_slice0008",
+        "lbl_data_file": "patient0066_slice0008_label"
+    },
+    "578": {
+        "img_data_file": "patient0066_slice0009",
+        "lbl_data_file": "patient0066_slice0009_label"
+    },
+    "579": {
+        "img_data_file": "patient0067_slice0001",
+        "lbl_data_file": "patient0067_slice0001_label"
+    },
+    "580": {
+        "img_data_file": "patient0067_slice0002",
+        "lbl_data_file": "patient0067_slice0002_label"
+    },
+    "581": {
+        "img_data_file": "patient0067_slice0003",
+        "lbl_data_file": "patient0067_slice0003_label"
+    },
+    "582": {
+        "img_data_file": "patient0067_slice0004",
+        "lbl_data_file": "patient0067_slice0004_label"
+    },
+    "583": {
+        "img_data_file": "patient0067_slice0005",
+        "lbl_data_file": "patient0067_slice0005_label"
+    },
+    "584": {
+        "img_data_file": "patient0067_slice0006",
+        "lbl_data_file": "patient0067_slice0006_label"
+    },
+    "585": {
+        "img_data_file": "patient0067_slice0007",
+        "lbl_data_file": "patient0067_slice0007_label"
+    },
+    "586": {
+        "img_data_file": "patient0067_slice0008",
+        "lbl_data_file": "patient0067_slice0008_label"
+    },
+    "587": {
+        "img_data_file": "patient0067_slice0009",
+        "lbl_data_file": "patient0067_slice0009_label"
+    },
+    "588": {
+        "img_data_file": "patient0067_slice0010",
+        "lbl_data_file": "patient0067_slice0010_label"
+    },
+    "589": {
+        "img_data_file": "patient0068_slice0001",
+        "lbl_data_file": "patient0068_slice0001_label"
+    },
+    "590": {
+        "img_data_file": "patient0068_slice0002",
+        "lbl_data_file": "patient0068_slice0002_label"
+    },
+    "591": {
+        "img_data_file": "patient0068_slice0003",
+        "lbl_data_file": "patient0068_slice0003_label"
+    },
+    "592": {
+        "img_data_file": "patient0068_slice0004",
+        "lbl_data_file": "patient0068_slice0004_label"
+    },
+    "593": {
+        "img_data_file": "patient0068_slice0005",
+        "lbl_data_file": "patient0068_slice0005_label"
+    },
+    "594": {
+        "img_data_file": "patient0068_slice0006",
+        "lbl_data_file": "patient0068_slice0006_label"
+    },
+    "595": {
+        "img_data_file": "patient0068_slice0007",
+        "lbl_data_file": "patient0068_slice0007_label"
+    },
+    "596": {
+        "img_data_file": "patient0069_slice0001",
+        "lbl_data_file": "patient0069_slice0001_label"
+    },
+    "597": {
+        "img_data_file": "patient0069_slice0002",
+        "lbl_data_file": "patient0069_slice0002_label"
+    },
+    "598": {
+        "img_data_file": "patient0069_slice0003",
+        "lbl_data_file": "patient0069_slice0003_label"
+    },
+    "599": {
+        "img_data_file": "patient0069_slice0004",
+        "lbl_data_file": "patient0069_slice0004_label"
+    },
+    "600": {
+        "img_data_file": "patient0069_slice0005",
+        "lbl_data_file": "patient0069_slice0005_label"
+    },
+    "601": {
+        "img_data_file": "patient0069_slice0006",
+        "lbl_data_file": "patient0069_slice0006_label"
+    },
+    "602": {
+        "img_data_file": "patient0069_slice0007",
+        "lbl_data_file": "patient0069_slice0007_label"
+    },
+    "603": {
+        "img_data_file": "patient0070_slice0001",
+        "lbl_data_file": "patient0070_slice0001_label"
+    },
+    "604": {
+        "img_data_file": "patient0070_slice0002",
+        "lbl_data_file": "patient0070_slice0002_label"
+    },
+    "605": {
+        "img_data_file": "patient0070_slice0003",
+        "lbl_data_file": "patient0070_slice0003_label"
+    },
+    "606": {
+        "img_data_file": "patient0070_slice0004",
+        "lbl_data_file": "patient0070_slice0004_label"
+    },
+    "607": {
+        "img_data_file": "patient0070_slice0005",
+        "lbl_data_file": "patient0070_slice0005_label"
+    },
+    "608": {
+        "img_data_file": "patient0070_slice0006",
+        "lbl_data_file": "patient0070_slice0006_label"
+    },
+    "609": {
+        "img_data_file": "patient0071_slice0001",
+        "lbl_data_file": "patient0071_slice0001_label"
+    },
+    "610": {
+        "img_data_file": "patient0071_slice0002",
+        "lbl_data_file": "patient0071_slice0002_label"
+    },
+    "611": {
+        "img_data_file": "patient0071_slice0003",
+        "lbl_data_file": "patient0071_slice0003_label"
+    },
+    "612": {
+        "img_data_file": "patient0071_slice0004",
+        "lbl_data_file": "patient0071_slice0004_label"
+    },
+    "613": {
+        "img_data_file": "patient0071_slice0005",
+        "lbl_data_file": "patient0071_slice0005_label"
+    },
+    "614": {
+        "img_data_file": "patient0071_slice0006",
+        "lbl_data_file": "patient0071_slice0006_label"
+    },
+    "615": {
+        "img_data_file": "patient0071_slice0007",
+        "lbl_data_file": "patient0071_slice0007_label"
+    },
+    "616": {
+        "img_data_file": "patient0071_slice0008",
+        "lbl_data_file": "patient0071_slice0008_label"
+    },
+    "617": {
+        "img_data_file": "patient0071_slice0009",
+        "lbl_data_file": "patient0071_slice0009_label"
+    },
+    "618": {
+        "img_data_file": "patient0071_slice0010",
+        "lbl_data_file": "patient0071_slice0010_label"
+    },
+    "619": {
+        "img_data_file": "patient0072_slice0001",
+        "lbl_data_file": "patient0072_slice0001_label"
+    },
+    "620": {
+        "img_data_file": "patient0072_slice0002",
+        "lbl_data_file": "patient0072_slice0002_label"
+    },
+    "621": {
+        "img_data_file": "patient0072_slice0003",
+        "lbl_data_file": "patient0072_slice0003_label"
+    },
+    "622": {
+        "img_data_file": "patient0072_slice0004",
+        "lbl_data_file": "patient0072_slice0004_label"
+    },
+    "623": {
+        "img_data_file": "patient0072_slice0005",
+        "lbl_data_file": "patient0072_slice0005_label"
+    },
+    "624": {
+        "img_data_file": "patient0072_slice0006",
+        "lbl_data_file": "patient0072_slice0006_label"
+    },
+    "625": {
+        "img_data_file": "patient0072_slice0007",
+        "lbl_data_file": "patient0072_slice0007_label"
+    },
+    "626": {
+        "img_data_file": "patient0072_slice0008",
+        "lbl_data_file": "patient0072_slice0008_label"
+    },
+    "627": {
+        "img_data_file": "patient0073_slice0001",
+        "lbl_data_file": "patient0073_slice0001_label"
+    },
+    "628": {
+        "img_data_file": "patient0073_slice0002",
+        "lbl_data_file": "patient0073_slice0002_label"
+    },
+    "629": {
+        "img_data_file": "patient0073_slice0003",
+        "lbl_data_file": "patient0073_slice0003_label"
+    },
+    "630": {
+        "img_data_file": "patient0073_slice0004",
+        "lbl_data_file": "patient0073_slice0004_label"
+    },
+    "631": {
+        "img_data_file": "patient0073_slice0005",
+        "lbl_data_file": "patient0073_slice0005_label"
+    },
+    "632": {
+        "img_data_file": "patient0073_slice0006",
+        "lbl_data_file": "patient0073_slice0006_label"
+    },
+    "633": {
+        "img_data_file": "patient0073_slice0007",
+        "lbl_data_file": "patient0073_slice0007_label"
+    },
+    "634": {
+        "img_data_file": "patient0074_slice0001",
+        "lbl_data_file": "patient0074_slice0001_label"
+    },
+    "635": {
+        "img_data_file": "patient0074_slice0002",
+        "lbl_data_file": "patient0074_slice0002_label"
+    },
+    "636": {
+        "img_data_file": "patient0074_slice0003",
+        "lbl_data_file": "patient0074_slice0003_label"
+    },
+    "637": {
+        "img_data_file": "patient0074_slice0004",
+        "lbl_data_file": "patient0074_slice0004_label"
+    },
+    "638": {
+        "img_data_file": "patient0074_slice0005",
+        "lbl_data_file": "patient0074_slice0005_label"
+    },
+    "639": {
+        "img_data_file": "patient0074_slice0006",
+        "lbl_data_file": "patient0074_slice0006_label"
+    },
+    "640": {
+        "img_data_file": "patient0074_slice0007",
+        "lbl_data_file": "patient0074_slice0007_label"
+    },
+    "641": {
+        "img_data_file": "patient0074_slice0008",
+        "lbl_data_file": "patient0074_slice0008_label"
+    },
+    "642": {
+        "img_data_file": "patient0075_slice0001",
+        "lbl_data_file": "patient0075_slice0001_label"
+    },
+    "643": {
+        "img_data_file": "patient0075_slice0002",
+        "lbl_data_file": "patient0075_slice0002_label"
+    },
+    "644": {
+        "img_data_file": "patient0075_slice0003",
+        "lbl_data_file": "patient0075_slice0003_label"
+    },
+    "645": {
+        "img_data_file": "patient0075_slice0004",
+        "lbl_data_file": "patient0075_slice0004_label"
+    },
+    "646": {
+        "img_data_file": "patient0075_slice0005",
+        "lbl_data_file": "patient0075_slice0005_label"
+    },
+    "647": {
+        "img_data_file": "patient0075_slice0006",
+        "lbl_data_file": "patient0075_slice0006_label"
+    },
+    "648": {
+        "img_data_file": "patient0075_slice0007",
+        "lbl_data_file": "patient0075_slice0007_label"
+    },
+    "649": {
+        "img_data_file": "patient0075_slice0008",
+        "lbl_data_file": "patient0075_slice0008_label"
+    },
+    "650": {
+        "img_data_file": "patient0075_slice0009",
+        "lbl_data_file": "patient0075_slice0009_label"
+    },
+    "651": {
+        "img_data_file": "patient0075_slice0010",
+        "lbl_data_file": "patient0075_slice0010_label"
+    },
+    "652": {
+        "img_data_file": "patient0075_slice0011",
+        "lbl_data_file": "patient0075_slice0011_label"
+    },
+    "653": {
+        "img_data_file": "patient0075_slice0012",
+        "lbl_data_file": "patient0075_slice0012_label"
+    },
+    "654": {
+        "img_data_file": "patient0075_slice0013",
+        "lbl_data_file": "patient0075_slice0013_label"
+    },
+    "655": {
+        "img_data_file": "patient0075_slice0014",
+        "lbl_data_file": "patient0075_slice0014_label"
+    },
+    "656": {
+        "img_data_file": "patient0076_slice0001",
+        "lbl_data_file": "patient0076_slice0001_label"
+    },
+    "657": {
+        "img_data_file": "patient0076_slice0002",
+        "lbl_data_file": "patient0076_slice0002_label"
+    },
+    "658": {
+        "img_data_file": "patient0076_slice0003",
+        "lbl_data_file": "patient0076_slice0003_label"
+    },
+    "659": {
+        "img_data_file": "patient0076_slice0004",
+        "lbl_data_file": "patient0076_slice0004_label"
+    },
+    "660": {
+        "img_data_file": "patient0076_slice0005",
+        "lbl_data_file": "patient0076_slice0005_label"
+    },
+    "661": {
+        "img_data_file": "patient0076_slice0006",
+        "lbl_data_file": "patient0076_slice0006_label"
+    },
+    "662": {
+        "img_data_file": "patient0076_slice0007",
+        "lbl_data_file": "patient0076_slice0007_label"
+    },
+    "663": {
+        "img_data_file": "patient0076_slice0008",
+        "lbl_data_file": "patient0076_slice0008_label"
+    },
+    "664": {
+        "img_data_file": "patient0077_slice0001",
+        "lbl_data_file": "patient0077_slice0001_label"
+    },
+    "665": {
+        "img_data_file": "patient0077_slice0002",
+        "lbl_data_file": "patient0077_slice0002_label"
+    },
+    "666": {
+        "img_data_file": "patient0077_slice0003",
+        "lbl_data_file": "patient0077_slice0003_label"
+    },
+    "667": {
+        "img_data_file": "patient0077_slice0004",
+        "lbl_data_file": "patient0077_slice0004_label"
+    },
+    "668": {
+        "img_data_file": "patient0077_slice0005",
+        "lbl_data_file": "patient0077_slice0005_label"
+    },
+    "669": {
+        "img_data_file": "patient0077_slice0006",
+        "lbl_data_file": "patient0077_slice0006_label"
+    },
+    "670": {
+        "img_data_file": "patient0077_slice0007",
+        "lbl_data_file": "patient0077_slice0007_label"
+    },
+    "671": {
+        "img_data_file": "patient0077_slice0008",
+        "lbl_data_file": "patient0077_slice0008_label"
+    },
+    "672": {
+        "img_data_file": "patient0078_slice0001",
+        "lbl_data_file": "patient0078_slice0001_label"
+    },
+    "673": {
+        "img_data_file": "patient0078_slice0002",
+        "lbl_data_file": "patient0078_slice0002_label"
+    },
+    "674": {
+        "img_data_file": "patient0078_slice0003",
+        "lbl_data_file": "patient0078_slice0003_label"
+    },
+    "675": {
+        "img_data_file": "patient0078_slice0004",
+        "lbl_data_file": "patient0078_slice0004_label"
+    },
+    "676": {
+        "img_data_file": "patient0078_slice0005",
+        "lbl_data_file": "patient0078_slice0005_label"
+    },
+    "677": {
+        "img_data_file": "patient0078_slice0006",
+        "lbl_data_file": "patient0078_slice0006_label"
+    },
+    "678": {
+        "img_data_file": "patient0078_slice0007",
+        "lbl_data_file": "patient0078_slice0007_label"
+    },
+    "679": {
+        "img_data_file": "patient0078_slice0008",
+        "lbl_data_file": "patient0078_slice0008_label"
+    },
+    "680": {
+        "img_data_file": "patient0079_slice0001",
+        "lbl_data_file": "patient0079_slice0001_label"
+    },
+    "681": {
+        "img_data_file": "patient0079_slice0002",
+        "lbl_data_file": "patient0079_slice0002_label"
+    },
+    "682": {
+        "img_data_file": "patient0079_slice0003",
+        "lbl_data_file": "patient0079_slice0003_label"
+    },
+    "683": {
+        "img_data_file": "patient0079_slice0004",
+        "lbl_data_file": "patient0079_slice0004_label"
+    },
+    "684": {
+        "img_data_file": "patient0079_slice0005",
+        "lbl_data_file": "patient0079_slice0005_label"
+    },
+    "685": {
+        "img_data_file": "patient0079_slice0006",
+        "lbl_data_file": "patient0079_slice0006_label"
+    },
+    "686": {
+        "img_data_file": "patient0079_slice0007",
+        "lbl_data_file": "patient0079_slice0007_label"
+    },
+    "687": {
+        "img_data_file": "patient0079_slice0008",
+        "lbl_data_file": "patient0079_slice0008_label"
+    },
+    "688": {
+        "img_data_file": "patient0079_slice0009",
+        "lbl_data_file": "patient0079_slice0009_label"
+    },
+    "689": {
+        "img_data_file": "patient0080_slice0001",
+        "lbl_data_file": "patient0080_slice0001_label"
+    },
+    "690": {
+        "img_data_file": "patient0080_slice0002",
+        "lbl_data_file": "patient0080_slice0002_label"
+    },
+    "691": {
+        "img_data_file": "patient0080_slice0003",
+        "lbl_data_file": "patient0080_slice0003_label"
+    },
+    "692": {
+        "img_data_file": "patient0080_slice0004",
+        "lbl_data_file": "patient0080_slice0004_label"
+    },
+    "693": {
+        "img_data_file": "patient0080_slice0005",
+        "lbl_data_file": "patient0080_slice0005_label"
+    },
+    "694": {
+        "img_data_file": "patient0080_slice0006",
+        "lbl_data_file": "patient0080_slice0006_label"
+    },
+    "695": {
+        "img_data_file": "patient0081_slice0001",
+        "lbl_data_file": "patient0081_slice0001_label"
+    },
+    "696": {
+        "img_data_file": "patient0081_slice0002",
+        "lbl_data_file": "patient0081_slice0002_label"
+    },
+    "697": {
+        "img_data_file": "patient0081_slice0003",
+        "lbl_data_file": "patient0081_slice0003_label"
+    },
+    "698": {
+        "img_data_file": "patient0081_slice0004",
+        "lbl_data_file": "patient0081_slice0004_label"
+    },
+    "699": {
+        "img_data_file": "patient0081_slice0005",
+        "lbl_data_file": "patient0081_slice0005_label"
+    },
+    "700": {
+        "img_data_file": "patient0081_slice0006",
+        "lbl_data_file": "patient0081_slice0006_label"
+    },
+    "701": {
+        "img_data_file": "patient0081_slice0007",
+        "lbl_data_file": "patient0081_slice0007_label"
+    },
+    "702": {
+        "img_data_file": "patient0081_slice0008",
+        "lbl_data_file": "patient0081_slice0008_label"
+    },
+    "703": {
+        "img_data_file": "patient0081_slice0009",
+        "lbl_data_file": "patient0081_slice0009_label"
+    },
+    "704": {
+        "img_data_file": "patient0081_slice0010",
+        "lbl_data_file": "patient0081_slice0010_label"
+    },
+    "705": {
+        "img_data_file": "patient0081_slice0011",
+        "lbl_data_file": "patient0081_slice0011_label"
+    },
+    "706": {
+        "img_data_file": "patient0081_slice0012",
+        "lbl_data_file": "patient0081_slice0012_label"
+    },
+    "707": {
+        "img_data_file": "patient0081_slice0013",
+        "lbl_data_file": "patient0081_slice0013_label"
+    },
+    "708": {
+        "img_data_file": "patient0081_slice0014",
+        "lbl_data_file": "patient0081_slice0014_label"
+    },
+    "709": {
+        "img_data_file": "patient0081_slice0015",
+        "lbl_data_file": "patient0081_slice0015_label"
+    },
+    "710": {
+        "img_data_file": "patient0081_slice0016",
+        "lbl_data_file": "patient0081_slice0016_label"
+    },
+    "711": {
+        "img_data_file": "patient0081_slice0017",
+        "lbl_data_file": "patient0081_slice0017_label"
+    },
+    "712": {
+        "img_data_file": "patient0082_slice0001",
+        "lbl_data_file": "patient0082_slice0001_label"
+    },
+    "713": {
+        "img_data_file": "patient0082_slice0002",
+        "lbl_data_file": "patient0082_slice0002_label"
+    },
+    "714": {
+        "img_data_file": "patient0082_slice0003",
+        "lbl_data_file": "patient0082_slice0003_label"
+    },
+    "715": {
+        "img_data_file": "patient0082_slice0004",
+        "lbl_data_file": "patient0082_slice0004_label"
+    },
+    "716": {
+        "img_data_file": "patient0082_slice0005",
+        "lbl_data_file": "patient0082_slice0005_label"
+    },
+    "717": {
+        "img_data_file": "patient0082_slice0006",
+        "lbl_data_file": "patient0082_slice0006_label"
+    },
+    "718": {
+        "img_data_file": "patient0082_slice0007",
+        "lbl_data_file": "patient0082_slice0007_label"
+    },
+    "719": {
+        "img_data_file": "patient0082_slice0008",
+        "lbl_data_file": "patient0082_slice0008_label"
+    },
+    "720": {
+        "img_data_file": "patient0082_slice0009",
+        "lbl_data_file": "patient0082_slice0009_label"
+    },
+    "721": {
+        "img_data_file": "patient0082_slice0010",
+        "lbl_data_file": "patient0082_slice0010_label"
+    },
+    "722": {
+        "img_data_file": "patient0082_slice0011",
+        "lbl_data_file": "patient0082_slice0011_label"
+    },
+    "723": {
+        "img_data_file": "patient0082_slice0012",
+        "lbl_data_file": "patient0082_slice0012_label"
+    },
+    "724": {
+        "img_data_file": "patient0082_slice0013",
+        "lbl_data_file": "patient0082_slice0013_label"
+    },
+    "725": {
+        "img_data_file": "patient0082_slice0014",
+        "lbl_data_file": "patient0082_slice0014_label"
+    },
+    "726": {
+        "img_data_file": "patient0082_slice0015",
+        "lbl_data_file": "patient0082_slice0015_label"
+    },
+    "727": {
+        "img_data_file": "patient0082_slice0016",
+        "lbl_data_file": "patient0082_slice0016_label"
+    },
+    "728": {
+        "img_data_file": "patient0083_slice0001",
+        "lbl_data_file": "patient0083_slice0001_label"
+    },
+    "729": {
+        "img_data_file": "patient0083_slice0002",
+        "lbl_data_file": "patient0083_slice0002_label"
+    },
+    "730": {
+        "img_data_file": "patient0083_slice0003",
+        "lbl_data_file": "patient0083_slice0003_label"
+    },
+    "731": {
+        "img_data_file": "patient0083_slice0004",
+        "lbl_data_file": "patient0083_slice0004_label"
+    },
+    "732": {
+        "img_data_file": "patient0083_slice0005",
+        "lbl_data_file": "patient0083_slice0005_label"
+    },
+    "733": {
+        "img_data_file": "patient0083_slice0006",
+        "lbl_data_file": "patient0083_slice0006_label"
+    },
+    "734": {
+        "img_data_file": "patient0084_slice0001",
+        "lbl_data_file": "patient0084_slice0001_label"
+    },
+    "735": {
+        "img_data_file": "patient0084_slice0002",
+        "lbl_data_file": "patient0084_slice0002_label"
+    },
+    "736": {
+        "img_data_file": "patient0084_slice0003",
+        "lbl_data_file": "patient0084_slice0003_label"
+    },
+    "737": {
+        "img_data_file": "patient0084_slice0004",
+        "lbl_data_file": "patient0084_slice0004_label"
+    },
+    "738": {
+        "img_data_file": "patient0084_slice0005",
+        "lbl_data_file": "patient0084_slice0005_label"
+    },
+    "739": {
+        "img_data_file": "patient0084_slice0006",
+        "lbl_data_file": "patient0084_slice0006_label"
+    },
+    "740": {
+        "img_data_file": "patient0084_slice0007",
+        "lbl_data_file": "patient0084_slice0007_label"
+    },
+    "741": {
+        "img_data_file": "patient0084_slice0008",
+        "lbl_data_file": "patient0084_slice0008_label"
+    },
+    "742": {
+        "img_data_file": "patient0084_slice0009",
+        "lbl_data_file": "patient0084_slice0009_label"
+    },
+    "743": {
+        "img_data_file": "patient0084_slice0010",
+        "lbl_data_file": "patient0084_slice0010_label"
+    },
+    "744": {
+        "img_data_file": "patient0084_slice0011",
+        "lbl_data_file": "patient0084_slice0011_label"
+    },
+    "745": {
+        "img_data_file": "patient0084_slice0012",
+        "lbl_data_file": "patient0084_slice0012_label"
+    },
+    "746": {
+        "img_data_file": "patient0085_slice0001",
+        "lbl_data_file": "patient0085_slice0001_label"
+    },
+    "747": {
+        "img_data_file": "patient0085_slice0002",
+        "lbl_data_file": "patient0085_slice0002_label"
+    },
+    "748": {
+        "img_data_file": "patient0085_slice0003",
+        "lbl_data_file": "patient0085_slice0003_label"
+    },
+    "749": {
+        "img_data_file": "patient0085_slice0004",
+        "lbl_data_file": "patient0085_slice0004_label"
+    },
+    "750": {
+        "img_data_file": "patient0085_slice0005",
+        "lbl_data_file": "patient0085_slice0005_label"
+    },
+    "751": {
+        "img_data_file": "patient0085_slice0006",
+        "lbl_data_file": "patient0085_slice0006_label"
+    },
+    "752": {
+        "img_data_file": "patient0085_slice0007",
+        "lbl_data_file": "patient0085_slice0007_label"
+    },
+    "753": {
+        "img_data_file": "patient0085_slice0008",
+        "lbl_data_file": "patient0085_slice0008_label"
+    },
+    "754": {
+        "img_data_file": "patient0085_slice0009",
+        "lbl_data_file": "patient0085_slice0009_label"
+    },
+    "755": {
+        "img_data_file": "patient0085_slice0010",
+        "lbl_data_file": "patient0085_slice0010_label"
+    },
+    "756": {
+        "img_data_file": "patient0085_slice0011",
+        "lbl_data_file": "patient0085_slice0011_label"
+    },
+    "757": {
+        "img_data_file": "patient0085_slice0012",
+        "lbl_data_file": "patient0085_slice0012_label"
+    },
+    "758": {
+        "img_data_file": "patient0085_slice0013",
+        "lbl_data_file": "patient0085_slice0013_label"
+    },
+    "759": {
+        "img_data_file": "patient0085_slice0014",
+        "lbl_data_file": "patient0085_slice0014_label"
+    },
+    "760": {
+        "img_data_file": "patient0085_slice0015",
+        "lbl_data_file": "patient0085_slice0015_label"
+    },
+    "761": {
+        "img_data_file": "patient0086_slice0001",
+        "lbl_data_file": "patient0086_slice0001_label"
+    },
+    "762": {
+        "img_data_file": "patient0086_slice0002",
+        "lbl_data_file": "patient0086_slice0002_label"
+    },
+    "763": {
+        "img_data_file": "patient0086_slice0003",
+        "lbl_data_file": "patient0086_slice0003_label"
+    },
+    "764": {
+        "img_data_file": "patient0086_slice0004",
+        "lbl_data_file": "patient0086_slice0004_label"
+    },
+    "765": {
+        "img_data_file": "patient0086_slice0005",
+        "lbl_data_file": "patient0086_slice0005_label"
+    },
+    "766": {
+        "img_data_file": "patient0086_slice0006",
+        "lbl_data_file": "patient0086_slice0006_label"
+    },
+    "767": {
+        "img_data_file": "patient0086_slice0007",
+        "lbl_data_file": "patient0086_slice0007_label"
+    },
+    "768": {
+        "img_data_file": "patient0087_slice0001",
+        "lbl_data_file": "patient0087_slice0001_label"
+    },
+    "769": {
+        "img_data_file": "patient0087_slice0002",
+        "lbl_data_file": "patient0087_slice0002_label"
+    },
+    "770": {
+        "img_data_file": "patient0087_slice0003",
+        "lbl_data_file": "patient0087_slice0003_label"
+    },
+    "771": {
+        "img_data_file": "patient0087_slice0004",
+        "lbl_data_file": "patient0087_slice0004_label"
+    },
+    "772": {
+        "img_data_file": "patient0087_slice0005",
+        "lbl_data_file": "patient0087_slice0005_label"
+    },
+    "773": {
+        "img_data_file": "patient0087_slice0006",
+        "lbl_data_file": "patient0087_slice0006_label"
+    },
+    "774": {
+        "img_data_file": "patient0087_slice0007",
+        "lbl_data_file": "patient0087_slice0007_label"
+    },
+    "775": {
+        "img_data_file": "patient0087_slice0008",
+        "lbl_data_file": "patient0087_slice0008_label"
+    },
+    "776": {
+        "img_data_file": "patient0088_slice0001",
+        "lbl_data_file": "patient0088_slice0001_label"
+    },
+    "777": {
+        "img_data_file": "patient0088_slice0002",
+        "lbl_data_file": "patient0088_slice0002_label"
+    },
+    "778": {
+        "img_data_file": "patient0088_slice0003",
+        "lbl_data_file": "patient0088_slice0003_label"
+    },
+    "779": {
+        "img_data_file": "patient0088_slice0004",
+        "lbl_data_file": "patient0088_slice0004_label"
+    },
+    "780": {
+        "img_data_file": "patient0088_slice0005",
+        "lbl_data_file": "patient0088_slice0005_label"
+    },
+    "781": {
+        "img_data_file": "patient0088_slice0006",
+        "lbl_data_file": "patient0088_slice0006_label"
+    },
+    "782": {
+        "img_data_file": "patient0088_slice0007",
+        "lbl_data_file": "patient0088_slice0007_label"
+    },
+    "783": {
+        "img_data_file": "patient0088_slice0008",
+        "lbl_data_file": "patient0088_slice0008_label"
+    },
+    "784": {
+        "img_data_file": "patient0088_slice0009",
+        "lbl_data_file": "patient0088_slice0009_label"
+    },
+    "785": {
+        "img_data_file": "patient0088_slice0010",
+        "lbl_data_file": "patient0088_slice0010_label"
+    },
+    "786": {
+        "img_data_file": "patient0088_slice0011",
+        "lbl_data_file": "patient0088_slice0011_label"
+    },
+    "787": {
+        "img_data_file": "patient0088_slice0012",
+        "lbl_data_file": "patient0088_slice0012_label"
+    },
+    "788": {
+        "img_data_file": "patient0088_slice0013",
+        "lbl_data_file": "patient0088_slice0013_label"
+    },
+    "789": {
+        "img_data_file": "patient0088_slice0014",
+        "lbl_data_file": "patient0088_slice0014_label"
+    },
+    "790": {
+        "img_data_file": "patient0088_slice0015",
+        "lbl_data_file": "patient0088_slice0015_label"
+    },
+    "791": {
+        "img_data_file": "patient0088_slice0016",
+        "lbl_data_file": "patient0088_slice0016_label"
+    },
+    "792": {
+        "img_data_file": "patient0089_slice0001",
+        "lbl_data_file": "patient0089_slice0001_label"
+    },
+    "793": {
+        "img_data_file": "patient0089_slice0002",
+        "lbl_data_file": "patient0089_slice0002_label"
+    },
+    "794": {
+        "img_data_file": "patient0089_slice0003",
+        "lbl_data_file": "patient0089_slice0003_label"
+    },
+    "795": {
+        "img_data_file": "patient0089_slice0004",
+        "lbl_data_file": "patient0089_slice0004_label"
+    },
+    "796": {
+        "img_data_file": "patient0089_slice0005",
+        "lbl_data_file": "patient0089_slice0005_label"
+    },
+    "797": {
+        "img_data_file": "patient0089_slice0006",
+        "lbl_data_file": "patient0089_slice0006_label"
+    },
+    "798": {
+        "img_data_file": "patient0090_slice0001",
+        "lbl_data_file": "patient0090_slice0001_label"
+    },
+    "799": {
+        "img_data_file": "patient0090_slice0002",
+        "lbl_data_file": "patient0090_slice0002_label"
+    },
+    "800": {
+        "img_data_file": "patient0090_slice0003",
+        "lbl_data_file": "patient0090_slice0003_label"
+    },
+    "801": {
+        "img_data_file": "patient0090_slice0004",
+        "lbl_data_file": "patient0090_slice0004_label"
+    },
+    "802": {
+        "img_data_file": "patient0090_slice0005",
+        "lbl_data_file": "patient0090_slice0005_label"
+    },
+    "803": {
+        "img_data_file": "patient0090_slice0006",
+        "lbl_data_file": "patient0090_slice0006_label"
+    },
+    "804": {
+        "img_data_file": "patient0090_slice0007",
+        "lbl_data_file": "patient0090_slice0007_label"
+    },
+    "805": {
+        "img_data_file": "patient0091_slice0001",
+        "lbl_data_file": "patient0091_slice0001_label"
+    },
+    "806": {
+        "img_data_file": "patient0091_slice0002",
+        "lbl_data_file": "patient0091_slice0002_label"
+    },
+    "807": {
+        "img_data_file": "patient0091_slice0003",
+        "lbl_data_file": "patient0091_slice0003_label"
+    },
+    "808": {
+        "img_data_file": "patient0091_slice0004",
+        "lbl_data_file": "patient0091_slice0004_label"
+    },
+    "809": {
+        "img_data_file": "patient0091_slice0005",
+        "lbl_data_file": "patient0091_slice0005_label"
+    },
+    "810": {
+        "img_data_file": "patient0091_slice0006",
+        "lbl_data_file": "patient0091_slice0006_label"
+    },
+    "811": {
+        "img_data_file": "patient0091_slice0007",
+        "lbl_data_file": "patient0091_slice0007_label"
+    },
+    "812": {
+        "img_data_file": "patient0091_slice0008",
+        "lbl_data_file": "patient0091_slice0008_label"
+    },
+    "813": {
+        "img_data_file": "patient0092_slice0001",
+        "lbl_data_file": "patient0092_slice0001_label"
+    },
+    "814": {
+        "img_data_file": "patient0092_slice0002",
+        "lbl_data_file": "patient0092_slice0002_label"
+    },
+    "815": {
+        "img_data_file": "patient0092_slice0003",
+        "lbl_data_file": "patient0092_slice0003_label"
+    },
+    "816": {
+        "img_data_file": "patient0092_slice0004",
+        "lbl_data_file": "patient0092_slice0004_label"
+    },
+    "817": {
+        "img_data_file": "patient0092_slice0005",
+        "lbl_data_file": "patient0092_slice0005_label"
+    },
+    "818": {
+        "img_data_file": "patient0092_slice0006",
+        "lbl_data_file": "patient0092_slice0006_label"
+    },
+    "819": {
+        "img_data_file": "patient0092_slice0007",
+        "lbl_data_file": "patient0092_slice0007_label"
+    },
+    "820": {
+        "img_data_file": "patient0092_slice0008",
+        "lbl_data_file": "patient0092_slice0008_label"
+    },
+    "821": {
+        "img_data_file": "patient0092_slice0009",
+        "lbl_data_file": "patient0092_slice0009_label"
+    },
+    "822": {
+        "img_data_file": "patient0092_slice0010",
+        "lbl_data_file": "patient0092_slice0010_label"
+    },
+    "823": {
+        "img_data_file": "patient0092_slice0011",
+        "lbl_data_file": "patient0092_slice0011_label"
+    },
+    "824": {
+        "img_data_file": "patient0092_slice0012",
+        "lbl_data_file": "patient0092_slice0012_label"
+    },
+    "825": {
+        "img_data_file": "patient0092_slice0013",
+        "lbl_data_file": "patient0092_slice0013_label"
+    },
+    "826": {
+        "img_data_file": "patient0092_slice0014",
+        "lbl_data_file": "patient0092_slice0014_label"
+    },
+    "827": {
+        "img_data_file": "patient0092_slice0015",
+        "lbl_data_file": "patient0092_slice0015_label"
+    },
+    "828": {
+        "img_data_file": "patient0093_slice0001",
+        "lbl_data_file": "patient0093_slice0001_label"
+    },
+    "829": {
+        "img_data_file": "patient0093_slice0002",
+        "lbl_data_file": "patient0093_slice0002_label"
+    },
+    "830": {
+        "img_data_file": "patient0093_slice0003",
+        "lbl_data_file": "patient0093_slice0003_label"
+    },
+    "831": {
+        "img_data_file": "patient0093_slice0004",
+        "lbl_data_file": "patient0093_slice0004_label"
+    },
+    "832": {
+        "img_data_file": "patient0093_slice0005",
+        "lbl_data_file": "patient0093_slice0005_label"
+    },
+    "833": {
+        "img_data_file": "patient0093_slice0006",
+        "lbl_data_file": "patient0093_slice0006_label"
+    },
+    "834": {
+        "img_data_file": "patient0093_slice0007",
+        "lbl_data_file": "patient0093_slice0007_label"
+    },
+    "835": {
+        "img_data_file": "patient0093_slice0008",
+        "lbl_data_file": "patient0093_slice0008_label"
+    },
+    "836": {
+        "img_data_file": "patient0093_slice0009",
+        "lbl_data_file": "patient0093_slice0009_label"
+    },
+    "837": {
+        "img_data_file": "patient0093_slice0010",
+        "lbl_data_file": "patient0093_slice0010_label"
+    },
+    "838": {
+        "img_data_file": "patient0094_slice0001",
+        "lbl_data_file": "patient0094_slice0001_label"
+    },
+    "839": {
+        "img_data_file": "patient0094_slice0002",
+        "lbl_data_file": "patient0094_slice0002_label"
+    },
+    "840": {
+        "img_data_file": "patient0094_slice0003",
+        "lbl_data_file": "patient0094_slice0003_label"
+    },
+    "841": {
+        "img_data_file": "patient0094_slice0004",
+        "lbl_data_file": "patient0094_slice0004_label"
+    },
+    "842": {
+        "img_data_file": "patient0094_slice0005",
+        "lbl_data_file": "patient0094_slice0005_label"
+    },
+    "843": {
+        "img_data_file": "patient0094_slice0006",
+        "lbl_data_file": "patient0094_slice0006_label"
+    },
+    "844": {
+        "img_data_file": "patient0094_slice0007",
+        "lbl_data_file": "patient0094_slice0007_label"
+    },
+    "845": {
+        "img_data_file": "patient0094_slice0008",
+        "lbl_data_file": "patient0094_slice0008_label"
+    },
+    "846": {
+        "img_data_file": "patient0094_slice0009",
+        "lbl_data_file": "patient0094_slice0009_label"
+    },
+    "847": {
+        "img_data_file": "patient0094_slice0010",
+        "lbl_data_file": "patient0094_slice0010_label"
+    },
+    "848": {
+        "img_data_file": "patient0095_slice0001",
+        "lbl_data_file": "patient0095_slice0001_label"
+    },
+    "849": {
+        "img_data_file": "patient0095_slice0002",
+        "lbl_data_file": "patient0095_slice0002_label"
+    },
+    "850": {
+        "img_data_file": "patient0095_slice0003",
+        "lbl_data_file": "patient0095_slice0003_label"
+    },
+    "851": {
+        "img_data_file": "patient0095_slice0004",
+        "lbl_data_file": "patient0095_slice0004_label"
+    },
+    "852": {
+        "img_data_file": "patient0095_slice0005",
+        "lbl_data_file": "patient0095_slice0005_label"
+    },
+    "853": {
+        "img_data_file": "patient0095_slice0006",
+        "lbl_data_file": "patient0095_slice0006_label"
+    },
+    "854": {
+        "img_data_file": "patient0095_slice0007",
+        "lbl_data_file": "patient0095_slice0007_label"
+    },
+    "855": {
+        "img_data_file": "patient0095_slice0008",
+        "lbl_data_file": "patient0095_slice0008_label"
+    },
+    "856": {
+        "img_data_file": "patient0095_slice0009",
+        "lbl_data_file": "patient0095_slice0009_label"
+    },
+    "857": {
+        "img_data_file": "patient0095_slice0010",
+        "lbl_data_file": "patient0095_slice0010_label"
+    },
+    "858": {
+        "img_data_file": "patient0095_slice0011",
+        "lbl_data_file": "patient0095_slice0011_label"
+    },
+    "859": {
+        "img_data_file": "patient0095_slice0012",
+        "lbl_data_file": "patient0095_slice0012_label"
+    },
+    "860": {
+        "img_data_file": "patient0095_slice0013",
+        "lbl_data_file": "patient0095_slice0013_label"
+    },
+    "861": {
+        "img_data_file": "patient0095_slice0014",
+        "lbl_data_file": "patient0095_slice0014_label"
+    },
+    "862": {
+        "img_data_file": "patient0096_slice0001",
+        "lbl_data_file": "patient0096_slice0001_label"
+    },
+    "863": {
+        "img_data_file": "patient0096_slice0002",
+        "lbl_data_file": "patient0096_slice0002_label"
+    },
+    "864": {
+        "img_data_file": "patient0096_slice0003",
+        "lbl_data_file": "patient0096_slice0003_label"
+    },
+    "865": {
+        "img_data_file": "patient0096_slice0004",
+        "lbl_data_file": "patient0096_slice0004_label"
+    },
+    "866": {
+        "img_data_file": "patient0096_slice0005",
+        "lbl_data_file": "patient0096_slice0005_label"
+    },
+    "867": {
+        "img_data_file": "patient0096_slice0006",
+        "lbl_data_file": "patient0096_slice0006_label"
+    },
+    "868": {
+        "img_data_file": "patient0096_slice0007",
+        "lbl_data_file": "patient0096_slice0007_label"
+    },
+    "869": {
+        "img_data_file": "patient0096_slice0008",
+        "lbl_data_file": "patient0096_slice0008_label"
+    },
+    "870": {
+        "img_data_file": "patient0096_slice0009",
+        "lbl_data_file": "patient0096_slice0009_label"
+    },
+    "871": {
+        "img_data_file": "patient0096_slice0010",
+        "lbl_data_file": "patient0096_slice0010_label"
+    },
+    "872": {
+        "img_data_file": "patient0096_slice0011",
+        "lbl_data_file": "patient0096_slice0011_label"
+    },
+    "873": {
+        "img_data_file": "patient0096_slice0012",
+        "lbl_data_file": "patient0096_slice0012_label"
+    },
+    "874": {
+        "img_data_file": "patient0096_slice0013",
+        "lbl_data_file": "patient0096_slice0013_label"
+    },
+    "875": {
+        "img_data_file": "patient0096_slice0014",
+        "lbl_data_file": "patient0096_slice0014_label"
+    },
+    "876": {
+        "img_data_file": "patient0096_slice0015",
+        "lbl_data_file": "patient0096_slice0015_label"
+    },
+    "877": {
+        "img_data_file": "patient0096_slice0016",
+        "lbl_data_file": "patient0096_slice0016_label"
+    },
+    "878": {
+        "img_data_file": "patient0096_slice0017",
+        "lbl_data_file": "patient0096_slice0017_label"
+    },
+    "879": {
+        "img_data_file": "patient0096_slice0018",
+        "lbl_data_file": "patient0096_slice0018_label"
+    },
+    "880": {
+        "img_data_file": "patient0097_slice0001",
+        "lbl_data_file": "patient0097_slice0001_label"
+    },
+    "881": {
+        "img_data_file": "patient0097_slice0002",
+        "lbl_data_file": "patient0097_slice0002_label"
+    },
+    "882": {
+        "img_data_file": "patient0097_slice0003",
+        "lbl_data_file": "patient0097_slice0003_label"
+    },
+    "883": {
+        "img_data_file": "patient0097_slice0004",
+        "lbl_data_file": "patient0097_slice0004_label"
+    },
+    "884": {
+        "img_data_file": "patient0097_slice0005",
+        "lbl_data_file": "patient0097_slice0005_label"
+    },
+    "885": {
+        "img_data_file": "patient0097_slice0006",
+        "lbl_data_file": "patient0097_slice0006_label"
+    },
+    "886": {
+        "img_data_file": "patient0097_slice0007",
+        "lbl_data_file": "patient0097_slice0007_label"
+    },
+    "887": {
+        "img_data_file": "patient0097_slice0008",
+        "lbl_data_file": "patient0097_slice0008_label"
+    },
+    "888": {
+        "img_data_file": "patient0098_slice0001",
+        "lbl_data_file": "patient0098_slice0001_label"
+    },
+    "889": {
+        "img_data_file": "patient0098_slice0002",
+        "lbl_data_file": "patient0098_slice0002_label"
+    },
+    "890": {
+        "img_data_file": "patient0098_slice0003",
+        "lbl_data_file": "patient0098_slice0003_label"
+    },
+    "891": {
+        "img_data_file": "patient0098_slice0004",
+        "lbl_data_file": "patient0098_slice0004_label"
+    },
+    "892": {
+        "img_data_file": "patient0098_slice0005",
+        "lbl_data_file": "patient0098_slice0005_label"
+    },
+    "893": {
+        "img_data_file": "patient0098_slice0006",
+        "lbl_data_file": "patient0098_slice0006_label"
+    },
+    "894": {
+        "img_data_file": "patient0098_slice0007",
+        "lbl_data_file": "patient0098_slice0007_label"
+    },
+    "895": {
+        "img_data_file": "patient0099_slice0001",
+        "lbl_data_file": "patient0099_slice0001_label"
+    },
+    "896": {
+        "img_data_file": "patient0099_slice0002",
+        "lbl_data_file": "patient0099_slice0002_label"
+    },
+    "897": {
+        "img_data_file": "patient0099_slice0003",
+        "lbl_data_file": "patient0099_slice0003_label"
+    },
+    "898": {
+        "img_data_file": "patient0099_slice0004",
+        "lbl_data_file": "patient0099_slice0004_label"
+    },
+    "899": {
+        "img_data_file": "patient0099_slice0005",
+        "lbl_data_file": "patient0099_slice0005_label"
+    },
+    "900": {
+        "img_data_file": "patient0099_slice0006",
+        "lbl_data_file": "patient0099_slice0006_label"
+    },
+    "901": {
+        "img_data_file": "patient0099_slice0007",
+        "lbl_data_file": "patient0099_slice0007_label"
+    },
+    "902": {
+        "img_data_file": "patient0099_slice0008",
+        "lbl_data_file": "patient0099_slice0008_label"
+    },
+    "903": {
+        "img_data_file": "patient0099_slice0009",
+        "lbl_data_file": "patient0099_slice0009_label"
+    },
+    "904": {
+        "img_data_file": "patient0099_slice0010",
+        "lbl_data_file": "patient0099_slice0010_label"
+    },
+    "905": {
+        "img_data_file": "patient0099_slice0011",
+        "lbl_data_file": "patient0099_slice0011_label"
+    },
+    "906": {
+        "img_data_file": "patient0099_slice0012",
+        "lbl_data_file": "patient0099_slice0012_label"
+    },
+    "907": {
+        "img_data_file": "patient0099_slice0013",
+        "lbl_data_file": "patient0099_slice0013_label"
+    },
+    "908": {
+        "img_data_file": "patient0099_slice0014",
+        "lbl_data_file": "patient0099_slice0014_label"
+    },
+    "909": {
+        "img_data_file": "patient0099_slice0015",
+        "lbl_data_file": "patient0099_slice0015_label"
+    },
+    "910": {
+        "img_data_file": "patient0099_slice0016",
+        "lbl_data_file": "patient0099_slice0016_label"
+    }
+}
