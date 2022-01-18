@@ -81,7 +81,7 @@ def Intersect(label_array, output_array, num_classes=4):
         output_occurence_per_class.append(output_occurence)
     return (intersect_per_class, label_occurence_per_class, output_occurence_per_class)
 
-def Dice(label_stack, output_stack, num_classes=4, bg_weight=0.05,smooth=1):
+def Dice(label_stack, output_stack, num_classes=4, bg_weight=0.05, smooth=1):
     weights = [bg_weight, (1-bg_weight)/3, (1-bg_weight)/3, (1-bg_weight)/3]
  
     label_list = []
@@ -101,10 +101,8 @@ def Dice(label_stack, output_stack, num_classes=4, bg_weight=0.05,smooth=1):
         intersect_per_class, label_occurence_per_class, output_occurence_per_class = Intersect(label_f, output_f)
  
         for c in range(num_classes):
-            if label_occurence_per_class[c] == 0 and output_occurence_per_class[c] == 0:
-                dice_class = 1
-            else:
-                dice_class = (2 * intersect_per_class[c] + smooth)/ (label_occurence_per_class[c] + output_occurence_per_class[c] + smooth)
+            dice_class = (2 * intersect_per_class[c] * smooth) / (label_occurence_per_class[c] + output_occurence_per_class[c] + smooth)
+
             # weight = (len(label_f)-label_occurence_per_class[c]) / len(label_f)
             weighted_dice += dice_class * weights[c]
  
@@ -115,25 +113,6 @@ def Dice(label_stack, output_stack, num_classes=4, bg_weight=0.05,smooth=1):
         print(f"Weighted Dice: {weighted_dice}\n")
     # print(f"Total dice of batch: {total_dice}")
     return total_dice
-
-
-# def Dice(label_stack, output_stack, num_classes=4, smooth=1):
-#     label_list = []
-#     for k in range(label_stack.size(dim=0)):
-#         label_list.append(label_stack[k,:,:])
-#     output_list = convert_to_segmented_imgs(output_stack)
-
-#     total_dice = 0
-#     for i in range(len(label_list)):
-#         label_f = K.flatten(tf.cast(label_list[i], dtype=float)).numpy()
-#         output_f = K.flatten(tf.cast(output_list[i], dtype=float)).numpy()
-
-#         intersection = list(np.subtract(label_f, output_f)).count(0)
-#         dice = (2 * intersection) / (len(label_f) + len(output_f))
-#         total_dice += dice
-#         # print(f"Dice: {dice}")
-#     # print(f"Total dice of batch: {total_dice}")
-#     return total_dice
 
 
 def training_model(test_size=0.2, num_epochs=10, batch_size=4, learning_rate=[0.001], pretrained=True, shuffle=True, array_path=config.array_dir, num_classes=4, savingfile="weights.h5"):
@@ -254,7 +233,6 @@ def running_model(pretrained=False, num_classes=4, loadingfile="weights.h5"):
 
     total_dice = 0
 
-
     plt.rcParams["savefig.bbox"] = 'tight'
 
     #retrieving 1 image for training
@@ -273,7 +251,9 @@ def running_model(pretrained=False, num_classes=4, loadingfile="weights.h5"):
         total_dice += Dice(batch["label"], output.detach())
     
     dice = total_dice/len(dataloading.test_slicedata)
-    print(f"Total dice score: {dice}")
+
+    print(f"Overall dice score: {dice}")
+
 
     normalized_masks = torch.nn.functional.softmax(output, dim=1)
     
@@ -294,6 +274,7 @@ def main():
     #set to True if the model has been trained with the weights stored at "weights.h5", False otherwise:
     trained = True
     #Define the name of the weights file for saving or loading:
+
     loadingfile = "weights_lr1_e10_z10_res_norm.h5"
     savingfile = "weights.h5"
     
