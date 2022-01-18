@@ -83,31 +83,32 @@ def Intersect(label_array, output_array, num_classes=4):
 
 def Dice(label_stack, output_stack, num_classes=4, bg_weight=0.05, smooth=1):
     weights = [bg_weight, (1-bg_weight)/3, (1-bg_weight)/3, (1-bg_weight)/3]
-
+ 
     label_list = []
     for k in range(label_stack.size(dim=0)):
         label_list.append(label_stack[k,:,:])
     output_list = convert_to_segmented_imgs(output_stack)
-
+ 
     total_dice = 0
     for i in range(len(label_list)):
         print(f"<-- Sample: {i} -->")
         label_f = K.flatten(tf.cast(label_list[i], dtype=float)).numpy()
         output_f = K.flatten(tf.cast(output_list[i], dtype=float)).numpy()
-
+ 
         print(f"Total number of parameters: {len(label_f)}")
-
+ 
         weighted_dice = 0
         intersect_per_class, label_occurence_per_class, output_occurence_per_class = Intersect(label_f, output_f)
-
+ 
         for c in range(num_classes):
             dice_class = (2 * intersect_per_class[c] * smooth) / (label_occurence_per_class[c] + output_occurence_per_class[c] + smooth)
+
             # weight = (len(label_f)-label_occurence_per_class[c]) / len(label_f)
             weighted_dice += dice_class * weights[c]
-
+ 
             print(f"- Class: {c} || Intersect: {intersect_per_class[c]} | Label_occ: {label_occurence_per_class[c]} | Output_occ: {output_occurence_per_class[c]}")
             print(f"              Dice_class: {dice_class} | Weight: {weights[c]}")
-
+ 
         total_dice += weighted_dice
         print(f"Weighted Dice: {weighted_dice}\n")
     # print(f"Total dice of batch: {total_dice}")
@@ -250,7 +251,9 @@ def running_model(pretrained=False, num_classes=4, loadingfile="weights.h5"):
         total_dice += Dice(batch["label"], output.detach())
     
     dice = total_dice/len(dataloading.test_slicedata)
-    print("Evaluation Dice:", dice)
+
+    print(f"Overall dice score: {dice}")
+
 
     normalized_masks = torch.nn.functional.softmax(output, dim=1)
     
@@ -271,8 +274,9 @@ def main():
     #set to True if the model has been trained with the weights stored at "weights.h5", False otherwise:
     trained = True
     #Define the name of the weights file for saving or loading:
-    savingfile = "weights_lr1_e10_z10_pad_norm.h5"
-    loadingfile = "weights_lr1_e10_z10_pad_norm.h5"
+
+    loadingfile = "weights_lr1_e10_z10_res_norm.h5"
+    savingfile = "weights.h5"
     
     print("Transforms: Zoom, Padding, RGB, Tensor, Normalize, RemovePadding")
     if trained is False:
