@@ -81,7 +81,7 @@ def Intersect(label_array, output_array, num_classes=4):
         output_occurence_per_class.append(output_occurence)
     return (intersect_per_class, label_occurence_per_class, output_occurence_per_class)
 
-def Dice(label_stack, output_stack, num_classes=4, bg_weight=0.05,smooth=1):
+def Dice(label_stack, output_stack, num_classes=4, bg_weight=0.05, smooth=1):
     weights = [bg_weight, (1-bg_weight)/3, (1-bg_weight)/3, (1-bg_weight)/3]
 
     label_list = []
@@ -115,24 +115,6 @@ def Dice(label_stack, output_stack, num_classes=4, bg_weight=0.05,smooth=1):
         print(f"Weighted Dice: {weighted_dice}\n")
     # print(f"Total dice of batch: {total_dice}")
     return total_dice
-
-# def Dice(label_stack, output_stack, num_classes=4, smooth=1):
-#     label_list = []
-#     for k in range(label_stack.size(dim=0)):
-#         label_list.append(label_stack[k,:,:])
-#     output_list = convert_to_segmented_imgs(output_stack)
-
-#     total_dice = 0
-#     for i in range(len(label_list)):
-#         label_f = K.flatten(tf.cast(label_list[i], dtype=float)).numpy()
-#         output_f = K.flatten(tf.cast(output_list[i], dtype=float)).numpy()
-
-#         intersection = list(np.subtract(label_f, output_f)).count(0)
-#         dice = (2 * intersection) / (len(label_f) + len(output_f))
-#         total_dice += dice
-#         # print(f"Dice: {dice}")
-#     # print(f"Total dice of batch: {total_dice}")
-#     return total_dice
 
 
 def training_model(test_size=0.2, num_epochs=10, batch_size=4, learning_rate=[0.001], pretrained=True, shuffle=True, array_path=config.array_dir, num_classes=4, savingfile="weights.h5"):
@@ -238,7 +220,7 @@ def training_model(test_size=0.2, num_epochs=10, batch_size=4, learning_rate=[0.
     # #plotting learningrates
     # plot_learningrate(train_loss_per_lr, eval_loss_per_lr, learning_rate)
 
-def running_model(pretrained=False, num_classes=4, savingfile="weights.h5"):
+def running_model(pretrained=False, num_classes=4, loadingfile="weights.h5"):
     """Running the model and testing it on 1 sample
     Args:
         pretrained: True: use the pretrained model, False: use model without pretraining.
@@ -249,7 +231,7 @@ def running_model(pretrained=False, num_classes=4, savingfile="weights.h5"):
     #loading the weights from "weights.h5"
     device = "cuda"
     fcn = change_headsize(fcn, 4)
-    fcn.load_state_dict(torch.load(os.path.join(currentdir, savingfile)))
+    fcn.load_state_dict(torch.load(os.path.join(currentdir, loadingfile)))
 
     total_dice = 0
 
@@ -290,15 +272,16 @@ def main():
     #set to True if the model has been trained with the weights stored at "weights.h5", False otherwise:
     trained = True
     #Define the name of the weights file for saving or loading:
-    weightsfile = "weights_lr1_e10_z10_pad_norm.h5"
+    savingfile = "weights_lr1_e10_z10_pad_norm.h5"
+    loadingfile = "weights_lr1_e10_z10_pad_norm.h5"
     
     print("Transforms: Zoom, Padding, RGB, Tensor, Normalize, RemovePadding")
     if trained is False:
         learningrates = [0.001]
-        training_model(pretrained=True, learning_rate=learningrates, batch_size=8, num_epochs=1, test_size=0.2, savingfile=weightsfile)
-        running_model(pretrained=True, savingfile=weightsfile)
+        training_model(pretrained=True, learning_rate=learningrates, batch_size=8, num_epochs=1, test_size=0.2, savingfile=savingfile)
+        running_model(pretrained=True, loadingfile=loadingfile)
     elif trained is True:
-        running_model(pretrained=True, savingfile=weightsfile)
+        running_model(pretrained=True, loadingfile=loadingfile)
     
 
 if __name__ == '__main__':
