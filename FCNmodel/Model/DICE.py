@@ -101,10 +101,7 @@ def Dice(label_stack, output_stack, num_classes=4, bg_weight=0.05, smooth=1):
         intersect_per_class, label_occurence_per_class, output_occurence_per_class = Intersect(label_f, output_f)
 
         for c in range(num_classes):
-            if label_occurence_per_class[c] == 0 and output_occurence_per_class[c] == 0:
-                dice_class = 1
-            else:
-                dice_class = 2 * intersect_per_class[c] / (label_occurence_per_class[c] + output_occurence_per_class[c])
+            dice_class = (2 * intersect_per_class[c] * smooth) / (label_occurence_per_class[c] + output_occurence_per_class[c] + smooth)
             # weight = (len(label_f)-label_occurence_per_class[c]) / len(label_f)
             weighted_dice += dice_class * weights[c]
 
@@ -235,7 +232,6 @@ def running_model(pretrained=False, num_classes=4, loadingfile="weights.h5"):
 
     total_dice = 0
 
-
     plt.rcParams["savefig.bbox"] = 'tight'
 
     #retrieving 1 image for training
@@ -252,6 +248,9 @@ def running_model(pretrained=False, num_classes=4, loadingfile="weights.h5"):
         # normalized_sample = F.normalize(sample, mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225))
         output = fcn(sample)["out"]
         total_dice += Dice(batch["label"], output.detach())
+    
+    dice = total_dice/len(dataloading.test_slicedata)
+    print("Evaluation Dice:", dice)
 
     normalized_masks = torch.nn.functional.softmax(output, dim=1)
     
