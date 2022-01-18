@@ -70,7 +70,7 @@ def create_voxelplot_from_results(images):
 
 
 def main():
-    patient = "0097"
+    patient = "0093"
     array = load_slice_array(os.path.join(data_dir, "slice_arrays", f"patient{patient}_slice0001_label"))
     array2 = load_slice_array(os.path.join(data_dir, "slice_arrays", f"patient{patient}_slice0002_label"))
     array3 = load_slice_array(os.path.join(data_dir, "slice_arrays", f"patient{patient}_slice0003_label"))

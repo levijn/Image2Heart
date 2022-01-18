@@ -59,11 +59,15 @@ def training_model(test_size=0.2, num_epochs=10, batch_size=4, learning_rate=[0.
     dataloading = Dataloading(test_size=test_size, array_path=array_path, batch_size=batch_size, shuffle=shuffle)
     #creating fcn model and loss function
     fcn = fcn_resnet50(pretrained=pretrained)
-    criterion = torch.nn.CrossEntropyLoss()
 
     # setting model to trainingmode and set the device
     fcn.train()
     device = "cuda"
+    
+    bg_w = 0.04
+    fg_w = (1-bg_w)/3
+    weights = torch.Tensor([bg_w, fg_w, fg_w, fg_w]).to(device)
+    criterion = torch.nn.CrossEntropyLoss(weight=weights)
     
     # freezing its parameters
     for param in fcn.parameters():
@@ -156,7 +160,7 @@ def training_model(test_size=0.2, num_epochs=10, batch_size=4, learning_rate=[0.
         eval_loss_cel_per_lr.append(eval_loss_cel_per_epoch)
         
         #saving calculated weights
-        #torch.save(fcn.state_dict(), os.path.join(currentdir, savingfile))
+        torch.save(fcn.state_dict(), os.path.join(currentdir, f"weights_lr{str(int(LR*10000))}_e15_z10_pad_norm.h5"))
     
     print(train_loss_cel_per_lr, train_loss_iou_per_lr, eval_loss_cel_per_lr, eval_loss_iou_per_lr)
     loss_list = [train_loss_cel_per_lr, train_loss_iou_per_lr, eval_loss_cel_per_lr, eval_loss_iou_per_lr]
@@ -172,11 +176,11 @@ def training_model(test_size=0.2, num_epochs=10, batch_size=4, learning_rate=[0.
 
 def main():
     #Define the name of the weights file for saving or loading:
-    weightsfile = "weights_lr1_e3_z10_pad_norm.h5"
+    weightsfile = "weights_lr1_e15_z10_pad_norm.h5"
     
     print("Transforms: Zoom, Padding, RGB, Tensor, Normalize, RemovePadding")
     learningrates = [0.0001, 0.001, 0.01, 0.1]
-    training_model(pretrained=True, learning_rate=learningrates, batch_size=16, num_epochs=40, test_size=0.3, savingfile=weightsfile)
+    training_model(pretrained=True, learning_rate=learningrates, batch_size=16, num_epochs=30, test_size=0.3, savingfile=weightsfile)
     
 
 if __name__ == '__main__':

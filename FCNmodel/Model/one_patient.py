@@ -85,7 +85,7 @@ def convert_to_segmented_imgs(results):
     return images
 
 def main():
-    patient = "097"
+    patient = "085"
     img_path = os.path.join(config.data_dir, "simpledata", f"patient{patient}_frame01.nii.gz")
     lbl_path = os.path.join(config.data_dir, "simpledata", f"patient{patient}_frame01_gt.nii.gz")
     
