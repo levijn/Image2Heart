@@ -83,38 +83,39 @@ def Intersect(label_array, output_array, num_classes=4):
 
 def Dice(label_stack, output_stack, num_classes=4, bg_weight=0.05,smooth=1):
     weights = [bg_weight, (1-bg_weight)/3, (1-bg_weight)/3, (1-bg_weight)/3]
-
+ 
     label_list = []
     for k in range(label_stack.size(dim=0)):
         label_list.append(label_stack[k,:,:])
     output_list = convert_to_segmented_imgs(output_stack)
-
+ 
     total_dice = 0
     for i in range(len(label_list)):
         print(f"<-- Sample: {i} -->")
         label_f = K.flatten(tf.cast(label_list[i], dtype=float)).numpy()
         output_f = K.flatten(tf.cast(output_list[i], dtype=float)).numpy()
-
+ 
         print(f"Total number of parameters: {len(label_f)}")
-
+ 
         weighted_dice = 0
         intersect_per_class, label_occurence_per_class, output_occurence_per_class = Intersect(label_f, output_f)
-
+ 
         for c in range(num_classes):
             if label_occurence_per_class[c] == 0 and output_occurence_per_class[c] == 0:
                 dice_class = 1
             else:
-                dice_class = 2 * intersect_per_class[c] / (label_occurence_per_class[c] + output_occurence_per_class[c])
+                dice_class = (2 * intersect_per_class[c] + smooth)/ (label_occurence_per_class[c] + output_occurence_per_class[c] + smooth)
             # weight = (len(label_f)-label_occurence_per_class[c]) / len(label_f)
             weighted_dice += dice_class * weights[c]
-
+ 
             print(f"- Class: {c} || Intersect: {intersect_per_class[c]} | Label_occ: {label_occurence_per_class[c]} | Output_occ: {output_occurence_per_class[c]}")
             print(f"              Dice_class: {dice_class} | Weight: {weights[c]}")
-
+ 
         total_dice += weighted_dice
         print(f"Weighted Dice: {weighted_dice}\n")
     # print(f"Total dice of batch: {total_dice}")
     return total_dice
+
 
 # def Dice(label_stack, output_stack, num_classes=4, smooth=1):
 #     label_list = []
@@ -238,7 +239,7 @@ def training_model(test_size=0.2, num_epochs=10, batch_size=4, learning_rate=[0.
     # #plotting learningrates
     # plot_learningrate(train_loss_per_lr, eval_loss_per_lr, learning_rate)
 
-def running_model(pretrained=False, num_classes=4, savingfile="weights.h5"):
+def running_model(pretrained=False, num_classes=4, loadingfile="weights.h5"):
     """Running the model and testing it on 1 sample
     Args:
         pretrained: True: use the pretrained model, False: use model without pretraining.
@@ -249,7 +250,7 @@ def running_model(pretrained=False, num_classes=4, savingfile="weights.h5"):
     #loading the weights from "weights.h5"
     device = "cuda"
     fcn = change_headsize(fcn, 4)
-    fcn.load_state_dict(torch.load(os.path.join(currentdir, savingfile)))
+    fcn.load_state_dict(torch.load(os.path.join(currentdir, loadingfile)))
 
     total_dice = 0
 
@@ -270,6 +271,9 @@ def running_model(pretrained=False, num_classes=4, savingfile="weights.h5"):
         # normalized_sample = F.normalize(sample, mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225))
         output = fcn(sample)["out"]
         total_dice += Dice(batch["label"], output.detach())
+    
+    dice = total_dice/len(dataloading.test_slicedata)
+    print(f"Total dice score: {dice}")
 
     normalized_masks = torch.nn.functional.softmax(output, dim=1)
     
@@ -290,15 +294,16 @@ def main():
     #set to True if the model has been trained with the weights stored at "weights.h5", False otherwise:
     trained = True
     #Define the name of the weights file for saving or loading:
-    weightsfile = "weights_lr1_e10_z10_pad_norm.h5"
+    loadingfile = "weights_lr1_e10_z10_res_norm.h5"
+    savingfile = "weights.h5"
     
     print("Transforms: Zoom, Padding, RGB, Tensor, Normalize, RemovePadding")
     if trained is False:
         learningrates = [0.001]
-        training_model(pretrained=True, learning_rate=learningrates, batch_size=8, num_epochs=1, test_size=0.2, savingfile=weightsfile)
-        running_model(pretrained=True, savingfile=weightsfile)
+        training_model(pretrained=True, learning_rate=learningrates, batch_size=8, num_epochs=1, test_size=0.2, savingfile=savingfile)
+        running_model(pretrained=True, loadingfile=loadingfile)
     elif trained is True:
-        running_model(pretrained=True, savingfile=weightsfile)
+        running_model(pretrained=True, loadingfile=loadingfile)
     
 
 if __name__ == '__main__':
