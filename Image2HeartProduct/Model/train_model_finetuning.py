@@ -12,6 +12,7 @@ current_dir = Path(__file__).resolve().parent
 parent_dir = current_dir.parent
 sys.path.append(str(parent_dir))
 sys.path.append(os.path.join(parent_dir, "Preprocessing"))
+sys.path.append(os.path.join(parent_dir, "Helperfunctions"))
 
 # custom imports
 import config

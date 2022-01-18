@@ -18,7 +18,7 @@ from slicedataset import Dataloading
 from change_head import change_headsize
 
 
-def run_model_rtrn_results(image_tensor, model_name):
+def run_model_rtrn_results(image_tensor, model_path):
     """Running the model and testing it on 1 sample
     Args:
         pretrained: True: use the pretrained model, False: use model without pretraining.
@@ -27,7 +27,7 @@ def run_model_rtrn_results(image_tensor, model_name):
     # Creating FCN model
     fcn = fcn_resnet50(pretrained=True)
     fcn = change_headsize(fcn, 4)
-    fcn.load_state_dict(torch.load(os.path.join(current_dir, model_name)))
+    fcn.load_state_dict(torch.load(model_path))
 
     fcn.eval()
     output = fcn(image_tensor)["out"]
