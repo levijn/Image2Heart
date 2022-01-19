@@ -81,7 +81,7 @@ def Intersect(label_array, output_array, num_classes=4):
         output_occurence_per_class.append(output_occurence)
     return (intersect_per_class, label_occurence_per_class, output_occurence_per_class)
 
-def Dice(label_stack, output_stack, num_classes=4, bg_weight=0.05, smooth=1):
+def Dice(label_stack, output_stack, num_classes=4, bg_weight=0.25, smooth=1):
     weights = [bg_weight, (1-bg_weight)/3, (1-bg_weight)/3, (1-bg_weight)/3]
  
     label_list = []
@@ -275,7 +275,7 @@ def main():
     trained = True
     #Define the name of the weights file for saving or loading:
 
-    loadingfile = "weights_lr1_e10_z10_res_norm.h5"
+    loadingfile = "weights_lr1_e10_z10_pad_norm.h5"
     savingfile = "weights.h5"
     
     print("Transforms: Zoom, Padding, RGB, Tensor, Normalize, RemovePadding")
